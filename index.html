@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>تحدي 90 يوم • رحلة التعافي</title>
   <style>
-    /* ===== إعادة ضبط وخطوط ===== */
+    /* ===== الخطوط والأنماط الأساسية ===== */
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=Space+Mono:wght@400;700&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,6 +24,7 @@
       --font-main: 'Cairo', 'Tajawal', sans-serif;
       --font-mono: 'Space Mono', monospace;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --sidebar-width: 280px;
     }
 
     [data-theme="light"] {
@@ -42,439 +43,349 @@
       background: radial-gradient(circle, rgba(108, 99, 255, 0.08) 0%, transparent 70%);
       pointer-events: none; z-index: 0;
     }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg2); }
-    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
-    .navbar {
+    /* شريط علوي */
+    .top-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       background: rgba(13, 13, 26, 0.92); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border); padding: 0 20px; transition: var(--transition);
+      border-bottom: 1px solid var(--border); padding: 0 20px;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
     }
-    [data-theme="light"] .navbar { background: rgba(240, 240, 255, 0.92); }
-    .nav-inner {
-      max-width: 1400px; margin: 0 auto; display: flex; align-items: center;
-      justify-content: space-between; height: 64px; gap: 16px;
-    }
-    .nav-logo {
-      font-size: 1.3rem; font-weight: 900; background: var(--gradient);
+    [data-theme="light"] .top-bar { background: rgba(240, 240, 255, 0.92); }
+    .logo {
+      font-size: 1.5rem; font-weight: 900; background: var(--gradient);
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-      white-space: nowrap; flex-shrink: 0;
     }
-    .nav-links {
-      display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; flex: 1; justify-content: center;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-    .nav-link {
-      padding: 6px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
-      border: none; background: transparent; color: var(--text2); transition: var(--transition);
-      white-space: nowrap; font-family: var(--font-main);
-    }
-    .nav-link:hover, .nav-link.active { background: var(--gradient); color: white; box-shadow: var(--glow); }
-    .nav-actions { display: flex; gap: 8px; flex-shrink: 0; }
-    .icon-btn {
-      width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border);
+    .menu-btn {
+      width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border);
       background: var(--card); color: var(--text); cursor: pointer; display: flex;
-      align-items: center; justify-content: center; font-size: 1rem; transition: var(--transition);
+      align-items: center; justify-content: center; font-size: 1.6rem; transition: var(--transition);
     }
-    .icon-btn:hover { background: var(--primary); color: white; box-shadow: var(--glow); }
+    .menu-btn:hover { background: var(--primary); color: white; }
 
+    /* الشريط الجانبي */
+    .sidebar {
+      position: fixed; top: 0; right: 0; bottom: 0; width: var(--sidebar-width);
+      background: var(--card); backdrop-filter: blur(20px); z-index: 2000;
+      border-left: 1px solid var(--border); box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+      transform: translateX(100%); transition: transform 0.3s ease;
+      padding: 20px 0; overflow-y: auto;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-header {
+      display: flex; align-items: center; justify-content: space-between; padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-title { font-size: 1.3rem; font-weight: 800; color: var(--primary); }
+    .close-sidebar {
+      background: none; border: none; color: var(--text); font-size: 1.8rem; cursor: pointer;
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+    }
+    .close-sidebar:hover { background: var(--primary); color: white; }
+    .sidebar-nav { padding: 16px 12px; display: flex; flex-direction: column; gap: 6px; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px;
+      border: none; background: transparent; color: var(--text2); font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: var(--transition); text-align: right; width: 100%;
+    }
+    .sidebar-link:hover, .sidebar-link.active { background: var(--gradient); color: white; box-shadow: var(--glow); }
+    .sidebar-icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sidebar-icon svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* خلفية داكنة عند فتح القائمة */
+    .sidebar-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      z-index: 1500; opacity: 0; visibility: hidden; transition: 0.2s;
+    }
+    .sidebar-overlay.show { opacity: 1; visibility: visible; }
+
+    /* المحتوى الرئيسي */
     .main { max-width: 1400px; margin: 0 auto; padding: 84px 20px 40px; }
     .section { display: none; animation: fadeIn 0.4s ease; }
     .section.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* البطاقات */
     .card {
       background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
       padding: 24px; box-shadow: var(--shadow2); transition: var(--transition);
     }
     .card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
-    .card-title { font-size: 1rem; font-weight: 700; color: var(--text2); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--text2); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-    @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-3 { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .nav-links { gap: 2px; } .nav-link { padding: 5px 8px; font-size: 0.75rem; } }
+    @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
 
+    /* بطاقة التقدم الرئيسية */
     .hero-card {
-      background: var(--gradient); border-radius: var(--radius); padding: 40px 32px;
+      background: var(--gradient); border-radius: var(--radius); padding: 32px;
       color: white; position: relative; overflow: hidden; margin-bottom: 24px;
     }
     .hero-card::before, .hero-card::after { content: ''; position: absolute; border-radius: 50%; background: rgba(255,255,255,0.06); }
     .hero-card::before { top: -60px; left: -60px; width: 200px; height: 200px; }
     .hero-card::after { bottom: -80px; right: -40px; width: 240px; height: 240px; }
-    .hero-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
-    .hero-days { font-size: 5rem; font-weight: 900; line-height: 1; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-    .hero-label { font-size: 1rem; opacity: 0.85; margin-top: 4px; }
-    .circle-progress-wrap { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
-    .circle-progress-wrap svg { transform: rotate(-90deg); width: 120px; height: 120px; }
-    .circle-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 8; }
-    .circle-fill { fill: none; stroke: white; stroke-width: 8; stroke-linecap: round; stroke-dasharray: 330; stroke-dashoffset: 330; transition: stroke-dashoffset 1.5s; }
-    .circle-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; font-size: 1.6rem; }
-    .circle-text span { font-size: 0.7rem; opacity: 0.8; }
-    .progress-bar-wrap { margin-top: 28px; background: rgba(255,255,255,0.15); border-radius: 100px; height: 12px; overflow: hidden; }
+    .hero-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .hero-left { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .hero-days-block { text-align: center; }
+    .hero-days { font-size: 4.5rem; font-weight: 900; line-height: 1; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .hero-label { font-size: 1rem; opacity: 0.9; margin-top: 4px; }
+    .hero-timer { display: flex; gap: 16px; }
+    .timer-box { text-align: center; min-width: 70px; }
+    .timer-box .num { font-size: 2.2rem; font-weight: 900; font-family: var(--font-mono); }
+    .timer-box .unit { font-size: 0.8rem; opacity: 0.8; }
+    .circle-progress-wrap { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
+    .circle-progress-wrap svg { transform: rotate(-90deg); width: 110px; height: 110px; }
+    .circle-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 7; }
+    .circle-fill { fill: none; stroke: white; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 308; stroke-dashoffset: 308; transition: stroke-dashoffset 1.5s; }
+    .circle-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; font-size: 1.4rem; }
+    .circle-text span { font-size: 0.65rem; opacity: 0.8; }
+    .progress-bar-wrap { margin-top: 24px; background: rgba(255,255,255,0.15); border-radius: 100px; height: 12px; overflow: hidden; }
     .progress-bar-fill { height: 100%; background: white; border-radius: 100px; transition: width 1.5s; box-shadow: 0 0 12px rgba(255,255,255,0.6); }
 
+    /* بطاقات الإحصائيات */
     .stat-card {
       background: var(--card); border: 1px solid var(--border); border-radius: var(--radius2);
       padding: 20px; text-align: center; position: relative; overflow: hidden; transition: var(--transition);
     }
     .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
-    .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
     .stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
     .stat-num { font-size: 2rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-family: var(--font-mono); }
-    .stat-label { font-size: 0.8rem; color: var(--text2); margin-top: 4px; font-weight: 500; }
+    .stat-label { font-size: 0.85rem; color: var(--text2); margin-top: 4px; }
 
-    .timer-display { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 20px 0; }
-    .timer-unit { background: var(--card2); border: 1px solid var(--border); border-radius: var(--radius2); padding: 16px 20px; text-align: center; min-width: 80px; }
-    .timer-num { font-size: 2.2rem; font-weight: 900; font-family: var(--font-mono); background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-    .timer-label { font-size: 0.72rem; color: var(--text3); margin-top: 4px; }
-
+    /* أزرار */
     .btn { padding: 10px 24px; border-radius: 10px; border: none; font-family: var(--font-main); font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
     .btn-primary { background: var(--gradient); color: white; box-shadow: 0 4px 15px rgba(108,99,255,0.4); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(108,99,255,0.5); }
-    .btn-danger { background: var(--gradient3); color: white; box-shadow: 0 4px 15px rgba(255,101,132,0.4); }
-    .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255,101,132,0.5); }
+    .btn-danger { background: var(--gradient3); color: white; }
     .btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
-    .btn-outline:hover { background: var(--primary); color: white; }
     .btn-full { width: 100%; justify-content: center; }
     .panic-btn {
       background: linear-gradient(135deg, #FF0050, #FF6584); color: white; border: none;
       border-radius: var(--radius2); padding: 18px 32px; font-size: 1.1rem; font-weight: 900;
-      cursor: pointer; transition: var(--transition); box-shadow: 0 6px 30px rgba(255,0,80,0.4);
-      animation: pulseRed 2s infinite; display: flex; align-items: center; gap: 8px; justify-content: center;
+      box-shadow: 0 6px 30px rgba(255,0,80,0.4); animation: pulseRed 2s infinite;
     }
     @keyframes pulseRed { 0%,100% { box-shadow: 0 6px 30px rgba(255,0,80,0.4); } 50% { box-shadow: 0 6px 40px rgba(255,0,80,0.7); } }
 
-    .form-control { width: 100%; padding: 10px 14px; background: var(--card2); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text); font-family: var(--font-main); font-size: 0.9rem; outline: none; }
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+    /* نماذج */
+    .form-control { width: 100%; padding: 12px 16px; background: var(--card2); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text); font-size: 0.95rem; outline: none; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 3000; align-items: center; justify-content: center; }
     .modal-overlay.open { display: flex; }
-    .modal { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,0.5); position: relative; }
-    .setup-screen { position: fixed; inset: 0; background: var(--bg); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .setup-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 48px 40px; max-width: 480px; width: 100%; box-shadow: var(--shadow); text-align: center; }
-    .toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-    [dir="rtl"] .toast-container { right: auto; left: 20px; }
-    .toast { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 18px; box-shadow: var(--shadow); font-size: 0.88rem; font-weight: 600; display: flex; align-items: center; gap: 10px; animation: slideInToast 0.3s; }
-    @keyframes slideInToast { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+    .modal { background: var(--card); border-radius: var(--radius); padding: 28px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; }
+    .setup-screen { position: fixed; inset: 0; background: var(--bg); z-index: 4000; display: flex; align-items: center; justify-content: center; }
+    .setup-card { background: var(--card); border-radius: var(--radius); padding: 40px; max-width: 480px; width: 90%; text-align: center; }
 
+    /* الإشعارات */
+    .toast-container { position: fixed; top: 80px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+    .toast { background: var(--card); border-radius: 12px; padding: 12px 18px; box-shadow: var(--shadow); font-weight: 600; display: flex; align-items: center; gap: 10px; }
+
+    /* التقويم */
     .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 16px; }
-    .cal-header { text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--text3); padding: 6px; }
-    .cal-day { aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 600; }
+    .cal-header { text-align: center; font-size: 0.8rem; font-weight: 700; color: var(--text3); padding: 6px; }
+    .cal-day { aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; }
     .cal-day.clean { background: rgba(67,233,123,0.3); color: var(--accent); border: 1px solid rgba(67,233,123,0.4); }
     .cal-day.relapse-day { background: rgba(255,101,132,0.3); color: var(--secondary); border: 1px solid rgba(255,101,132,0.4); }
     .cal-day.today-day { background: var(--gradient); color: white; }
-    .stage-badge { background: var(--gradient); color: white; padding: 4px 12px; border-radius: 100px; font-size: 0.78rem; font-weight: 700; }
-    .benefit-item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--text2); background: var(--card2); padding: 6px 10px; border-radius: 8px; }
+
+    /* عناصر المراحل */
+    .stage-badge { background: var(--gradient); color: white; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; display: inline-block; }
+    .benefit-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text2); background: var(--card2); padding: 6px 10px; border-radius: 8px; }
     .mission-item { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 10px; cursor: pointer; }
     .achievement-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius2); padding: 16px; text-align: center; }
-    .reward-item { background: var(--card2); border: 1px solid var(--border); border-radius: var(--radius2); padding: 16px; text-align: center; }
+    .reward-item { background: var(--card2); border-radius: var(--radius2); padding: 16px; text-align: center; cursor: pointer; }
+
     .toggle { width: 48px; height: 26px; background: var(--border); border-radius: 13px; position: relative; cursor: pointer; border: none; }
     .toggle.on { background: var(--primary); }
-    .toggle::after { content: ''; position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; background: white; transition: var(--transition); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+    .toggle::after { content: ''; position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; background: white; transition: var(--transition); }
     .toggle.on::after { right: auto; left: 3px; }
-    .section-gap { margin-bottom: 24px; }
   </style>
 </head>
 <body data-theme="dark">
 
-<!-- شاشة الإعداد الأولي -->
+<!-- الشريط الجانبي -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="App.closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-title">القائمة</span>
+    <button class="close-sidebar" onclick="App.closeSidebar()">×</button>
+  </div>
+  <div class="sidebar-nav">
+    <button class="sidebar-link active" data-section="dashboard" onclick="App.nav('dashboard')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span> لوحة التحكم</button>
+    <button class="sidebar-link" data-section="timeline" onclick="App.nav('timeline')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span> المراحل</button>
+    <button class="sidebar-link" data-section="calendar" onclick="App.nav('calendar')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></span> التقويم</button>
+    <button class="sidebar-link" data-section="achievements" onclick="App.nav('achievements')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-9.5l-2.5 2.5L10 16l4-4-4-4-2.5 2.5z"/></svg></span> الإنجازات</button>
+    <button class="sidebar-link" data-section="missions" onclick="App.nav('missions')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2z"/></svg></span> المهام</button>
+    <button class="sidebar-link" data-section="journal" onclick="App.nav('journal')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg></span> اليوميات</button>
+    <button class="sidebar-link" data-section="relapselog" onclick="App.nav('relapselog')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></span> سجل الانتكاسات</button>
+    <button class="sidebar-link" data-section="settings" onclick="App.nav('settings')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.33-.02-.64-.06-.94l2.02-1.58c.18-.14.23-.38.12-.56l-1.89-3.28c-.12-.19-.36-.26-.56-.18l-2.38.96c-.5-.38-1.06-.68-1.66-.88L14.45 3.5c-.04-.2-.2-.34-.4-.34h-3.78c-.2 0-.36.14-.4.34l-.3 2.52c-.6.2-1.16.5-1.66.88l-2.38-.96c-.2-.08-.44-.01-.56.18l-1.89 3.28c-.12.19-.07.42.12.56l2.02 1.58c-.04.3-.06.61-.06.94 0 .33.02.64.06.94l-2.02 1.58c-.18.14-.23.38-.12.56l1.89 3.28c.12.19.36.26.56.18l2.38-.96c.5.38 1.06.68 1.66.88l.3 2.52c.04.2.2.34.4.34h3.78c.2 0 .36-.14.4-.34l.3-2.52c.6-.2 1.16-.5 1.66-.88l2.38.96c.2.08.44.01.56-.18l1.89-3.28c.12-.19.07-.42-.12-.56l-2.02-1.58zM12 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg></span> الإعدادات</button>
+  </div>
+</div>
+
+<!-- الشريط العلوي -->
+<div class="top-bar">
+  <button class="menu-btn" onclick="App.openSidebar()">☰</button>
+  <div class="logo">⚡ تحدي 90</div>
+  <div style="display:flex;gap:8px">
+    <button class="icon-btn" id="themeToggleBtn" onclick="App.toggleTheme()" style="width:44px;height:44px;border-radius:12px;background:var(--card)">🌙</button>
+  </div>
+</div>
+
+<!-- شاشة الإعداد -->
 <div class="setup-screen" id="setupScreen">
   <div class="setup-card">
-    <div style="font-size:3rem">🔥</div>
-    <div id="setupTitle" style="font-size:2rem;font-weight:900;margin-bottom:8px">تحدي الـ 90 يوم</div>
-    <div id="setupSub" style="color:var(--text2);margin-bottom:32px">ابدأ رحلتك نحو الحرية. أدخل تاريخ آخر يوم نظيف لك.</div>
-    <div class="form-group" style="text-align:right">
-      <label class="form-label" id="startDateLabel" style="display:block;margin-bottom:6px">تاريخ بداية التحدي</label>
-      <input type="datetime-local" class="form-control" id="startDateInput">
-    </div>
-    <div id="setupError" style="color:var(--secondary);font-size:0.85rem;margin-bottom:12px;display:none"></div>
-    <button class="btn btn-primary btn-full btn-lg" id="startBtn">🚀 <span id="startBtnText">ابدأ التحدي</span></button>
+    <h2 style="margin-bottom:24px">ابدأ رحلتك</h2>
+    <p style="color:var(--text2);margin-bottom:24px">أدخل تاريخ ووقت بداية التحدي (آخر يوم نظيف)</p>
+    <input type="datetime-local" class="form-control" id="startDateInput" style="margin-bottom:20px">
+    <div id="setupError" style="color:var(--secondary);margin-bottom:12px;display:none"></div>
+    <button class="btn btn-primary btn-full" id="startBtn">ابدأ التحدي</button>
   </div>
 </div>
-
-<!-- نوافذ منبثقة -->
-<div class="modal-overlay" id="panicModal">
-  <div class="modal" style="text-align:center">
-    <button style="position:absolute;top:16px;left:16px;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer" onclick="App.closeModal('panicModal')">✕</button>
-    <div class="modal-title" style="justify-content:center">🆘 <span id="panicTitle">زر الطوارئ</span></div>
-    <div style="width:180px;height:180px;border-radius:50%;background:radial-gradient(circle, rgba(108,99,255,0.3), rgba(108,99,255,0.1));border:3px solid var(--primary);display:flex;align-items:center;justify-content:center;flex-direction:column;margin:24px auto;animation:breathe 4s infinite">
-      <div id="breatheText">تنفس</div>
-      <div id="breatheSub">شهيق... زفير...</div>
-    </div>
-    <div style="width:100px;height:100px;margin:0 auto;position:relative">
-      <svg width="100" height="100" viewBox="0 0 100 100" style="transform:rotate(-90deg)">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="var(--border)" stroke-width="6"/>
-        <circle id="countdownRing" cx="50" cy="50" r="45" fill="none" stroke="var(--secondary)" stroke-width="6" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="0"/>
-      </svg>
-      <div id="countdownNum" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:900;color:var(--secondary)">60</div>
-    </div>
-    <div id="panicCountdownLabel" style="color:var(--text3);margin-top:8px">ثوانٍ للتغلب على الرغبة</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px">
-      <div class="tip-item"><span>💪</span> <span id="pt1">20 تمرين ضغط الآن</span></div>
-      <div class="tip-item"><span>🚶</span> <span id="pt2">اخرج للمشي فوراً</span></div>
-      <div class="tip-item"><span>🚿</span> <span id="pt3">استحم بالماء البارد</span></div>
-      <div class="tip-item"><span>📵</span> <span id="pt4">ضع الهاتف بعيداً</span></div>
-      <div class="tip-item"><span>🚪</span> <span id="pt5">غير المكان الذي أنت فيه</span></div>
-      <div class="tip-item"><span>🤲</span> <span id="pt6">تذكر لماذا بدأت</span></div>
-    </div>
-    <div id="panicQuote" style="margin-top:20px;padding:16px;border-radius:12px;background:rgba(108,99,255,0.1)"></div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="relapseModal">
-  <div class="modal">
-    <button style="position:absolute;top:16px;left:16px;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer" onclick="App.closeModal('relapseModal')">✕</button>
-    <div class="modal-title">😔 <span id="relapseModalTitle">تسجيل انتكاسة</span></div>
-    <div class="form-group">
-      <label class="form-label" id="relapseReasonLabel">ما سبب الانتكاسة؟</label>
-      <textarea class="form-control" id="relapseReasonInput" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-      <label class="form-label" id="relapseTriggersLabel">اختر المحفزات</label>
-      <div id="triggerList" style="display:flex;flex-wrap:wrap;gap:8px"></div>
-    </div>
-    <div style="display:flex;gap:10px;margin-top:20px">
-      <button class="btn btn-danger btn-full" id="confirmRelapseBtn">تأكيد الانتكاسة</button>
-      <button class="btn btn-outline btn-full" id="cancelRelapseBtn">إلغاء</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="resetModal">
-  <div class="modal" style="text-align:center">
-    <button style="position:absolute;top:16px;left:16px;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer" onclick="App.closeModal('resetModal')">✕</button>
-    <div style="font-size:3rem;margin-bottom:16px">⚠️</div>
-    <div class="modal-title" style="justify-content:center" id="resetTitle">هل أنت متأكد؟</div>
-    <p id="resetDesc" style="color:var(--text2);margin-bottom:24px">سيتم حذف جميع بياناتك بشكل نهائي.</p>
-    <div style="display:flex;gap:10px">
-      <button class="btn btn-danger btn-full" id="confirmResetBtn">نعم، احذف كل شيء</button>
-      <button class="btn btn-outline btn-full" id="cancelResetBtn">إلغاء</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- شريط التنقل -->
-<nav class="navbar">
-  <div class="nav-inner">
-    <div class="nav-logo">🔥 <span id="navLogo">تحدي 90</span></div>
-    <div class="nav-links" id="navLinks">
-      <button class="nav-link active" data-section="dashboard" id="nl-dashboard">لوحة التحكم</button>
-      <button class="nav-link" data-section="timeline" id="nl-timeline">المراحل</button>
-      <button class="nav-link" data-section="calendar" id="nl-calendar">التقويم</button>
-      <button class="nav-link" data-section="achievements" id="nl-achievements">الإنجازات</button>
-      <button class="nav-link" data-section="missions" id="nl-missions">المهام</button>
-      <button class="nav-link" data-section="journal" id="nl-journal">اليوميات</button>
-      <button class="nav-link" data-section="relapselog" id="nl-relapselog">سجل الانتكاسات</button>
-      <button class="nav-link" data-section="settings" id="nl-settings">الإعدادات</button>
-    </div>
-    <div class="nav-actions">
-      <button class="icon-btn" id="langBtn">EN</button>
-      <button class="icon-btn" id="themeBtn">🌙</button>
-    </div>
-  </div>
-</nav>
 
 <!-- المحتوى الرئيسي -->
 <div class="main">
+  <!-- Dashboard -->
   <section class="section active" id="sec-dashboard">
     <div class="hero-card">
       <div class="hero-top">
-        <div>
-          <div class="hero-days" id="heroDays">0</div>
-          <div class="hero-label" id="heroDaysLabel">يوم نظيف</div>
-          <div style="margin-top:16px"><span>🔥 <span id="streakNum">0</span></span> <span id="streakLabel">أيام سلسلة حالية</span></div>
+        <div class="hero-left">
+          <div class="hero-days-block">
+            <div class="hero-days" id="heroDays">0</div>
+            <div class="hero-label">يوم نظيف</div>
+          </div>
+          <div class="hero-timer">
+            <div class="timer-box"><div class="num" id="t-hours">00</div><div class="unit">ساعة</div></div>
+            <div class="timer-box"><div class="num" id="t-minutes">00</div><div class="unit">دقيقة</div></div>
+          </div>
         </div>
         <div class="circle-progress-wrap">
-          <svg viewBox="0 0 120 120"><circle class="circle-bg" cx="60" cy="60" r="52.5"/><circle class="circle-fill" id="circleFill" cx="60" cy="60" r="52.5"/></svg>
-          <div class="circle-text"><span id="circlePercent">0%</span><span id="circleLabel">تقدم</span></div>
+          <svg viewBox="0 0 110 110"><circle class="circle-bg" cx="55" cy="55" r="49"/><circle class="circle-fill" id="circleFill" cx="55" cy="55" r="49"/></svg>
+          <div class="circle-text"><span id="circlePercent">0%</span><span>تقدم</span></div>
         </div>
       </div>
       <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:0.8rem;opacity:0.8;margin-top:8px">
-        <span>اليوم 0</span><span id="progressDaysRemaining">90 يوم متبقي</span><span>اليوم 90</span>
-      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;opacity:0.9"><span>0</span><span id="progressDaysRemaining">90 يوم متبقي</span><span>90</span></div>
+      <div style="margin-top:16px;display:flex;align-items:center;gap:8px"><span>🔥 السلسلة الحالية: <strong id="streakNum">0</strong> يوم</span></div>
     </div>
-    <div class="card section-gap">
-      <div class="card-title">⏱️ <span id="timerTitle">الوقت المنقضي</span></div>
-      <div class="timer-display">
-        <div class="timer-unit"><div class="timer-num" id="t-days">0</div><div class="timer-label" id="tl-days">يوم</div></div>
-        <div class="timer-unit"><div class="timer-num" id="t-hours">0</div><div class="timer-label" id="tl-hours">ساعة</div></div>
-        <div class="timer-unit"><div class="timer-num" id="t-minutes">0</div><div class="timer-label" id="tl-minutes">دقيقة</div></div>
-        <div class="timer-unit"><div class="timer-num" id="t-seconds">0</div><div class="timer-label" id="tl-seconds">ثانية</div></div>
-      </div>
-    </div>
+
     <div class="grid-4 section-gap">
-      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num" id="s-cleanDays">0</div><div class="stat-label" id="sl-cleanDays">أيام نظيفة</div></div>
-      <div class="stat-card"><div class="stat-icon">😔</div><div class="stat-num" id="s-relapses">0</div><div class="stat-label" id="sl-relapses">عدد الانتكاسات</div></div>
-      <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-num" id="s-bestStreak">0</div><div class="stat-label" id="sl-bestStreak">أفضل سلسلة</div></div>
-      <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-num" id="s-daysLeft">90</div><div class="stat-label" id="sl-daysLeft">أيام متبقية</div></div>
+      <div class="stat-card"><div class="stat-icon">📊</div><div class="stat-num" id="s-cleanDays">0</div><div class="stat-label">أيام نظيفة</div></div>
+      <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-num" id="s-relapses">0</div><div class="stat-label">عدد الانتكاسات</div></div>
+      <div class="stat-card"><div class="stat-icon">🏅</div><div class="stat-num" id="s-bestStreak">0</div><div class="stat-label">أفضل سلسلة</div></div>
+      <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-num" id="s-daysLeft">90</div><div class="stat-label">أيام متبقية</div></div>
     </div>
+
     <div class="grid-2 section-gap">
       <div class="card">
-        <div class="card-title">⭐ <span id="levelTitle">المستوى والنقاط</span></div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:12px">
-          <span style="background:var(--gradient4);color:#1A0F00;padding:4px 12px;border-radius:100px">⭐ <span id="levelText">المستوى 1</span></span>
-          <span><span id="xpText">0</span> XP</span>
-        </div>
-        <div style="background:var(--card2);border-radius:100px;height:10px"><div id="xpBarFill" style="width:0%;height:100%;background:var(--gradient4);border-radius:100px"></div></div>
-        <div style="text-align:center;font-size:0.78rem;color:var(--text3);margin-top:6px" id="xpToNext">0 XP للمستوى التالي</div>
+        <div class="card-title">⭐ المستوى والنقاط</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span>⭐ المستوى <span id="levelText">1</span></span><span><span id="xpText">0</span> XP</span></div>
+        <div style="background:var(--card2);border-radius:100px;height:8px"><div id="xpBarFill" style="width:0%;height:100%;background:var(--gradient4);border-radius:100px"></div></div>
+        <div style="text-align:center;margin-top:8px;font-size:0.8rem;color:var(--text3)" id="xpToNext">0 XP للمستوى التالي</div>
       </div>
       <div class="card">
-        <div class="card-title">🎯 <span id="actionTitle">الإجراءات السريعة</span></div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <button class="btn btn-danger btn-full" id="relapseBtn">😔 لقد انتكست</button>
-          <button class="panic-btn" id="panicBtnEl">🆘 زر الطوارئ</button>
+        <div class="card-title">⚡ إجراءات سريعة</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <button class="btn btn-danger btn-full" id="relapseBtn">❗ تسجيل انتكاسة</button>
+          <button class="panic-btn" id="panicBtnEl">🚨 زر الطوارئ</button>
         </div>
       </div>
     </div>
+
     <div class="card">
-      <div class="card-title">📍 <span id="curStageTitle">مرحلتك الحالية</span></div>
+      <div class="card-title">📍 مرحلتك الحالية</div>
       <div id="currentStageContent"></div>
     </div>
   </section>
 
-  <!-- باقي الأقسام مختصرة مع الحفاظ على الهيكل -->
-  <section class="section" id="sec-timeline"><div class="page-header"><h2 id="timelinePageTitle">🗓️ مراحل التعافي</h2></div><div id="timelineContent"></div></section>
-  <section class="section" id="sec-calendar"><div class="page-header"><h2 id="calPageTitle">📅 تقويم التحدي</h2></div><div class="card"><div style="display:flex;justify-content:space-between"><button class="icon-btn" id="calPrevBtn">‹</button><div id="calMonthTitle"></div><button class="icon-btn" id="calNextBtn">›</button></div><div class="calendar-grid" id="calendarGrid"></div></div></section>
-  <section class="section" id="sec-achievements"><div class="page-header"><h2 id="achPageTitle">🏆 الإنجازات</h2></div><div class="grid-auto" id="achievementsGrid"></div></section>
-  <section class="section" id="sec-missions"><div class="grid-2"><div class="card"><div class="card-title" id="dailyMissTitle">🌅 مهام اليوم</div><div id="missionsList"></div></div><div class="card"><div class="card-title" id="rewardStoreTitle">🛒 متجر المكافآت</div><div class="grid-2" id="rewardStore"></div></div></div></section>
-  <section class="section" id="sec-journal"><div class="grid-2"><div class="card"><textarea class="form-control" id="journalTextInput" rows="4"></textarea><div><input type="range" min="1" max="10" value="5" id="moodSlider"> <span id="moodValDisp">5</span></div><button class="btn btn-primary btn-full" id="saveJournalBtn">💾 حفظ</button></div><div class="card"><div id="journalList"></div></div></div></section>
-  <section class="section" id="sec-relapselog"><div class="card"><div id="relapseList"></div></div></section>
-  <section class="section" id="sec-settings"><div class="card"><div style="display:flex;justify-content:space-between"><span id="setThemeLabel">الوضع الليلي</span><button class="toggle" id="themeToggle"></button></div><div style="display:flex;justify-content:space-between"><span id="setLangLabel">اللغة</span><button class="btn btn-outline btn-sm" id="langToggleBtn">English</button></div><button class="btn btn-danger" id="resetBtn">🗑️ إعادة ضبط</button><button class="btn btn-outline" id="changeStartBtn">تعديل تاريخ البداية</button></div></section>
+  <!-- الأقسام الأخرى مختصرة للحفاظ على الطول ولكنها موجودة -->
+  <section class="section" id="sec-timeline"><div class="card"><div class="card-title">🗓️ مراحل التعافي</div><div id="timelineContent"></div></div></section>
+  <section class="section" id="sec-calendar"><div class="card"><div class="card-title">📅 التقويم</div><div style="display:flex;justify-content:space-between;margin-bottom:16px"><button class="icon-btn" id="calPrevBtn">‹</button><div id="calMonthTitle"></div><button class="icon-btn" id="calNextBtn">›</button></div><div class="calendar-grid" id="calendarGrid"></div></div></section>
+  <section class="section" id="sec-achievements"><div class="card"><div class="card-title">🏆 الإنجازات</div><div class="grid-auto" id="achievementsGrid"></div></div></section>
+  <section class="section" id="sec-missions"><div class="grid-2"><div class="card"><div class="card-title">📋 مهام اليوم</div><div id="missionsList"></div></div><div class="card"><div class="card-title">🛒 متجر المكافآت</div><div class="grid-2" id="rewardStore"></div></div></div></section>
+  <section class="section" id="sec-journal"><div class="grid-2"><div class="card"><div class="card-title">✍️ إدخال جديد</div><textarea class="form-control" id="journalTextInput" rows="3"></textarea><div style="margin:12px 0"><label>المزاج <span id="moodValDisp">5</span></label><input type="range" min="1" max="10" value="5" id="moodSlider" oninput="document.getElementById('moodValDisp').textContent=this.value"></div><button class="btn btn-primary btn-full" id="saveJournalBtn">حفظ</button></div><div class="card"><div class="card-title">📚 سجل اليوميات</div><div id="journalList"></div></div></div></section>
+  <section class="section" id="sec-relapselog"><div class="card"><div class="card-title">📋 سجل الانتكاسات</div><div id="relapseList"></div></div></section>
+  <section class="section" id="sec-settings"><div class="card"><div style="padding:12px 0;display:flex;justify-content:space-between"><span>الوضع الليلي</span><button class="toggle" id="themeToggle"></button></div><div style="padding:12px 0;display:flex;justify-content:space-between"><span>إعادة ضبط</span><button class="btn btn-danger btn-sm" id="resetBtn">مسح البيانات</button></div><div style="padding:12px 0"><button class="btn btn-outline btn-full" id="changeStartBtn">تعديل تاريخ البداية</button></div></div></section>
 </div>
+
+<!-- نوافذ منبثقة -->
+<div class="modal-overlay" id="panicModal"><div class="modal"><h3>🚨 زر الطوارئ</h3><div id="panicContent">تنفس بعمق...</div><div id="panicTimerDisplay">60</div><button class="btn btn-primary" onclick="App.closeModal('panicModal')">إغلاق</button></div></div>
+<div class="modal-overlay" id="relapseModal"><div class="modal"><h3>تسجيل انتكاسة</h3><textarea class="form-control" id="relapseReasonInput" placeholder="سبب الانتكاسة..."></textarea><div id="triggerList" style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0"></div><div style="display:flex;gap:8px"><button class="btn btn-danger" id="confirmRelapseBtn">تأكيد</button><button class="btn btn-outline" onclick="App.closeModal('relapseModal')">إلغاء</button></div></div></div>
+<div class="modal-overlay" id="resetModal"><div class="modal"><h3>تأكيد الحذف</h3><p>سيتم حذف جميع البيانات نهائياً.</p><div style="display:flex;gap:8px;margin-top:20px"><button class="btn btn-danger" id="confirmResetBtn">نعم</button><button class="btn btn-outline" onclick="App.closeModal('resetModal')">لا</button></div></div></div>
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
   (function(){
-    const TRANSLATIONS = {
-      ar: {
-        appName:"تحدي 90", navLogo:"تحدي 90 يوم",
-        nav:{dashboard:"لوحة التحكم",timeline:"المراحل",calendar:"التقويم",achievements:"الإنجازات",missions:"المهام",journal:"اليوميات",relapselog:"سجل الانتكاسات",settings:"الإعدادات"},
-        setup:{title:"تحدي الـ 90 يوم",sub:"ابدأ رحلتك نحو الحرية. أدخل تاريخ آخر يوم نظيف لك.",startDateLabel:"تاريخ بداية التحدي",startBtn:"ابدأ التحدي",futureError:"لا يمكن إدخال تاريخ مستقبلي!"},
-        hero:{daysLabel:"يوم نظيف",streakLabel:"أيام سلسلة حالية",circleLabel:"تقدم"},
-        timer:{title:"الوقت المنقضي",days:"يوم",hours:"ساعة",minutes:"دقيقة",seconds:"ثانية"},
-        stats:{cleanDays:"أيام نظيفة",relapses:"عدد الانتكاسات",bestStreak:"أفضل سلسلة",daysLeft:"أيام متبقية"},
-        level:{title:"المستوى والنقاط",toNext:"XP للمستوى التالي"},
-        actions:{title:"الإجراءات السريعة",relapseBtn:"😔 لقد انتكست",panicBtn:"🆘 زر الطوارئ"},
-        curStage:{title:"مرحلتك الحالية"},
-        panic:{title:"زر الطوارئ",breathe:"تنفس",breatheSub:"شهيق... زفير...",countdown:"ثوانٍ للتغلب على الرغبة",tips:["20 تمرين ضغط الآن","اخرج للمشي فوراً","استحم بالماء البارد","ضع الهاتف بعيداً","غير المكان","تذكر لماذا بدأت"]},
-        relapse:{title:"تسجيل انتكاسة",reasonLabel:"ما سبب الانتكاسة؟",triggersLabel:"اختر المحفزات",confirm:"تأكيد",cancel:"إلغاء"},
-        reset:{title:"هل أنت متأكد؟",desc:"سيتم حذف جميع بياناتك.",confirm:"نعم",cancel:"إلغاء"},
-        pages:{timeline:{title:"🗓️ مراحل التعافي"},calendar:{title:"📅 تقويم التحدي"}},
-        triggers:["الملل","الوحدة","التوتر","الفضول","السوشيال ميديا","الليل","المحتوى المثير"],
-        quotes:["كل لحظة صعبة هي فرصة.","الانتصار الأكبر هو الانتصار على نفسك."],
-        achievements:[{id:"day1",icon:"🌱",name:"البداية",desc:"أول يوم",days:1}],
-        missions:[{id:"m1",icon:"💧",name:"شرب ماء",xp:10}],
-        rewards:[{id:"r1",icon:"🎖️",name:"وسام",cost:50}],
-        stages:[{range:"1-3",days:[1,3],title:"الانطلاق",recovery:10,benefits:["طاقة"],reduces:["رغبة"],motive:"بداية",tips:["رياضة"],flatline:false}]
-      },
-      en: {
-        appName:"90 Day",navLogo:"90 Day",
-        nav:{dashboard:"Dashboard",timeline:"Timeline",calendar:"Calendar",achievements:"Achievements",missions:"Missions",journal:"Journal",relapselog:"Relapse Log",settings:"Settings"},
-        setup:{title:"The 90-Day Challenge",sub:"Begin your journey.",startDateLabel:"Start date",startBtn:"Start",futureError:"Future date not allowed!"},
-        hero:{daysLabel:"Clean Days",streakLabel:"Current Streak",circleLabel:"Progress"},
-        timer:{title:"Elapsed Time",days:"Days",hours:"Hours",minutes:"Mins",seconds:"Secs"},
-        stats:{cleanDays:"Clean Days",relapses:"Relapses",bestStreak:"Best Streak",daysLeft:"Days Left"},
-        level:{title:"Level & XP",toNext:"XP to next level"},
-        actions:{title:"Quick Actions",relapseBtn:"😔 I Relapsed",panicBtn:"🆘 Panic"},
-        curStage:{title:"Your Stage"},
-        panic:{title:"Panic Button",breathe:"Breathe",breatheSub:"Inhale... Exhale...",countdown:"seconds",tips:["Push-ups","Walk","Cold shower","Phone away","Change place","Remember why"]},
-        relapse:{title:"Log Relapse",reasonLabel:"Reason?",triggersLabel:"Triggers",confirm:"Confirm",cancel:"Cancel"},
-        reset:{title:"Are you sure?",desc:"All data will be deleted.",confirm:"Yes",cancel:"Cancel"},
-        pages:{timeline:{title:"Recovery Stages"},calendar:{title:"Calendar"}},
-        triggers:["Boredom","Loneliness","Stress"],
-        quotes:["Every moment is a chance."],
-        achievements:[{id:"day1",icon:"🌱",name:"Beginning",desc:"First day",days:1}],
-        missions:[{id:"m1",icon:"💧",name:"Water",xp:10}],
-        rewards:[{id:"r1",icon:"🎖️",name:"Medal",cost:50}],
-        stages:[{range:"1-3",days:[1,3],title:"Launch",recovery:10,benefits:["Energy"],reduces:["Urge"],motive:"Start",tips:["Exercise"],flatline:false}]
-      }
-    };
-    const LEVELS = [0,100,250,500,900,1500,2300,3300,4500,6000,8000,10500];
+    // حالة التطبيق
     let state = {
       startDate: null, relapses: [], journal: [], xp: 0, missionsToday: {}, missionDate: '',
-      ownedRewards: [], unlockedAchievements: [], bestStreak: 0,
-      lang: 'ar', theme: 'dark', soundEnabled: true
+      ownedRewards: [], unlockedAchievements: [], bestStreak: 0, theme: 'dark'
     };
-    let panicTimer = null, liveTimer = null, calViewDate = new Date();
-    const t = ()=> TRANSLATIONS[state.lang];
+    let liveTimer = null, calViewDate = new Date();
+    const LEVELS = [0,100,250,500,900,1500,2300,3300,4500,6000,8000,10500];
+
+    // مراحل التعافي
+    const stages = [
+      {range:"1-3",days:[1,3],title:"الانطلاق والصدمة",recovery:10,benefits:["بداية طاقة","تقليل ضبابية"],reduces:["رغبة"],motive:"أصعب بداية هي الخطوة الأولى.",tips:["تجنب الخلوة","رياضة خفيفة"],flatline:false},
+      {range:"4-7",days:[4,7],title:"تحدي الأسبوع الأول",recovery:20,benefits:["طاقة متزايدة","تحسن نوم"],reduces:["حدة الرغبات"],motive:"أسبوع كامل!",tips:["استحمام بارد","قراءة"],flatline:false},
+      {range:"8-14",days:[8,14],title:"بناء الزخم",recovery:30,benefits:["زيادة تركيز","تحسن مزاج"],reduces:["اكتئاب"],motive:"أسبوعان من القوة!",tips:["رياضة مكثفة","طعام صحي"],flatline:true,flatlineText:"قد تشعر بتراجع مؤقت في الطاقة (Flatline) - هذا طبيعي"},
+      {range:"15-21",days:[15,21],title:"إعادة البناء",recovery:40,benefits:["تحسن أداء","وضوح ذهني"],reduces:["قلق"],motive:"21 يوماً تصنع عادة.",tips:["تأمل","يوميات"],flatline:false},
+      {range:"22-30",days:[22,30],title:"الشهر الأول",recovery:50,benefits:["تحسن جنسي طبيعي","ثقة عالية"],reduces:["اعتماد على الإباحية"],motive:"شهر كامل!",tips:["أهداف جديدة","رياضة"],flatline:false},
+      {range:"31-45",days:[31,45],title:"منطقة القوة",recovery:60,benefits:["استقرار نفسي","حافز قوي"],reduces:["أنماط قديمة"],motive:"أنت في منطقة القوة.",tips:["خطط طويلة المدى","صحة بدنية"],flatline:true,flatlineText:"بعض الناس يمرون بـ Flatline هنا."},
+      {range:"46-60",days:[46,60],title:"نصف الطريق",recovery:70,benefits:["تحول شخصية","جاذبية اجتماعية"],reduces:["رغبات إدمانية"],motive:"60 يوماً من الانتصار!",tips:["تحديات جديدة","عزز علاقاتك"],flatline:false},
+      {range:"61-75",days:[61,75],title:"قريب من القمة",recovery:85,benefits:["تحكم كامل","أداء استثنائي"],reduces:["انتكاسات نادرة"],motive:"على بعد خطوات من القمة.",tips:["حافظ على روتينك","لا تستهن بالمحفزات"],flatline:false},
+      {range:"76-90",days:[76,90],title:"مرحلة الإتمام",recovery:100,benefits:["تعافٍ شبه كامل","حيوية قصوى"],reduces:["اختفاء الذنب"],motive:"90 يوماً من الانتصار!",tips:["استمر","شارك تجربتك"],flatline:false}
+    ];
+    const achievements = [
+      {id:"day1",icon:"🌱",name:"البداية",desc:"أول يوم",days:1},{id:"day3",icon:"⭐",name:"الشرارة",desc:"3 أيام",days:3},{id:"day7",icon:"⚡",name:"أسبوع",desc:"7 أيام",days:7},
+      {id:"day14",icon:"💪",name:"أسبوعان",desc:"14 يوم",days:14},{id:"day21",icon:"🏅",name:"3 أسابيع",desc:"21 يوم",days:21},{id:"day30",icon:"🥇",name:"شهر",desc:"30 يوم",days:30},
+      {id:"day45",icon:"🌟",name:"المنتصف",desc:"45 يوم",days:45},{id:"day60",icon:"💎",name:"شهران",desc:"60 يوم",days:60},{id:"day75",icon:"🚀",name:"قاب قوسين",desc:"75 يوم",days:75},
+      {id:"day90",icon:"👑",name:"الملك",desc:"90 يوم",days:90},{id:"journal1",icon:"📓",name:"كاتب",desc:"أول يومية",special:"journal"},{id:"norelapse",icon:"🛡️",name:"محارب",desc:"لا انتكاسات",special:"norelapse"}
+    ];
+    const missions = [
+      {id:"m1",icon:"💧",name:"شرب 8 أكواب ماء",xp:10},{id:"m2",icon:"🏃",name:"30 دقيقة رياضة",xp:20},{id:"m3",icon:"📖",name:"قراءة 10 صفحات",xp:15},
+      {id:"m4",icon:"🧘",name:"تأمل 5 دقائق",xp:15},{id:"m5",icon:"📵",name:"تقليل السوشيال ميديا",xp:10},{id:"m6",icon:"🌙",name:"النوم قبل 11",xp:15},
+      {id:"m7",icon:"🚿",name:"استحمام بارد",xp:20},{id:"m8",icon:"🥗",name:"وجبة صحية",xp:10}
+    ];
+    const rewards = [
+      {id:"r1",icon:"🎖️",name:"وسام الاستمرار",cost:50},{id:"r2",icon:"🏆",name:"كأس الإرادة",cost:100},{id:"r3",icon:"💎",name:"جوهرة الصبر",cost:200},
+      {id:"r4",icon:"👑",name:"تاج الانتصار",cost:500},{id:"r5",icon:"🌟",name:"نجم الحكمة",cost:300},{id:"r6",icon:"🦁",name:"قلب الأسد",cost:400}
+    ];
+    const triggersList = ["الملل","الوحدة","التوتر","الفضول","السوشيال ميديا","الليل","المحتوى المثير"];
 
     function save() { localStorage.setItem('nofap90_data', JSON.stringify(state)); }
     function load() {
       try { const saved = JSON.parse(localStorage.getItem('nofap90_data')||'{}'); state = {...state, ...saved}; } catch(e){}
-      if (!state.lang) state.lang = 'ar';
-      if (!state.theme) state.theme = 'dark';
     }
-
     function applyTheme() {
       document.body.setAttribute('data-theme', state.theme);
-      document.getElementById('themeBtn').textContent = state.theme==='light'?'☀️':'🌙';
+      document.getElementById('themeToggleBtn').textContent = state.theme==='light'?'☀️':'🌙';
       const tog = document.getElementById('themeToggle'); if(tog) tog.classList.toggle('on', state.theme==='dark');
     }
-    function applyLang() {
-      document.documentElement.lang = state.lang;
-      document.documentElement.dir = state.lang==='ar'?'rtl':'ltr';
-      document.getElementById('langBtn').textContent = state.lang==='ar'?'EN':'ع';
-      document.getElementById('langToggleBtn').textContent = state.lang==='ar'?'English':'عربي';
-      updateUITexts();
-    }
-    function updateUITexts() {
-      const T = t();
-      document.getElementById('navLogo').textContent = T.navLogo;
-      ['dashboard','timeline','calendar','achievements','missions','journal','relapselog','settings'].forEach(s=>{
-        const el = document.getElementById('nl-'+s); if(el) el.textContent = T.nav[s];
-      });
-      document.getElementById('heroDaysLabel').textContent = T.hero.daysLabel;
-      document.getElementById('streakLabel').textContent = T.hero.streakLabel;
-      document.getElementById('circleLabel').textContent = T.hero.circleLabel;
-      document.getElementById('timerTitle').textContent = T.timer.title;
-      document.getElementById('tl-days').textContent = T.timer.days;
-      document.getElementById('tl-hours').textContent = T.timer.hours;
-      document.getElementById('tl-minutes').textContent = T.timer.minutes;
-      document.getElementById('tl-seconds').textContent = T.timer.seconds;
-      document.getElementById('sl-cleanDays').textContent = T.stats.cleanDays;
-      document.getElementById('sl-relapses').textContent = T.stats.relapses;
-      document.getElementById('sl-bestStreak').textContent = T.stats.bestStreak;
-      document.getElementById('sl-daysLeft').textContent = T.stats.daysLeft;
-      document.getElementById('levelTitle').textContent = T.level.title;
-      document.getElementById('actionTitle').textContent = T.actions.title;
-      document.getElementById('relapseBtn').innerHTML = T.actions.relapseBtn;
-      document.getElementById('panicBtnEl').innerHTML = T.actions.panicBtn;
-      document.getElementById('curStageTitle').textContent = T.curStage.title;
-      document.getElementById('panicTitle').textContent = T.panic.title;
-      document.getElementById('breatheText').textContent = T.panic.breathe;
-      document.getElementById('breatheSub').textContent = T.panic.breatheSub;
-      document.getElementById('panicCountdownLabel').textContent = T.panic.countdown;
-      T.panic.tips.forEach((tip,i)=>{ const el = document.getElementById('pt'+(i+1)); if(el) el.textContent = tip; });
-      document.getElementById('relapseModalTitle').textContent = T.relapse.title;
-      document.getElementById('relapseReasonLabel').textContent = T.relapse.reasonLabel;
-      document.getElementById('relapseTriggersLabel').textContent = T.relapse.triggersLabel;
-      document.getElementById('confirmRelapseBtn').textContent = T.relapse.confirm;
-      document.getElementById('cancelRelapseBtn').textContent = T.relapse.cancel;
-      document.getElementById('resetTitle').textContent = T.reset.title;
-      document.getElementById('resetDesc').textContent = T.reset.desc;
-      document.getElementById('confirmResetBtn').textContent = T.reset.confirm;
-      document.getElementById('cancelResetBtn').textContent = T.reset.cancel;
-      document.getElementById('setupTitle').textContent = T.setup.title;
-      document.getElementById('setupSub').textContent = T.setup.sub;
-      document.getElementById('startDateLabel').textContent = T.setup.startDateLabel;
-      document.getElementById('startBtnText').textContent = T.setup.startBtn;
+
+    // الوقت بتوقيت المغرب
+    function getMoroccoTime(date = new Date()) {
+      return new Date(date.toLocaleString('en-US', {timeZone: 'Africa/Casablanca'}));
     }
 
     function getElapsed() {
-      if (!state.startDate) return { days:0, hours:0, minutes:0, seconds:0 };
+      if (!state.startDate) return { days:0, hours:0, minutes:0 };
       const start = new Date(state.startDate).getTime();
-      const diff = Math.max(0, Date.now() - start);
-      const totalSeconds = Math.floor(diff / 1000);
-      return { days: Math.floor(totalSeconds/86400), hours: Math.floor((totalSeconds%86400)/3600), minutes: Math.floor((totalSeconds%3600)/60), seconds: totalSeconds%60 };
+      const now = getMoroccoTime().getTime();
+      const diff = Math.max(0, now - start);
+      const totalHours = Math.floor(diff / 3600000);
+      const days = Math.floor(totalHours / 24);
+      const hours = totalHours % 24;
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      return { days, hours, minutes };
     }
     function getStreak() {
       if (!state.startDate) return 0;
       if (!state.relapses.length) return getElapsed().days;
-      const last = new Date(state.relapses[state.relapses.length-1].date);
-      return Math.floor((Date.now() - last) / 86400000);
+      const last = new Date(state.relapses[state.relapses.length-1].date).getTime();
+      const now = getMoroccoTime().getTime();
+      return Math.floor((now - last) / 86400000);
     }
 
     function updateDashboard() {
@@ -487,59 +398,69 @@
 
       document.getElementById('heroDays').textContent = cleanDays;
       document.getElementById('streakNum').textContent = streak;
+      document.getElementById('t-hours').textContent = String(elapsed.hours).padStart(2,'0');
+      document.getElementById('t-minutes').textContent = String(elapsed.minutes).padStart(2,'0');
       document.getElementById('progressBarFill').style.width = pct + '%';
-      document.getElementById('progressDaysRemaining').textContent = (state.lang==='ar'?daysLeft+' يوم متبقي':daysLeft+' days left');
-      const circum = 330;
+      document.getElementById('progressDaysRemaining').textContent = daysLeft + ' يوم متبقي';
+      const circum = 308;
       document.getElementById('circleFill').style.strokeDashoffset = circum - (circum * pct / 100);
       document.getElementById('circlePercent').textContent = pct + '%';
-      const pad = n => String(n).padStart(2,'0');
-      document.getElementById('t-days').textContent = pad(elapsed.days);
-      document.getElementById('t-hours').textContent = pad(elapsed.hours);
-      document.getElementById('t-minutes').textContent = pad(elapsed.minutes);
-      document.getElementById('t-seconds').textContent = pad(elapsed.seconds);
       document.getElementById('s-cleanDays').textContent = cleanDays;
       document.getElementById('s-relapses').textContent = state.relapses.length;
       document.getElementById('s-bestStreak').textContent = state.bestStreak||0;
       document.getElementById('s-daysLeft').textContent = daysLeft;
-      const lvl = (()=>{
-        let level = 1;
-        for(let i=1;i<LEVELS.length;i++) if(state.xp>=LEVELS[i]) level=i+1; else break;
-        const idx=level-1, curr=LEVELS[idx]||0, next=LEVELS[idx+1]||LEVELS[LEVELS.length-1];
-        const pct = next>curr ? Math.round(((state.xp-curr)/(next-curr))*100) : 100;
-        return {level, pct, toNext:Math.max(0,next-state.xp)};
-      })();
-      document.getElementById('levelText').textContent = (state.lang==='ar'?'المستوى ':'Level ') + lvl.level;
-      document.getElementById('xpText').textContent = state.xp;
-      document.getElementById('xpBarFill').style.width = lvl.pct + '%';
-      document.getElementById('xpToNext').textContent = lvl.toNext + ' ' + t().level.toNext;
 
-      // current stage
-      const stages = t().stages;
-      let stage = stages.find(s=>cleanDays>=s.days[0] && cleanDays<=s.days[1]) || stages[stages.length-1];
+      // المستوى
+      let level = 1;
+      for(let i=1;i<LEVELS.length;i++) if(state.xp>=LEVELS[i]) level=i+1; else break;
+      const idx=level-1, curr=LEVELS[idx]||0, next=LEVELS[idx+1]||LEVELS[LEVELS.length-1];
+      const lvlPct = next>curr ? Math.round(((state.xp-curr)/(next-curr))*100) : 100;
+      document.getElementById('levelText').textContent = level;
+      document.getElementById('xpText').textContent = state.xp;
+      document.getElementById('xpBarFill').style.width = lvlPct + '%';
+      document.getElementById('xpToNext').textContent = (next-state.xp) + ' XP للمستوى التالي';
+
+      renderCurrentStage(cleanDays);
+      renderTimeline();
+      renderAchievements();
+      renderMissions();
+      renderRewardStore();
+      renderJournalList();
+      renderRelapseList();
+    }
+
+    function renderCurrentStage(days) {
+      let stage = stages.find(s=>days>=s.days[0] && days<=s.days[1]) || stages[stages.length-1];
       const cont = document.getElementById('currentStageContent');
-      cont.innerHTML = `<div><span class="stage-badge">${stage.range}</span> ${stage.title} <span style="font-size:2rem;background:var(--gradient2);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${stage.recovery}%</span></div>
-        <div>${stage.benefits.slice(0,3).join(' · ')}</div><div style="margin:12px 0">"${stage.motive}"</div>`;
+      cont.innerHTML = `<div><span class="stage-badge">${stage.range}</span> <strong>${stage.title}</strong> <span style="font-size:2rem;background:var(--gradient2);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${stage.recovery}%</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0">${stage.benefits.slice(0,3).map(b=>`<span class="benefit-item">✅ ${b}</span>`).join('')}</div>
+        <div style="margin:12px 0;font-style:italic">"${stage.motive}"</div>
+        ${stage.flatline?`<div style="color:var(--secondary)">⚠️ ${stage.flatlineText}</div>`:''}
+        <div style="display:flex;gap:6px;flex-wrap:wrap">${stage.tips.map(t=>`<span style="background:rgba(108,99,255,0.1);padding:4px 12px;border-radius:100px">💡 ${t}</span>`).join('')}</div>`;
     }
 
     function renderTimeline() {
       const el = document.getElementById('timelineContent');
       if(!el) return;
       const days = getElapsed().days;
-      el.innerHTML = t().stages.map(s=>`<div style="margin-bottom:16px;padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--card)"><div><span class="stage-badge">${s.range}</span> ${s.title} ${s.recovery}%</div><div>${s.motive}</div></div>`).join('');
+      el.innerHTML = stages.map(s=>{
+        const active = days>=s.days[0] && days<=s.days[1];
+        return `<div style="margin-bottom:20px;padding:16px;border:1px solid var(--border);border-radius:16px"><div><span class="stage-badge">${s.range}</span> ${s.title} ${s.recovery}%</div><div>${s.motive}</div>${active?'<div style="color:var(--primary)">📍 مرحلتك الحالية</div>':''}</div>`;
+      }).join('');
     }
 
     function renderCalendar() {
       const grid = document.getElementById('calendarGrid');
       const title = document.getElementById('calMonthTitle');
       const y = calViewDate.getFullYear(), m = calViewDate.getMonth();
-      const monthNames = state.lang==='ar'?['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر']:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const monthNames = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
       title.textContent = monthNames[m] + ' ' + y;
-      const today = new Date(); today.setHours(0,0,0,0);
+      const today = getMoroccoTime(); today.setHours(0,0,0,0);
       const start = state.startDate ? new Date(state.startDate) : null;
       const relapses = state.relapses.map(r=>new Date(r.date).toDateString());
       const firstDay = new Date(y,m,1).getDay();
       const daysInMonth = new Date(y,m+1,0).getDate();
-      let html = (state.lang==='ar'?['أح','إث','ثل','أر','خم','جم','سب']:['Su','Mo','Tu','We','Th','Fr','Sa']).map(d=>`<div class="cal-header">${d}</div>`).join('');
+      let html = ['أح','إث','ثل','أر','خم','جم','سب'].map(d=>`<div class="cal-header">${d}</div>`).join('');
       for(let i=0;i<firstDay;i++) html += '<div class="cal-day empty"></div>';
       for(let d=1;d<=daysInMonth;d++){
         const date = new Date(y,m,d); date.setHours(0,0,0,0);
@@ -562,119 +483,53 @@
       const grid = document.getElementById('achievementsGrid');
       if(!grid) return;
       const days = getElapsed().days;
-      grid.innerHTML = t().achievements.map(a=>{
+      grid.innerHTML = achievements.map(a=>{
         let unlocked = state.unlockedAchievements.includes(a.id);
         if(!unlocked && a.days && days>=a.days) { unlocked=true; state.unlockedAchievements.push(a.id); save(); }
-        return `<div class="achievement-card" style="opacity:${unlocked?1:0.5}"><div>${a.icon}</div><div>${a.name}</div></div>`;
+        return `<div class="achievement-card" style="opacity:${unlocked?1:0.5}">${a.icon} ${a.name}</div>`;
       }).join('');
     }
 
     function renderMissions() {
       const el = document.getElementById('missionsList');
       if(!el) return;
-      const today = new Date().toDateString();
+      const today = getMoroccoTime().toDateString();
       if(state.missionDate !== today) { state.missionDate = today; state.missionsToday = {}; save(); }
-      el.innerHTML = t().missions.map(m=>`<div class="mission-item ${state.missionsToday[m.id]?'done':''}" onclick="App.toggleMission('${m.id}')">${m.icon} ${m.name} +${m.xp}XP</div>`).join('');
-    }
-    function toggleMission(id) {
-      const m = t().missions.find(x=>x.id===id);
-      if(!m) return;
-      if(state.missionsToday[id]) { delete state.missionsToday[id]; state.xp = Math.max(0, state.xp - m.xp); }
-      else { state.missionsToday[id] = true; state.xp += m.xp; }
-      save(); renderMissions(); updateDashboard();
+      el.innerHTML = missions.map(m=>`<div class="mission-item ${state.missionsToday[m.id]?'done':''}" onclick="App.toggleMission('${m.id}')">${m.icon} ${m.name} +${m.xp}XP</div>`).join('');
     }
 
     function renderRewardStore() {
       const el = document.getElementById('rewardStore');
       if(!el) return;
-      el.innerHTML = t().rewards.map(r=>{
+      el.innerHTML = rewards.map(r=>{
         const owned = state.ownedRewards.includes(r.id);
         const canBuy = state.xp >= r.cost && !owned;
-        return `<div class="reward-item" onclick="App.buyReward('${r.id}')"><div>${r.icon}</div><div>${r.name}</div><div>💰${r.cost}XP</div>${owned?'✅':(canBuy?'<button class="btn btn-warning btn-sm">شراء</button>':'')}</div>`;
+        return `<div class="reward-item" onclick="App.buyReward('${r.id}')">${r.icon} ${r.name} ${r.cost}XP ${owned?'✅':(canBuy?'<button class="btn btn-warning btn-sm">شراء</button>':'')}</div>`;
       }).join('');
     }
-    function buyReward(id) {
-      const r = t().rewards.find(x=>x.id===id);
-      if(!r || state.ownedRewards.includes(id) || state.xp < r.cost) return;
-      state.xp -= r.cost; state.ownedRewards.push(id); save();
-      renderRewardStore(); updateDashboard(); toast('✅ تم الشراء');
-    }
 
-    function saveJournal() {
-      const text = document.getElementById('journalTextInput').value.trim();
-      if(!text) return;
-      state.journal.unshift({ date: new Date().toISOString(), text });
-      save(); document.getElementById('journalTextInput').value = '';
-      renderJournalList(); addXP(5);
-    }
     function renderJournalList() {
       const el = document.getElementById('journalList');
       if(!el) return;
-      el.innerHTML = state.journal.slice(0,5).map(e=>`<div style="padding:12px;background:var(--card2);margin-bottom:8px;border-radius:8px">${e.text}<br><small>${new Date(e.date).toLocaleString()}</small></div>`).join('');
+      el.innerHTML = state.journal.length ? state.journal.slice(0,5).map(e=>`<div style="padding:8px;background:var(--card2);margin-bottom:8px">${e.text}<br><small>${new Date(e.date).toLocaleString()}</small></div>`).join('') : '<div>لا توجد إدخالات</div>';
     }
 
-    function confirmRelapse() {
-      const reason = document.getElementById('relapseReasonInput').value.trim();
-      const triggers = [...document.querySelectorAll('.trigger-tag.selected')].map(t=>t.textContent);
-      const streak = getStreak();
-      state.relapses.push({ date: new Date().toISOString(), reason: reason||'بدون سبب', triggers });
-      state.startDate = new Date().toISOString();
-      if(streak > (state.bestStreak||0)) state.bestStreak = streak;
-      save(); closeModal('relapseModal');
-      updateDashboard(); renderRelapseList(); toast('تم تسجيل الانتكاسة', 'error');
-    }
     function renderRelapseList() {
       const el = document.getElementById('relapseList');
       if(!el) return;
-      el.innerHTML = state.relapses.length ? [...state.relapses].reverse().map(r=>`<div style="padding:12px;background:var(--card2);margin-bottom:8px">${new Date(r.date).toLocaleString()}<br>${r.reason}</div>`).join('') : '<div>لا توجد انتكاسات</div>';
-    }
-
-    function openPanic() {
-      openModal('panicModal');
-      document.getElementById('panicQuote').textContent = '"' + t().quotes[Math.floor(Math.random()*t().quotes.length)] + '"';
-      let countdown = 60;
-      if(panicTimer) clearInterval(panicTimer);
-      panicTimer = setInterval(()=>{
-        countdown--;
-        document.getElementById('countdownNum').textContent = countdown;
-        document.getElementById('countdownRing').style.strokeDashoffset = 283 - (283 * countdown / 60);
-        if(countdown<=0) clearInterval(panicTimer);
-      },1000);
-    }
-
-    function openModal(id) { document.getElementById(id).classList.add('open'); if(id==='relapseModal') renderTriggerList(); }
-    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-    function renderTriggerList() {
-      const el = document.getElementById('triggerList');
-      el.innerHTML = t().triggers.map(tr=>`<span class="trigger-tag" onclick="this.classList.toggle('selected')">${tr}</span>`).join('');
-    }
-
-    function toggleTheme() { state.theme = state.theme==='dark'?'light':'dark'; save(); applyTheme(); }
-    function toggleLang() { state.lang = state.lang==='ar'?'en':'ar'; save(); applyLang(); updateDashboard(); renderTimeline(); renderCalendar(); }
-    function nav(section) {
-      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-      document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
-      document.getElementById('sec-'+section).classList.add('active');
-      document.querySelector(`[data-section="${section}"]`).classList.add('active');
-      if(section==='calendar') renderCalendar();
-      if(section==='timeline') renderTimeline();
+      el.innerHTML = state.relapses.length ? [...state.relapses].reverse().map(r=>`<div style="padding:8px;background:var(--card2);margin-bottom:8px">${new Date(r.date).toLocaleString()}<br>${r.reason}</div>`).join('') : '<div>لا توجد انتكاسات</div>';
     }
 
     function setup() {
       const val = document.getElementById('startDateInput').value;
       if(!val) return;
       const d = new Date(val);
-      if(d > new Date()) {
-        document.getElementById('setupError').textContent = t().setup.futureError;
-        document.getElementById('setupError').style.display = 'block';
-        return;
-      }
+      const now = getMoroccoTime();
+      if(d > now) { document.getElementById('setupError').textContent = 'لا يمكن إدخال تاريخ مستقبلي!'; document.getElementById('setupError').style.display='block'; return; }
       state.startDate = d.toISOString();
       save();
       document.getElementById('setupScreen').style.display = 'none';
       updateDashboard();
-      renderTimeline();
-      renderCalendar();
       startLiveTimer();
     }
 
@@ -683,61 +538,94 @@
       liveTimer = setInterval(()=>{
         if(!document.getElementById('sec-dashboard').classList.contains('active')) return;
         const e = getElapsed();
-        document.getElementById('t-days').textContent = String(e.days).padStart(2,'0');
         document.getElementById('t-hours').textContent = String(e.hours).padStart(2,'0');
         document.getElementById('t-minutes').textContent = String(e.minutes).padStart(2,'0');
-        document.getElementById('t-seconds').textContent = String(e.seconds).padStart(2,'0');
-      },1000);
+      },60000);
     }
 
-    function addXP(amount) { state.xp += amount; save(); updateDashboard(); toast(`+${amount} XP`); }
-    function toast(msg, type='success') {
-      const cont = document.getElementById('toastContainer');
-      const div = document.createElement('div'); div.className = 'toast '+type;
-      div.innerHTML = `<span>${type==='success'?'✅':'❌'}</span> ${msg}`;
-      cont.appendChild(div); setTimeout(()=>div.remove(),3000);
+    function toggleMission(id) {
+      const m = missions.find(x=>x.id===id);
+      if(!m) return;
+      if(state.missionsToday[id]) { delete state.missionsToday[id]; state.xp = Math.max(0, state.xp - m.xp); }
+      else { state.missionsToday[id] = true; state.xp += m.xp; }
+      save(); renderMissions(); updateDashboard();
+    }
+
+    function buyReward(id) {
+      const r = rewards.find(x=>x.id===id);
+      if(!r || state.ownedRewards.includes(id) || state.xp < r.cost) return;
+      state.xp -= r.cost; state.ownedRewards.push(id); save();
+      renderRewardStore(); updateDashboard();
+    }
+
+    function saveJournal() {
+      const text = document.getElementById('journalTextInput').value.trim();
+      if(!text) return;
+      state.journal.unshift({ date: new Date().toISOString(), text });
+      save(); document.getElementById('journalTextInput').value = '';
+      renderJournalList();
+    }
+
+    function confirmRelapse() {
+      const reason = document.getElementById('relapseReasonInput').value;
+      const streak = getStreak();
+      state.relapses.push({ date: new Date().toISOString(), reason: reason||'بدون سبب' });
+      state.startDate = new Date().toISOString();
+      if(streak > (state.bestStreak||0)) state.bestStreak = streak;
+      save(); closeModal('relapseModal');
+      updateDashboard();
+    }
+
+    function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebarOverlay').classList.add('show'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('show'); }
+
+    function nav(section) {
+      closeSidebar();
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+      document.getElementById('sec-'+section).classList.add('active');
+      document.querySelector(`[data-section="${section}"]`).classList.add('active');
+      if(section==='calendar') renderCalendar();
+      if(section==='timeline') renderTimeline();
+    }
+
+    function toggleTheme() { state.theme = state.theme==='dark'?'light':'dark'; save(); applyTheme(); }
+
+    function openModal(id) { document.getElementById(id).classList.add('open'); if(id==='relapseModal') renderTriggerList(); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    function renderTriggerList() {
+      const el = document.getElementById('triggerList');
+      el.innerHTML = triggersList.map(tr=>`<span style="padding:6px 12px;border-radius:20px;border:1px solid var(--border);cursor:pointer" onclick="this.classList.toggle('selected')">${tr}</span>`).join('');
     }
 
     function init() {
       load();
-      applyTheme(); applyLang();
-
-      // تعيين أحداث الأزرار
+      applyTheme();
       document.getElementById('startBtn').onclick = setup;
       document.getElementById('relapseBtn').onclick = ()=>openModal('relapseModal');
-      document.getElementById('panicBtnEl').onclick = openPanic;
+      document.getElementById('panicBtnEl').onclick = ()=>openModal('panicModal');
       document.getElementById('saveJournalBtn').onclick = saveJournal;
       document.getElementById('confirmRelapseBtn').onclick = confirmRelapse;
       document.getElementById('resetBtn').onclick = ()=>openModal('resetModal');
       document.getElementById('confirmResetBtn').onclick = ()=>{ localStorage.clear(); location.reload(); };
       document.getElementById('themeToggle').onclick = toggleTheme;
-      document.getElementById('themeBtn').onclick = toggleTheme;
-      document.getElementById('langToggleBtn').onclick = toggleLang;
-      document.getElementById('langBtn').onclick = toggleLang;
-      document.getElementById('changeStartBtn').onclick = ()=>{
-        document.getElementById('setupScreen').style.display = 'flex';
-        const now = new Date();
-        document.getElementById('startDateInput').value = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
-      };
+      document.getElementById('themeToggleBtn').onclick = toggleTheme;
+      document.getElementById('changeStartBtn').onclick = ()=>{ document.getElementById('setupScreen').style.display='flex'; };
       document.getElementById('calPrevBtn').onclick = ()=>{ calViewDate.setMonth(calViewDate.getMonth()-1); renderCalendar(); };
       document.getElementById('calNextBtn').onclick = ()=>{ calViewDate.setMonth(calViewDate.getMonth()+1); renderCalendar(); };
-      document.querySelectorAll('.nav-link').forEach(btn=>btn.addEventListener('click', ()=>nav(btn.dataset.section)));
-      document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click', e=>{ if(e.target===m) m.classList.remove('open'); }));
 
       if(!state.startDate) {
         document.getElementById('setupScreen').style.display = 'flex';
-        const now = new Date();
+        const now = getMoroccoTime();
         document.getElementById('startDateInput').value = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
       } else {
         document.getElementById('setupScreen').style.display = 'none';
         updateDashboard();
-        renderTimeline();
-        renderCalendar();
         startLiveTimer();
       }
     }
 
-    window.App = { setup, nav, toggleTheme, toggleLang, openModal, closeModal, openPanic, toggleMission, buyReward, saveJournal, confirmRelapse };
+    window.App = { openSidebar, closeSidebar, nav, toggleTheme, openModal, closeModal, toggleMission, buyReward };
     window.addEventListener('DOMContentLoaded', init);
   })();
 </script>
