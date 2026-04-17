@@ -1,486 +1,1740 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>تحدي 90 يوم • رحلة التعافي</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=Space+Mono:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+```
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-      --primary: #6C63FF; --primary-dark: #4A42CC; --secondary: #FF6584; --accent: #43E97B; --accent2: #FFD700;
-      --bg: #0D0D1A; --bg2: #13132A; --bg3: #1A1A35; --card: #1E1E3A; --card2: #252545;
-      --border: rgba(108, 99, 255, 0.18); --text: #E8E8FF; --text2: #A0A0C8; --text3: #6060A0;
-      --shadow: 0 8px 32px rgba(108, 99, 255, 0.18); --shadow2: 0 4px 16px rgba(0, 0, 0, 0.4);
-      --radius: 18px; --radius2: 12px;
-      --gradient: linear-gradient(135deg, #6C63FF, #a855f7);
-      --gradient2: linear-gradient(135deg, #43E97B, #38F9D7);
-      --gradient3: linear-gradient(135deg, #FF6584, #FF8E53);
-      --gradient4: linear-gradient(135deg, #FFD700, #FF8C00);
-      --glow: 0 0 20px rgba(108, 99, 255, 0.4);
-      --font-main: 'Cairo', 'Tajawal', sans-serif;
-      --font-mono: 'Space Mono', monospace;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --sidebar-width: 280px;
-    }
+:root {
+  --void: #04040F;
+  --deep: #070714;
+  --bg: #09091A;
+  --bg2: #0D0D22;
+  --bg3: #111128;
+  --card: #0F0F26;
+  --card2: #14143A;
+  --card3: #1A1A45;
 
-    [data-theme="light"] {
-      --bg: #F0F0FF; --bg2: #E8E8FF; --bg3: #DDDDF5; --card: #FFFFFF; --card2: #F5F5FF;
-      --border: rgba(108, 99, 255, 0.15); --text: #1A1A3A; --text2: #444470; --text3: #8080B0;
-      --shadow: 0 8px 32px rgba(108, 99, 255, 0.12); --shadow2: 0 4px 16px rgba(108, 99, 255, 0.08);
-    }
+  --primary: #7C3AED;
+  --primary-light: #A78BFA;
+  --primary-glow: rgba(124,58,237,0.4);
+  --cyan: #06B6D4;
+  --cyan-light: #67E8F9;
+  --cyan-glow: rgba(6,182,212,0.35);
+  --amber: #F59E0B;
+  --amber-light: #FCD34D;
+  --amber-glow: rgba(245,158,11,0.35);
+  --rose: #F43F5E;
+  --rose-light: #FDA4AF;
+  --rose-glow: rgba(244,63,94,0.35);
+  --emerald: #10B981;
+  --emerald-light: #6EE7B7;
+  --emerald-glow: rgba(16,185,129,0.3);
 
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-main); background: var(--bg); color: var(--text);
-      min-height: 100vh; transition: var(--transition); overflow-x: hidden;
-    }
-    body::before {
-      content: ''; position: fixed; top: -50%; right: -20%; width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(108, 99, 255, 0.08) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-    }
+  --border: rgba(124,58,237,0.15);
+  --border2: rgba(167,139,250,0.1);
+  --text: #E2E8FF;
+  --text2: #9CA3D4;
+  --text3: #4B5280;
 
-    /* شريط علوي */
-    .top-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(13, 13, 26, 0.92); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border); padding: 0 20px;
-      display: flex; align-items: center; justify-content: space-between; height: 64px;
-    }
-    [data-theme="light"] .top-bar { background: rgba(240, 240, 255, 0.92); }
-    .logo {
-      font-size: 1.5rem; font-weight: 900; background: var(--gradient);
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .menu-btn, .icon-btn {
-      width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border);
-      background: var(--card); color: var(--text); cursor: pointer; display: inline-flex;
-      align-items: center; justify-content: center; font-size: 1.4rem; transition: var(--transition);
-    }
-    .menu-btn { font-size: 1.6rem; }
-    .menu-btn:hover, .icon-btn:hover { background: var(--primary); color: white; }
+  --grad-primary: linear-gradient(135deg, #7C3AED, #A78BFA);
+  --grad-cyan: linear-gradient(135deg, #0891B2, #67E8F9);
+  --grad-amber: linear-gradient(135deg, #D97706, #FCD34D);
+  --grad-rose: linear-gradient(135deg, #E11D48, #FDA4AF);
+  --grad-emerald: linear-gradient(135deg, #059669, #6EE7B7);
+  --grad-cosmic: linear-gradient(135deg, #7C3AED 0%, #06B6D4 50%, #10B981 100%);
 
-    /* الشريط الجانبي */
-    .sidebar {
-      position: fixed; top: 0; right: 0; bottom: 0; width: var(--sidebar-width);
-      background: var(--card); backdrop-filter: blur(20px); z-index: 2000;
-      border-left: 1px solid var(--border); box-shadow: -10px 0 30px rgba(0,0,0,0.3);
-      transform: translateX(100%); transition: transform 0.3s ease;
-      padding: 20px 0; overflow-y: auto;
-    }
-    .sidebar.open { transform: translateX(0); }
-    .sidebar-header {
-      display: flex; align-items: center; justify-content: space-between; padding: 0 20px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .sidebar-title { font-size: 1.3rem; font-weight: 800; color: var(--primary); }
-    .close-sidebar {
-      background: none; border: none; color: var(--text); font-size: 1.8rem; cursor: pointer;
-      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-      border-radius: 8px; transition: var(--transition);
-    }
-    .close-sidebar:hover { background: var(--primary); color: white; }
-    .sidebar-nav { padding: 16px 12px; display: flex; flex-direction: column; gap: 6px; }
-    .sidebar-link {
-      display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 14px;
-      border: none; background: transparent; color: var(--text2); font-size: 1rem; font-weight: 600;
-      cursor: pointer; transition: var(--transition); text-align: right; width: 100%;
-    }
-    .sidebar-link:hover, .sidebar-link.active { background: var(--gradient); color: white; box-shadow: var(--glow); }
-    .sidebar-icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .sidebar-icon svg { width: 22px; height: 22px; fill: currentColor; }
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(167,139,250,0.05) inset;
+  --shadow-glow: 0 0 30px rgba(124,58,237,0.25);
+  --shadow-cyan: 0 0 30px rgba(6,182,212,0.25);
 
-    .sidebar-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-      z-index: 1500; opacity: 0; visibility: hidden; transition: 0.2s;
-    }
-    .sidebar-overlay.show { opacity: 1; visibility: visible; }
+  --radius: 20px;
+  --radius2: 14px;
+  --radius3: 10px;
 
-    /* المحتوى الرئيسي */
-    .main { max-width: 1400px; margin: 0 auto; padding: 84px 20px 40px; }
-    .section { display: none; animation: fadeIn 0.4s ease; }
-    .section.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  --font-main: 'Cairo', 'Tajawal', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --sidebar-width: 280px;
+}
 
-    /* البطاقات */
-    .card {
-      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 24px; box-shadow: var(--shadow2); transition: var(--transition);
-    }
-    .card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
-    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--text2); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+[data-theme="light"] {
+  --void: #F0F0FF;
+  --deep: #E8E8FF;
+  --bg: #EDEDFF;
+  --bg2: #E5E5FA;
+  --bg3: #DDDDF5;
+  --card: #FFFFFF;
+  --card2: #F5F4FF;
+  --card3: #EEEEFF;
+  --border: rgba(124,58,237,0.12);
+  --border2: rgba(124,58,237,0.08);
+  --text: #1A1A3E;
+  --text2: #4A4A7A;
+  --text3: #8080B0;
+  --shadow-card: 0 8px 32px rgba(124,58,237,0.08), 0 1px 0 rgba(255,255,255,0.8) inset;
+}
 
-    .section-gap { margin-bottom: 20px; margin-top: 20px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-    @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+html { scroll-behavior: smooth; }
 
-    /* بطاقة التقدم الرئيسية */
-    .hero-card {
-      background: var(--gradient); border-radius: var(--radius); padding: 32px;
-      color: white; position: relative; overflow: hidden; margin-bottom: 24px;
-    }
-    .hero-card::before, .hero-card::after { content: ''; position: absolute; border-radius: 50%; background: rgba(255,255,255,0.06); }
-    .hero-card::before { top: -60px; left: -60px; width: 200px; height: 200px; }
-    .hero-card::after { bottom: -80px; right: -40px; width: 240px; height: 240px; }
-    .hero-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-    .hero-left { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-    .hero-days-block { text-align: center; }
-    .hero-days { font-size: 4.5rem; font-weight: 900; line-height: 1; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-    .hero-label { font-size: 1rem; opacity: 0.9; margin-top: 4px; }
-    .hero-timer { display: flex; gap: 16px; }
-    .timer-box { text-align: center; min-width: 70px; }
-    .timer-box .num { font-size: 2.2rem; font-weight: 900; font-family: var(--font-mono); }
-    .timer-box .unit { font-size: 0.8rem; opacity: 0.8; }
-    .circle-progress-wrap { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
-    .circle-progress-wrap svg { transform: rotate(-90deg); width: 110px; height: 110px; }
-    .circle-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 7; }
-    .circle-fill { fill: none; stroke: white; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 308; stroke-dashoffset: 308; transition: stroke-dashoffset 1.5s; }
-    .circle-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; font-size: 1.4rem; }
-    .circle-text span { font-size: 0.65rem; opacity: 0.8; }
-    .progress-bar-wrap { margin-top: 24px; background: rgba(255,255,255,0.15); border-radius: 100px; height: 12px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; background: white; border-radius: 100px; transition: width 1.5s; box-shadow: 0 0 12px rgba(255,255,255,0.6); }
+body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: var(--transition);
+  overflow-x: hidden;
+  position: relative;
+}
 
-    /* بطاقات الإحصائيات */
-    .stat-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius2);
-      padding: 20px; text-align: center; position: relative; overflow: hidden; transition: var(--transition);
-    }
-    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
-    .stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
-    .stat-num { font-size: 2rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-family: var(--font-mono); }
-    .stat-label { font-size: 0.85rem; color: var(--text2); margin-top: 4px; }
+/* === أرضية الفضاء === */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(124,58,237,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(6,182,212,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(16,185,129,0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
 
-    /* أزرار */
-    .btn { padding: 10px 24px; border-radius: 10px; border: none; font-family: var(--font-main); font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; }
-    .btn-primary { background: var(--gradient); color: white; box-shadow: 0 4px 15px rgba(108,99,255,0.4); }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn-danger { background: var(--gradient3); color: white; }
-    .btn-danger:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
-    .btn-outline:hover { background: var(--primary); color: white; }
-    .btn-warning { background: var(--gradient4); color: #1A1A1A; }
-    .btn-warning:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn-full { width: 100%; justify-content: center; }
-    .btn-sm { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
-    .panic-btn {
-      background: linear-gradient(135deg, #FF0050, #FF6584); color: white; border: none;
-      border-radius: var(--radius2); padding: 18px 32px; font-size: 1.1rem; font-weight: 900;
-      box-shadow: 0 6px 30px rgba(255,0,80,0.4); animation: pulseRed 2s infinite; cursor: pointer;
-    }
-    @keyframes pulseRed { 0%,100% { box-shadow: 0 6px 30px rgba(255,0,80,0.4); } 50% { box-shadow: 0 6px 40px rgba(255,0,80,0.7); } }
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(124,58,237,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(6,182,212,0.04) 0%, transparent 55%);
+}
 
-    /* نماذج */
-    .form-control { width: 100%; padding: 12px 16px; background: var(--card2); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text); font-size: 0.95rem; outline: none; font-family: var(--font-main); transition: var(--transition); }
-    .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,99,255,0.15); }
-    textarea.form-control { resize: vertical; min-height: 80px; }
+/* نجوم متحركة */
+.stars-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
 
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 3000; align-items: center; justify-content: center; }
-    .modal-overlay.open { display: flex; }
-    .modal { background: var(--card); border-radius: var(--radius); padding: 32px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid var(--border); }
-    .modal h3 { margin-bottom: 16px; font-size: 1.2rem; }
+[data-theme="light"] .stars-layer { display: none; }
 
-    .setup-screen { position: fixed; inset: 0; background: var(--bg); z-index: 4000; display: flex; align-items: center; justify-content: center; }
-    .setup-card { background: var(--card); border-radius: var(--radius); padding: 40px; max-width: 480px; width: 90%; text-align: center; border: 1px solid var(--border); }
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite alternate ease-in-out;
+}
 
-    /* الإشعارات */
-    .toast-container { position: fixed; top: 80px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-    .toast {
-      background: var(--card); border-radius: 12px; padding: 12px 18px; box-shadow: var(--shadow);
-      font-weight: 600; display: flex; align-items: center; gap: 10px; border: 1px solid var(--border);
-      animation: slideInToast 0.3s ease;
-    }
-    @keyframes slideInToast { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes twinkle {
+  from { opacity: var(--min, 0.1); transform: scale(1); }
+  to { opacity: var(--max, 0.7); transform: scale(1.3); }
+}
 
-    /* التقويم */
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 16px; }
-    .cal-header { text-align: center; font-size: 0.8rem; font-weight: 700; color: var(--text3); padding: 6px; }
-    .cal-day { aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; background: var(--card2); color: var(--text3); }
-    .cal-day.clean { background: rgba(67,233,123,0.3); color: var(--accent); border: 1px solid rgba(67,233,123,0.4); }
-    .cal-day.relapse-day { background: rgba(255,101,132,0.3); color: var(--secondary); border: 1px solid rgba(255,101,132,0.4); }
-    .cal-day.today-day { background: var(--gradient); color: white; }
-    .cal-day.future-day { opacity: 0.3; }
-    .cal-day.empty { background: transparent; }
+/* ===== TOPBAR ===== */
+.top-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(7, 7, 20, 0.85);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between; height: 64px;
+}
 
-    /* عناصر المراحل */
-    .stage-badge { background: var(--gradient); color: white; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; display: inline-block; }
-    .benefit-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text2); background: var(--card2); padding: 6px 10px; border-radius: 8px; }
+[data-theme="light"] .top-bar {
+  background: rgba(237,237,255,0.88);
+}
 
-    /* المهام */
-    .mission-item {
-      background: var(--card2); border: 1px solid var(--border); border-radius: 12px;
-      padding: 14px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 10px;
-      cursor: pointer; transition: var(--transition); user-select: none;
-    }
-    .mission-item:hover { border-color: var(--primary); }
-    .mission-item.done {
-      background: rgba(67,233,123,0.1); border-color: rgba(67,233,123,0.4);
-      text-decoration: line-through; color: var(--text3);
-    }
+.top-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.5), rgba(6,182,212,0.4), transparent);
+}
 
-    .achievement-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius2); padding: 16px; text-align: center; transition: var(--transition); }
-    .achievement-card.unlocked { border-color: var(--accent); box-shadow: 0 0 12px rgba(67,233,123,0.2); }
-    .reward-item { background: var(--card2); border-radius: var(--radius2); padding: 16px; text-align: center; cursor: pointer; border: 1px solid var(--border); transition: var(--transition); }
-    .reward-item:hover { border-color: var(--primary); }
-    .reward-item.owned { border-color: var(--accent); }
+.logo {
+  font-size: 1.35rem; font-weight: 900;
+  display: flex; align-items: center; gap: 10px;
+}
 
-    .toggle { width: 48px; height: 26px; background: var(--border); border-radius: 13px; position: relative; cursor: pointer; border: none; transition: var(--transition); }
-    .toggle.on { background: var(--primary); }
-    .toggle::after { content: ''; position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; background: white; transition: var(--transition); }
-    .toggle.on::after { right: auto; left: 3px; }
+.logo-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--grad-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 0 16px var(--primary-glow);
+}
 
-    /* زر الطوارئ - العداد */
-    .panic-timer {
-      font-size: 3rem; font-weight: 900; font-family: var(--font-mono);
-      background: var(--gradient3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-align: center; margin: 16px 0;
-    }
-    .panic-tips { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
-    .panic-tip { background: var(--card2); border-radius: 10px; padding: 12px 16px; font-size: 0.95rem; }
+.logo-text {
+  background: linear-gradient(135deg, #A78BFA, #67E8F9);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    /* تحسينات إضافية */
-    .quote-box {
-      background: linear-gradient(135deg, rgba(108,99,255,0.1), rgba(168,85,247,0.1));
-      border-left: 4px solid var(--primary);
-      padding: 16px;
-      border-radius: 8px;
-      margin: 16px 0;
-      font-style: italic;
-      color: var(--text2);
-    }
+.top-actions { display: flex; gap: 8px; }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 12px;
-      margin: 16px 0;
-    }
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(124,58,237,0.08);
+  color: var(--text); cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
 
-    @media (max-width: 768px) {
-      .hero-top { flex-direction: column; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .main { padding: 84px 16px 40px; }
-      .modal { width: 95%; }
-    }
+.icon-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 16px var(--primary-glow);
+  color: white;
+}
+
+.menu-btn {
+  width: 40px; height: 40px; border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(124,58,237,0.08);
+  color: var(--text); cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+
+.menu-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 16px var(--primary-glow);
+  color: white;
+}
+
+.menu-btn svg, .icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: var(--sidebar-width);
+  background: rgba(7,7,20,0.97);
+  backdrop-filter: blur(30px);
+  z-index: 2000;
+  border-left: 1px solid var(--border);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.6);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0; overflow-y: auto; overflow-x: hidden;
+}
+
+[data-theme="light"] .sidebar { background: rgba(237,237,255,0.97); }
+
+.sidebar.open { transform: translateX(0); }
+
+.sidebar-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px; margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: inherit; z-index: 1;
+}
+
+.sidebar-brand {
+  display: flex; align-items: center; gap: 10px;
+}
+
+.sidebar-brand-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--grad-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: 0 0 12px var(--primary-glow);
+}
+
+.sidebar-title {
+  font-size: 1.1rem; font-weight: 800;
+  background: linear-gradient(135deg, #A78BFA, #67E8F9);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.close-sidebar {
+  background: rgba(124,58,237,0.1); border: 1px solid var(--border);
+  color: var(--text2); width: 32px; height: 32px;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: var(--transition);
+}
+
+.close-sidebar:hover { background: var(--rose); color: white; border-color: var(--rose); }
+.close-sidebar svg { width: 16px; height: 16px; fill: currentColor; }
+
+.sidebar-nav { padding: 8px 12px 20px; display: flex; flex-direction: column; gap: 4px; }
+
+.nav-group-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--text3); padding: 12px 10px 6px;
+  text-transform: uppercase;
+}
+
+.sidebar-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent; color: var(--text2);
+  font-size: 0.92rem; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+  text-align: right; width: 100%;
+  position: relative; overflow: hidden;
+}
+
+.sidebar-link:hover {
+  background: rgba(124,58,237,0.1);
+  border-color: var(--border);
+  color: var(--primary-light);
+}
+
+.sidebar-link.active {
+  background: rgba(124,58,237,0.15);
+  border-color: rgba(124,58,237,0.3);
+  color: var(--primary-light);
+}
+
+.sidebar-link.active::before {
+  content: '';
+  position: absolute; right: 0; top: 20%; bottom: 20%;
+  width: 3px; border-radius: 3px;
+  background: var(--grad-primary);
+}
+
+.nav-icon {
+  width: 36px; height: 36px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.15);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.nav-icon svg { width: 18px; height: 18px; fill: currentColor; }
+
+.sidebar-link:hover .nav-icon,
+.sidebar-link.active .nav-icon {
+  background: var(--grad-primary);
+  color: white;
+  box-shadow: 0 0 12px var(--primary-glow);
+  border-color: transparent;
+}
+
+/* أيقونات ملونة لكل قسم */
+[data-section="timeline"] .nav-icon { background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.15); color: var(--cyan); }
+[data-section="calendar"] .nav-icon { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.15); color: var(--emerald); }
+[data-section="achievements"] .nav-icon { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.15); color: var(--amber); }
+[data-section="missions"] .nav-icon { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.15); color: var(--primary-light); }
+[data-section="journal"] .nav-icon { background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.15); color: var(--cyan); }
+[data-section="relapselog"] .nav-icon { background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.15); color: var(--rose); }
+[data-section="settings"] .nav-icon { background: rgba(156,163,212,0.1); border-color: rgba(156,163,212,0.15); color: var(--text2); }
+
+[data-section="timeline"]:hover .nav-icon,
+[data-section="timeline"].active .nav-icon { background: var(--grad-cyan); color: white; box-shadow: 0 0 12px var(--cyan-glow); border-color: transparent; }
+[data-section="calendar"]:hover .nav-icon,
+[data-section="calendar"].active .nav-icon { background: var(--grad-emerald); color: white; box-shadow: 0 0 12px var(--emerald-glow); border-color: transparent; }
+[data-section="achievements"]:hover .nav-icon,
+[data-section="achievements"].active .nav-icon { background: var(--grad-amber); color: white; box-shadow: 0 0 12px var(--amber-glow); border-color: transparent; }
+[data-section="relapselog"]:hover .nav-icon,
+[data-section="relapselog"].active .nav-icon { background: var(--grad-rose); color: white; box-shadow: 0 0 12px var(--rose-glow); border-color: transparent; }
+
+.sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  z-index: 1500; opacity: 0; visibility: hidden;
+  transition: 0.25s;
+}
+.sidebar-overlay.show { opacity: 1; visibility: visible; }
+
+/* ===== MAIN ===== */
+.main {
+  max-width: 1200px; margin: 0 auto;
+  padding: 82px 16px 48px;
+  position: relative; z-index: 1;
+}
+
+.section { display: none; animation: sectionIn 0.4s cubic-bezier(0.4,0,0.2,1); }
+.section.active { display: block; }
+
+@keyframes sectionIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  position: relative;
+}
+
+.card:hover {
+  border-color: rgba(124,58,237,0.25);
+  box-shadow: var(--shadow-glow), var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-size: 1rem; font-weight: 700; color: var(--text2);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.card-title-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+}
+
+.section-gap { margin-top: 18px; }
+.mb-18 { margin-bottom: 18px; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+
+@media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .grid-auto { grid-template-columns: repeat(2, 1fr); }
+  .main { padding: 78px 12px 40px; }
+}
+
+/* ===== HERO CARD ===== */
+.hero-card {
+  border-radius: var(--radius);
+  padding: 28px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, #3B0E8C 0%, #1E1058 35%, #0B1E4A 70%, #061428 100%);
+  border: 1px solid rgba(124,58,237,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.2);
+}
+
+/* نجيمات في الخلفية */
+.hero-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle 3px at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 3px),
+    radial-gradient(circle 2px at 70% 20%, rgba(255,255,255,0.4) 0%, transparent 2px),
+    radial-gradient(circle 2px at 85% 65%, rgba(255,255,255,0.5) 0%, transparent 2px),
+    radial-gradient(circle 1px at 40% 80%, rgba(255,255,255,0.3) 0%, transparent 1px),
+    radial-gradient(circle 3px at 10% 70%, rgba(167,139,250,0.6) 0%, transparent 3px),
+    radial-gradient(ellipse 300px 300px at 85% 15%, rgba(6,182,212,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 400px 200px at 5% 90%, rgba(124,58,237,0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-card::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 10%; right: 10%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(167,139,250,0.8), rgba(103,232,249,0.8), transparent);
+  border-radius: 2px;
+}
+
+.hero-top {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; gap: 20px;
+  position: relative; z-index: 1;
+}
+
+.hero-left {
+  display: flex; align-items: center;
+  gap: 24px; flex-wrap: wrap;
+}
+
+.hero-days-block { text-align: center; }
+
+.hero-days {
+  font-size: 5rem; font-weight: 900; line-height: 1;
+  font-family: var(--font-mono);
+  text-shadow: 0 0 30px rgba(167,139,250,0.8), 0 0 60px rgba(124,58,237,0.4);
+  background: linear-gradient(135deg, #E8D5FF, #A78BFA, #67E8F9);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-label {
+  font-size: 0.9rem; opacity: 0.75; margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+.hero-divider {
+  width: 1px; height: 60px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+
+.hero-timer { display: flex; gap: 12px; align-items: center; }
+
+.timer-sep {
+  font-size: 1.8rem; font-weight: 900;
+  opacity: 0.4; margin-top: -8px;
+  font-family: var(--font-mono);
+}
+
+.timer-box { text-align: center; }
+
+.timer-box .num {
+  font-size: 2rem; font-weight: 800;
+  font-family: var(--font-mono);
+  background: linear-gradient(135deg, #E8D5FF, #67E8F9);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.timer-box .unit { font-size: 0.72rem; opacity: 0.6; letter-spacing: 0.05em; }
+
+/* دائرة التقدم */
+.circle-progress-wrap {
+  position: relative; width: 110px; height: 110px; flex-shrink: 0;
+}
+
+.circle-progress-wrap svg { transform: rotate(-90deg); width: 110px; height: 110px; }
+.circle-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+.circle-track { fill: none; stroke: rgba(255,255,255,0.04); stroke-width: 8; }
+
+.circle-fill {
+  fill: none;
+  stroke: url(#circleGrad);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 308;
+  stroke-dashoffset: 308;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 6px rgba(167,139,250,0.9));
+}
+
+.circle-text {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-weight: 900;
+}
+
+.circle-pct {
+  font-size: 1.35rem;
+  font-family: var(--font-mono);
+  background: linear-gradient(135deg, #E8D5FF, #67E8F9);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.circle-sub { font-size: 0.6rem; opacity: 0.55; margin-top: 1px; }
+
+.progress-bar-wrap {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 100px; height: 8px; overflow: visible;
+  position: relative; z-index: 1;
+}
+
+.progress-bar-fill {
+  height: 100%; background: linear-gradient(90deg, #7C3AED, #A78BFA, #67E8F9);
+  border-radius: 100px;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px rgba(167,139,250,0.7), 0 0 24px rgba(167,139,250,0.3);
+  position: relative;
+}
+
+.progress-bar-fill::after {
+  content: '';
+  position: absolute; right: -1px; top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 14px; border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px rgba(167,139,250,0.9);
+}
+
+.progress-labels {
+  display: flex; justify-content: space-between;
+  margin-top: 10px; opacity: 0.6; font-size: 0.8rem;
+  position: relative; z-index: 1;
+}
+
+.hero-footer {
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 8px;
+  position: relative; z-index: 1;
+  font-size: 0.9rem;
+}
+
+.streak-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 0.85rem; font-weight: 700;
+  color: var(--amber-light);
+}
+
+/* ===== STAT CARDS ===== */
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 18px 14px;
+  text-align: center;
+  position: relative; overflow: hidden;
+  transition: var(--transition);
+  cursor: default;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.stat-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+}
+
+.stat-card:nth-child(1)::before { background: var(--grad-primary); }
+.stat-card:nth-child(2)::before { background: var(--grad-rose); }
+.stat-card:nth-child(3)::before { background: var(--grad-amber); }
+.stat-card:nth-child(4)::before { background: var(--grad-cyan); }
+
+.stat-card:nth-child(1):hover { border-color: rgba(124,58,237,0.3); box-shadow: 0 8px 24px var(--primary-glow); }
+.stat-card:nth-child(2):hover { border-color: rgba(244,63,94,0.3); box-shadow: 0 8px 24px var(--rose-glow); }
+.stat-card:nth-child(3):hover { border-color: rgba(245,158,11,0.3); box-shadow: 0 8px 24px var(--amber-glow); }
+.stat-card:nth-child(4):hover { border-color: rgba(6,182,212,0.3); box-shadow: 0 8px 24px var(--cyan-glow); }
+
+.stat-icon-wrap {
+  width: 44px; height: 44px; border-radius: 12px;
+  margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.stat-card:nth-child(1) .stat-icon-wrap { background: rgba(124,58,237,0.15); }
+.stat-card:nth-child(2) .stat-icon-wrap { background: rgba(244,63,94,0.15); }
+.stat-card:nth-child(3) .stat-icon-wrap { background: rgba(245,158,11,0.15); }
+.stat-card:nth-child(4) .stat-icon-wrap { background: rgba(6,182,212,0.15); }
+
+.stat-icon-wrap svg { width: 22px; height: 22px; }
+
+.stat-card:nth-child(1) .stat-icon-wrap svg { fill: var(--primary-light); }
+.stat-card:nth-child(2) .stat-icon-wrap svg { fill: var(--rose-light); }
+.stat-card:nth-child(3) .stat-icon-wrap svg { fill: var(--amber-light); }
+.stat-card:nth-child(4) .stat-icon-wrap svg { fill: var(--cyan-light); }
+
+.stat-num {
+  font-size: 2rem; font-weight: 900;
+  font-family: var(--font-mono); line-height: 1;
+}
+
+.stat-card:nth-child(1) .stat-num { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-card:nth-child(2) .stat-num { background: var(--grad-rose); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-card:nth-child(3) .stat-num { background: var(--grad-amber); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-card:nth-child(4) .stat-num { background: var(--grad-cyan); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+.stat-label {
+  font-size: 0.78rem; color: var(--text3);
+  margin-top: 5px; font-weight: 600;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 10px 22px; border-radius: 10px; border: none;
+  font-family: var(--font-main); font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; transition: var(--transition);
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+}
+
+.btn-primary {
+  background: var(--grad-primary); color: white;
+  box-shadow: 0 4px 16px var(--primary-glow);
+}
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 6px 20px var(--primary-glow); }
+
+.btn-cyan {
+  background: var(--grad-cyan); color: #041820;
+  box-shadow: 0 4px 16px var(--cyan-glow);
+}
+.btn-cyan:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.btn-danger {
+  background: var(--grad-rose); color: white;
+  box-shadow: 0 4px 16px var(--rose-glow);
+}
+.btn-danger:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.btn-warning {
+  background: var(--grad-amber); color: #1A0E00;
+  box-shadow: 0 4px 16px var(--amber-glow);
+}
+.btn-warning:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent; border: 1.5px solid var(--border);
+  color: var(--text2);
+}
+.btn-outline:hover { border-color: var(--primary-light); color: var(--primary-light); background: rgba(124,58,237,0.08); }
+
+.btn-full { width: 100%; }
+.btn-sm { padding: 7px 14px; font-size: 0.8rem; border-radius: 8px; }
+
+/* زر الطوارئ */
+.panic-btn {
+  background: linear-gradient(135deg, #C81E3E, #F43F5E);
+  color: white; border: none;
+  border-radius: var(--radius2);
+  padding: 14px 28px;
+  font-family: var(--font-main);
+  font-size: 1rem; font-weight: 900;
+  box-shadow: 0 6px 24px rgba(244,63,94,0.45);
+  animation: pulseRed 2.5s infinite;
+  cursor: pointer; width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+@keyframes pulseRed {
+  0%, 100% { box-shadow: 0 6px 24px rgba(244,63,94,0.4); }
+  50% { box-shadow: 0 6px 40px rgba(244,63,94,0.75), 0 0 20px rgba(244,63,94,0.3); }
+}
+
+/* ===== FORMS ===== */
+.form-control {
+  width: 100%; padding: 12px 16px;
+  background: var(--card2); border: 1.5px solid var(--border);
+  border-radius: 10px; color: var(--text); font-size: 0.92rem;
+  outline: none; font-family: var(--font-main); transition: var(--transition);
+}
+
+.form-control:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+}
+
+textarea.form-control { resize: vertical; min-height: 80px; }
+
+/* ===== XP BAR ===== */
+.xp-bar-bg {
+  background: var(--card2); border-radius: 100px; height: 8px;
+  overflow: hidden; position: relative;
+}
+
+#xpBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber), var(--amber-light));
+  border-radius: 100px;
+  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 0 8px var(--amber-glow);
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(12px);
+  z-index: 3000; align-items: center; justify-content: center;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px; max-width: 500px; width: 92%;
+  max-height: 90vh; overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 30px rgba(124,58,237,0.15);
+}
+
+.modal-title {
+  font-size: 1.15rem; font-weight: 800;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ===== SETUP SCREEN ===== */
+.setup-screen {
+  position: fixed; inset: 0; background: var(--bg); z-index: 4000;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.setup-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px; max-width: 440px; width: 92%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.15);
+  position: relative; overflow: hidden;
+}
+
+.setup-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, #7C3AED, #06B6D4, #10B981);
+}
+
+.setup-logo {
+  width: 72px; height: 72px; border-radius: 20px;
+  background: var(--grad-primary);
+  margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 0 30px var(--primary-glow);
+}
+
+/* ===== TOAST ===== */
+.toast-container {
+  position: fixed; top: 76px; left: 16px;
+  z-index: 9999; display: flex; flex-direction: column; gap: 8px;
+}
+
+.toast {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 16px;
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+  font-weight: 600; font-size: 0.88rem;
+  display: flex; align-items: center; gap: 10px;
+  animation: toastIn 0.35s cubic-bezier(0.4,0,0.2,1);
+  max-width: 280px;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.toast-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  background: rgba(124,58,237,0.15);
+  flex-shrink: 0;
+}
+
+/* ===== CALENDAR ===== */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px; margin-top: 14px;
+}
+
+.cal-header {
+  text-align: center; font-size: 0.75rem; font-weight: 700;
+  color: var(--text3); padding: 6px 2px;
+  letter-spacing: 0.03em;
+}
+
+.cal-day {
+  aspect-ratio: 1; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 600;
+  background: var(--card2); color: var(--text3);
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.cal-day:hover { border-color: var(--border); color: var(--text); }
+.cal-day.clean { background: rgba(16,185,129,0.15); color: var(--emerald-light); border-color: rgba(16,185,129,0.3); }
+.cal-day.relapse-day { background: rgba(244,63,94,0.15); color: var(--rose-light); border-color: rgba(244,63,94,0.3); }
+.cal-day.today-day { background: var(--grad-primary); color: white; border-color: transparent; box-shadow: 0 0 12px var(--primary-glow); }
+.cal-day.future-day { opacity: 0.2; }
+.cal-day.empty { background: transparent; border: none; }
+
+.cal-legend {
+  display: flex; gap: 16px; margin-bottom: 14px; flex-wrap: wrap;
+  font-size: 0.82rem; color: var(--text2);
+}
+
+.cal-legend-item {
+  display: flex; align-items: center; gap: 6px;
+}
+
+.cal-legend-dot {
+  width: 10px; height: 10px; border-radius: 3px;
+}
+
+/* ===== ACHIEVEMENTS ===== */
+.achievement-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 18px; text-align: center;
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+
+.achievement-card.unlocked {
+  border-color: rgba(16,185,129,0.4);
+  background: rgba(16,185,129,0.05);
+}
+
+.achievement-card.unlocked::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--grad-emerald);
+}
+
+.achievement-card.unlocked:hover {
+  box-shadow: 0 8px 24px var(--emerald-glow);
+  transform: translateY(-3px);
+}
+
+.ach-icon {
+  width: 54px; height: 54px; border-radius: 14px;
+  margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  background: var(--card2);
+  border: 1px solid var(--border);
+}
+
+.achievement-card.unlocked .ach-icon {
+  background: rgba(16,185,129,0.15);
+  border-color: rgba(16,185,129,0.3);
+  box-shadow: 0 0 16px rgba(16,185,129,0.2);
+}
+
+.ach-name { font-weight: 800; font-size: 0.9rem; }
+.ach-desc { font-size: 0.75rem; color: var(--text3); margin-top: 4px; }
+
+.ach-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--emerald); margin-top: 8px;
+}
+
+/* ===== MISSIONS ===== */
+.mission-item {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 13px 16px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 8px; cursor: pointer;
+  transition: var(--transition); user-select: none;
+}
+
+.mission-item:hover { border-color: rgba(124,58,237,0.3); }
+
+.mission-item.done {
+  background: rgba(16,185,129,0.06);
+  border-color: rgba(16,185,129,0.3);
+}
+
+.mission-icon {
+  width: 36px; height: 36px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  background: rgba(124,58,237,0.1);
+  border: 1px solid var(--border);
+  flex-shrink: 0; transition: var(--transition);
+}
+
+.mission-item.done .mission-icon {
+  background: rgba(16,185,129,0.15);
+  border-color: rgba(16,185,129,0.3);
+}
+
+.mission-name { flex: 1; font-weight: 600; font-size: 0.92rem; }
+.mission-item.done .mission-name { text-decoration: line-through; color: var(--text3); }
+
+.mission-xp {
+  font-size: 0.8rem; font-weight: 800;
+  color: var(--amber); font-family: var(--font-mono);
+}
+
+.mission-check {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: var(--transition);
+}
+
+.mission-item.done .mission-check {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  box-shadow: 0 0 8px var(--emerald-glow);
+}
+
+/* ===== REWARD STORE ===== */
+.reward-item {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: var(--radius2); padding: 16px;
+  text-align: center; cursor: pointer;
+  transition: var(--transition); position: relative;
+}
+
+.reward-item:hover { border-color: rgba(124,58,237,0.3); transform: translateY(-2px); }
+
+.reward-item.owned {
+  border-color: rgba(16,185,129,0.4);
+  background: rgba(16,185,129,0.05);
+}
+
+.reward-item.owned::after {
+  content: '✓';
+  position: absolute; top: 8px; left: 8px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--emerald); color: white;
+  font-size: 0.7rem; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ===== STAGE CARD ===== */
+.stage-badge {
+  background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(124,58,237,0.3);
+  color: var(--primary-light);
+  padding: 3px 12px; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 700;
+  display: inline-block;
+}
+
+.benefit-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.82rem; color: var(--text2);
+  background: rgba(16,185,129,0.07);
+  border: 1px solid rgba(16,185,129,0.15);
+  padding: 5px 10px; border-radius: 8px;
+}
+
+.flatline-alert {
+  color: var(--rose-light);
+  background: rgba(244,63,94,0.08);
+  border: 1px solid rgba(244,63,94,0.2);
+  padding: 10px 14px; border-radius: 10px;
+  margin-bottom: 12px; font-size: 0.88rem;
+}
+
+.tip-tag {
+  background: rgba(124,58,237,0.08);
+  border: 1px solid var(--border);
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 0.82rem; color: var(--text2);
+}
+
+/* ===== RELAPSE LOG ===== */
+.relapse-entry {
+  padding: 14px 16px;
+  background: var(--card2); border-radius: var(--radius2);
+  margin-bottom: 10px;
+  border: 1px solid rgba(244,63,94,0.15);
+  border-right: 3px solid var(--rose);
+}
+
+/* ===== JOURNAL ===== */
+.journal-entry {
+  padding: 14px; background: var(--card2);
+  border-radius: var(--radius2); margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+
+/* ===== TOGGLE ===== */
+.toggle {
+  width: 50px; height: 28px;
+  background: var(--card3);
+  border: 1.5px solid var(--border);
+  border-radius: 14px; position: relative;
+  cursor: pointer; transition: var(--transition); flex-shrink: 0;
+}
+
+.toggle.on { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+
+.toggle::after {
+  content: ''; position: absolute;
+  top: 3px; right: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text3); transition: var(--transition);
+}
+
+.toggle.on::after { right: auto; left: 3px; background: white; }
+
+/* ===== PANIC MODAL ===== */
+.panic-timer {
+  font-size: 3.5rem; font-weight: 900;
+  font-family: var(--font-mono);
+  background: var(--grad-rose);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center; margin: 16px 0 8px;
+}
+
+.breathing-ring {
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 3px solid rgba(244,63,94,0.3);
+  margin: 0 auto 8px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+
+.breathing-ring::before {
+  content: '';
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid rgba(244,63,94,0.15);
+  animation: breathePulse 4s infinite ease-in-out;
+}
+
+@keyframes breathePulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.panic-tip {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 11px 14px;
+  font-size: 0.9rem; display: flex; align-items: flex-start; gap: 8px;
+}
+
+/* ===== SETTINGS ===== */
+.setting-row {
+  padding: 16px 0; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px;
+}
+
+.setting-row:last-child { border-bottom: none; }
+
+.setting-info { flex: 1; }
+.setting-title { font-weight: 700; font-size: 0.95rem; }
+.setting-desc { font-size: 0.82rem; color: var(--text3); margin-top: 3px; }
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.5rem; font-weight: 900;
+  background: linear-gradient(135deg, #E8D5FF, #A78BFA);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+
+.section-sub {
+  font-size: 0.85rem; color: var(--text3);
+}
+
+/* ===== TIMELINE ===== */
+.timeline-item {
+  margin-bottom: 14px; padding: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius2);
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+
+.timeline-item.active-stage {
+  border-color: rgba(124,58,237,0.4);
+  background: rgba(124,58,237,0.05);
+}
+
+.timeline-item.active-stage::before {
+  content: '';
+  position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+  background: var(--grad-primary);
+}
+
+.timeline-item.done-stage {
+  border-color: rgba(16,185,129,0.25);
+  background: rgba(16,185,129,0.03);
+}
+
+.timeline-top {
+  display: flex; align-items: center;
+  gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+/* trigger chips */
+.trigger-chip {
+  padding: 6px 14px; border-radius: 20px;
+  border: 1.5px solid var(--border);
+  cursor: pointer; transition: var(--transition);
+  font-size: 0.85rem; font-weight: 600;
+  color: var(--text2); background: var(--card2);
+}
+
+.trigger-chip:hover { border-color: var(--primary-light); color: var(--primary-light); }
+.trigger-chip.selected { background: var(--primary); border-color: var(--primary); color: white; }
+
+/* مؤشر المزاج */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%; height: 6px; border-radius: 3px;
+  background: var(--card2); margin-top: 8px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--grad-primary);
+  box-shadow: 0 0 8px var(--primary-glow);
+  cursor: pointer;
+}
+
+/* مؤشر المزاج */
+.mood-display {
+  font-family: var(--font-mono); font-weight: 800;
+  color: var(--primary-light); font-size: 1.1rem;
+}
+
+/* XP/Level row */
+.xp-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+
+.level-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.25);
+  padding: 3px 10px; border-radius: 100px;
+  font-size: 0.82rem; font-weight: 700; color: var(--amber-light);
+}
+
+.xp-badge {
+  font-family: var(--font-mono); font-weight: 800;
+  color: var(--amber-light); font-size: 0.9rem;
+}
+
+/* Gradient border card */
+.gcard {
+  position: relative;
+}
+
+.gcard::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: var(--radius);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.5), rgba(6,182,212,0.3), rgba(124,58,237,0.2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* SVG defs hidden */
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+```
+
   </style>
 </head>
 <body data-theme="dark">
 
-<!-- الشريط الجانبي -->
+<!-- SVG Defs for circle gradient -->
+
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="50%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#67E8F9"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- نجوم -->
+
+<div class="stars-layer" id="starsLayer"></div>
+
+<!-- Sidebar Overlay -->
+
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="App.closeSidebar()"></div>
+
+<!-- Sidebar -->
+
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
-    <span class="sidebar-title">القائمة</span>
-    <button class="close-sidebar" onclick="App.closeSidebar()">×</button>
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">⚡</div>
+      <span class="sidebar-title">تحدي 90 يوم</span>
+    </div>
+    <button class="close-sidebar" onclick="App.closeSidebar()">
+      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
   </div>
+
   <div class="sidebar-nav">
-    <button class="sidebar-link active" data-section="dashboard" onclick="App.nav('dashboard')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span> لوحة التحكم</button>
-    <button class="sidebar-link" data-section="timeline" onclick="App.nav('timeline')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span> المراحل</button>
-    <button class="sidebar-link" data-section="calendar" onclick="App.nav('calendar')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></span> التقويم</button>
-    <button class="sidebar-link" data-section="achievements" onclick="App.nav('achievements')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg></span> الإنجازات</button>
-    <button class="sidebar-link" data-section="missions" onclick="App.nav('missions')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2z"/></svg></span> المهام</button>
-    <button class="sidebar-link" data-section="journal" onclick="App.nav('journal')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg></span> اليوميات</button>
-    <button class="sidebar-link" data-section="relapselog" onclick="App.nav('relapselog')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></span> سجل الانتكاسات</button>
-    <button class="sidebar-link" data-section="settings" onclick="App.nav('settings')"><span class="sidebar-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.33-.02-.64-.06-.94l2.02-1.58c.18-.14.23-.38.12-.56l-1.89-3.28c-.12-.19-.36-.26-.56-.18l-2.38.96c-.5-.38-1.06-.68-1.66-.88L14.45 3.5c-.04-.2-.2-.34-.4-.34h-3.78c-.2 0-.36.14-.4.34l-.3 2.52c-.6.2-1.16.5-1.66.88l-2.38-.96c-.2-.08-.44-.01-.56.18l-1.89 3.28c-.12.19-.07.42.12.56l2.02 1.58c-.04.3-.06.61-.06.94 0 .33.02.64.06.94l-2.02 1.58c-.18.14-.23.38-.12.56l1.89 3.28c.12.19.36.26.56.18l2.38-.96c.5.38 1.06.68 1.66.88l.3 2.52c.04.2.2.34.4.34h3.78c.2 0 .36-.14.4-.34l.3-2.52c.6-.2 1.16-.5 1.66-.88l2.38.96c.2.08.44.01.56-.18l1.89-3.28c.12-.19.07-.42-.12-.56l-2.02-1.58zM12 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg></span> الإعدادات</button>
+    <div class="nav-group-label">الرئيسية</div>
+
+```
+<button class="sidebar-link active" data-section="dashboard" onclick="App.nav('dashboard')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+  </span>
+  لوحة التحكم
+</button>
+
+<button class="sidebar-link" data-section="timeline" onclick="App.nav('timeline')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+  </span>
+  مراحل التعافي
+</button>
+
+<button class="sidebar-link" data-section="calendar" onclick="App.nav('calendar')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+  </span>
+  التقويم
+</button>
+
+<div class="nav-group-label">التقدم</div>
+
+<button class="sidebar-link" data-section="achievements" onclick="App.nav('achievements')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  </span>
+  الإنجازات
+</button>
+
+<button class="sidebar-link" data-section="missions" onclick="App.nav('missions')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+  </span>
+  المهام اليومية
+</button>
+
+<div class="nav-group-label">السجلات</div>
+
+<button class="sidebar-link" data-section="journal" onclick="App.nav('journal')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+  </span>
+  اليوميات
+</button>
+
+<button class="sidebar-link" data-section="relapselog" onclick="App.nav('relapselog')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+  </span>
+  سجل الانتكاسات
+</button>
+
+<div class="nav-group-label">أخرى</div>
+
+<button class="sidebar-link" data-section="settings" onclick="App.nav('settings')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.33-.02-.64-.06-.94l2.02-1.58c.18-.14.23-.38.12-.56l-1.89-3.28c-.12-.19-.36-.26-.56-.18l-2.38.96c-.5-.38-1.06-.68-1.66-.88L14.45 3.5c-.04-.2-.2-.34-.4-.34h-3.78c-.2 0-.36.14-.4.34l-.3 2.52c-.6.2-1.16.5-1.66.88l-2.38-.96c-.2-.08-.44-.01-.56.18l-1.89 3.28c-.12.19-.07.42.12.56l2.02 1.58c-.04.3-.06.61-.06.94 0 .33.02.64.06.94l-2.02 1.58c-.18.14-.23.38-.12.56l1.89 3.28c.12.19.36.26.56.18l2.38-.96c.5.38 1.06.68 1.66.88l.3 2.52c.04.2.2.34.4.34h3.78c.2 0 .36-.14.4-.34l.3-2.52c.6-.2 1.16-.5 1.66-.88l2.38.96c.2.08.44.01.56-.18l1.89-3.28c.12-.19.07-.42-.12-.56l-2.02-1.58zM12 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+  </span>
+  الإعدادات
+</button>
+```
+
   </div>
 </div>
 
-<!-- الشريط العلوي -->
+<!-- Top Bar -->
+
 <div class="top-bar">
-  <button class="menu-btn" onclick="App.openSidebar()">☰</button>
-  <div class="logo">⚡ تحدي 90</div>
-  <div style="display:flex;gap:8px">
-    <button class="icon-btn" id="themeToggleBtn" onclick="App.toggleTheme()">🌙</button>
+  <button class="menu-btn" onclick="App.openSidebar()">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+  </button>
+
+  <div class="logo">
+    <div class="logo-icon">⚡</div>
+    <span class="logo-text">تحدي 90</span>
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" id="themeToggleBtn" onclick="App.toggleTheme()" title="تغيير المظهر">
+      <svg viewBox="0 0 24 24" fill="currentColor" id="themeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+    </button>
   </div>
 </div>
 
-<!-- شاشة الإعداد -->
+<!-- Setup Screen -->
+
 <div class="setup-screen" id="setupScreen" style="display:none">
   <div class="setup-card">
-    <div style="font-size:3rem;margin-bottom:16px">⚡</div>
-    <h2 style="margin-bottom:8px;font-size:1.8rem">ابدأ رحلتك</h2>
-    <p style="color:var(--text2);margin-bottom:24px">أدخل تاريخ ووقت بداية التحدي (آخر يوم نظيف)</p>
+    <div class="setup-logo">⚡</div>
+    <h2 style="margin-bottom:8px;font-size:1.8rem;font-weight:900">ابدأ رحلتك</h2>
+    <p style="color:var(--text2);margin-bottom:24px;font-size:0.95rem">أدخل تاريخ ووقت آخر يوم نظيف لك</p>
     <input type="datetime-local" class="form-control" id="startDateInput" style="margin-bottom:20px">
-    <div id="setupError" style="color:var(--secondary);margin-bottom:12px;display:none;padding:10px;background:rgba(255,101,132,0.1);border-radius:8px"></div>
-    <button class="btn btn-primary btn-full" id="startBtn" style="padding:14px">🚀 ابدأ التحدي</button>
+    <div id="setupError" style="color:var(--rose-light);margin-bottom:12px;display:none;padding:10px 14px;background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:10px;font-size:0.88rem"></div>
+    <button class="btn btn-primary btn-full" id="startBtn" style="padding:14px;font-size:1rem">
+      <svg viewBox="0 0 24 24" fill="white" style="width:18px;height:18px"><path d="M8 5v14l11-7z"/></svg>
+      ابدأ التحدي
+    </button>
   </div>
 </div>
 
-<!-- المحتوى الرئيسي -->
+<!-- Main Content -->
+
 <div class="main">
-  <!-- Dashboard -->
+
+  <!-- ===== DASHBOARD ===== -->
+
   <section class="section active" id="sec-dashboard">
-    <div class="hero-card">
-      <div class="hero-top">
-        <div class="hero-left">
-          <div class="hero-days-block">
-            <div class="hero-days" id="heroDays">0</div>
-            <div class="hero-label">يوم نظيف</div>
-          </div>
-          <div class="hero-timer">
-            <div class="timer-box"><div class="num" id="t-hours">00</div><div class="unit">ساعة</div></div>
-            <div class="timer-box"><div class="num" id="t-minutes">00</div><div class="unit">دقيقة</div></div>
-          </div>
-        </div>
-        <div class="circle-progress-wrap">
-          <svg viewBox="0 0 110 110"><circle class="circle-bg" cx="55" cy="55" r="49"/><circle class="circle-fill" id="circleFill" cx="55" cy="55" r="49"/></svg>
-          <div class="circle-text"><span id="circlePercent">0%</span><span>تقدم</span></div>
-        </div>
-      </div>
-      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div></div>
-      <div style="display:flex;justify-content:space-between;margin-top:8px;opacity:0.9"><span>0</span><span id="progressDaysRemaining">90 يوم متبقي</span><span>90</span></div>
-      <div style="margin-top:16px;display:flex;align-items:center;gap:8px"><span>🔥 السلسلة الحالية: <strong id="streakNum">0</strong> يوم</span></div>
-    </div>
 
-    <div class="grid-4 section-gap">
-      <div class="stat-card"><div class="stat-icon">📊</div><div class="stat-num" id="s-cleanDays">0</div><div class="stat-label">أيام نظيفة</div></div>
-      <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-num" id="s-relapses">0</div><div class="stat-label">عدد الانتكاسات</div></div>
-      <div class="stat-card"><div class="stat-icon">🏅</div><div class="stat-num" id="s-bestStreak">0</div><div class="stat-label">أفضل سلسلة</div></div>
-      <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-num" id="s-daysLeft">90</div><div class="stat-label">أيام متبقية</div></div>
-    </div>
-
-    <div class="grid-2 section-gap">
-      <div class="card">
-        <div class="card-title">⭐ المستوى والنقاط</div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span>⭐ المستوى <span id="levelText">1</span></span><span><span id="xpText">0</span> XP</span></div>
-        <div style="background:var(--card2);border-radius:100px;height:8px"><div id="xpBarFill" style="width:0%;height:100%;background:var(--gradient4);border-radius:100px;transition:width 0.8s"></div></div>
-        <div style="text-align:center;margin-top:8px;font-size:0.8rem;color:var(--text3)" id="xpToNext">0 XP للمستوى التالي</div>
+```
+<!-- Hero Card -->
+<div class="hero-card">
+  <div class="hero-top">
+    <div class="hero-left">
+      <div class="hero-days-block">
+        <div class="hero-days" id="heroDays">0</div>
+        <div class="hero-label">يوم نظيف</div>
       </div>
-      <div class="card">
-        <div class="card-title">⚡ إجراءات سريعة</div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <button class="btn btn-danger btn-full" id="relapseBtn">❗ تسجيل انتكاسة</button>
-          <button class="panic-btn btn-full" id="panicBtnEl">🚨 زر الطوارئ</button>
+      <div class="hero-divider"></div>
+      <div class="hero-timer">
+        <div class="timer-box">
+          <span class="num" id="t-hours">00</span>
+          <span class="unit">ساعة</span>
+        </div>
+        <div class="timer-sep">:</div>
+        <div class="timer-box">
+          <span class="num" id="t-minutes">00</span>
+          <span class="unit">دقيقة</span>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-title">📍 مرحلتك الحالية</div>
-      <div id="currentStageContent"></div>
+    <div class="circle-progress-wrap">
+      <svg viewBox="0 0 110 110">
+        <defs>
+          <linearGradient id="cgLocal" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7C3AED"/>
+            <stop offset="100%" stop-color="#67E8F9"/>
+          </linearGradient>
+        </defs>
+        <circle class="circle-bg" cx="55" cy="55" r="49"/>
+        <circle class="circle-fill" id="circleFill" cx="55" cy="55" r="49" stroke="url(#cgLocal)"/>
+      </svg>
+      <div class="circle-text">
+        <span class="circle-pct" id="circlePercent">0%</span>
+        <span class="circle-sub">تقدم</span>
+      </div>
     </div>
+  </div>
 
-    <div class="card" style="margin-top: 20px;">
-      <div class="card-title">💡 اقتباس اليوم</div>
-      <div id="dailyQuote" class="quote-box">جاري تحميل الاقتباس...</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div>
+  </div>
+  <div class="progress-labels">
+    <span>يوم 0</span>
+    <span id="progressDaysRemaining">90 يوم متبقي</span>
+    <span>يوم 90</span>
+  </div>
+
+  <div class="hero-footer">
+    <div class="streak-badge">
+      🔥 <span id="streakNum">0</span> يوم متواصل
     </div>
+  </div>
+</div>
+
+<!-- Stat Cards -->
+<div class="grid-4 section-gap">
+  <div class="stat-card">
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+    </div>
+    <div class="stat-num" id="s-cleanDays">0</div>
+    <div class="stat-label">أيام نظيفة</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    </div>
+    <div class="stat-num" id="s-relapses">0</div>
+    <div class="stat-label">عدد الانتكاسات</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </div>
+    <div class="stat-num" id="s-bestStreak">0</div>
+    <div class="stat-label">أفضل سلسلة</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+    </div>
+    <div class="stat-num" id="s-daysLeft">90</div>
+    <div class="stat-label">أيام متبقية</div>
+  </div>
+</div>
+
+<!-- Level + Quick Actions -->
+<div class="grid-2 section-gap">
+  <div class="card">
+    <div class="card-title">
+      <div class="card-title-icon" style="background:rgba(245,158,11,0.15)">⭐</div>
+      المستوى والنقاط
+    </div>
+    <div class="xp-row">
+      <div class="level-badge">⭐ المستوى <span id="levelText">1</span></div>
+      <div class="xp-badge"><span id="xpText">0</span> XP</div>
+    </div>
+    <div class="xp-bar-bg">
+      <div id="xpBarFill" style="width:0%"></div>
+    </div>
+    <div style="text-align:center;margin-top:8px;font-size:0.78rem;color:var(--text3)" id="xpToNext">0 XP للمستوى التالي</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      <div class="card-title-icon" style="background:rgba(244,63,94,0.12)">⚡</div>
+      إجراءات سريعة
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-danger btn-full" id="relapseBtn">
+        <svg viewBox="0 0 24 24" fill="white" style="width:16px;height:16px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        تسجيل انتكاسة
+      </button>
+      <button class="panic-btn" id="panicBtnEl">
+        🚨 زر الطوارئ
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Current Stage -->
+<div class="card section-gap">
+  <div class="card-title">
+    <div class="card-title-icon" style="background:rgba(124,58,237,0.12)">📍</div>
+    مرحلتك الحالية
+  </div>
+  <div id="currentStageContent"></div>
+</div>
+```
+
   </section>
 
-  <!-- المراحل -->
+  <!-- ===== TIMELINE ===== -->
+
   <section class="section" id="sec-timeline">
-    <div class="card"><div class="card-title">🗓️ مراحل التعافي</div><div id="timelineContent"></div></div>
+    <div class="section-header">
+      <div class="section-title">مراحل التعافي</div>
+      <div class="section-sub">تتبع رحلتك عبر مراحل التعافي الـ 90 يوم</div>
+    </div>
+    <div class="card">
+      <div id="timelineContent"></div>
+    </div>
   </section>
 
-  <!-- التقويم -->
+  <!-- ===== CALENDAR ===== -->
+
   <section class="section" id="sec-calendar">
+    <div class="section-header">
+      <div class="section-title">التقويم</div>
+      <div class="section-sub">رحلتك مرئية يوماً بيوم</div>
+    </div>
     <div class="card">
-      <div class="card-title">📅 التقويم</div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <button class="icon-btn" id="calPrevBtn">‹</button>
-        <div id="calMonthTitle" style="font-weight:700;font-size:1.1rem"></div>
-        <button class="icon-btn" id="calNextBtn">›</button>
+        <button class="icon-btn" id="calPrevBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+        <div id="calMonthTitle" style="font-weight:800;font-size:1.1rem"></div>
+        <button class="icon-btn" id="calNextBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M14 6l1.41 1.41L10.83 12l4.58 4.59L14 18l-6-6z"/></svg>
+        </button>
       </div>
-      <div style="display:flex;gap:16px;margin-bottom:12px;font-size:0.85rem">
-        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(67,233,123,0.5);margin-left:4px"></span>يوم نظيف</span>
-        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,101,132,0.5);margin-left:4px"></span>انتكاسة</span>
-        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--primary);margin-left:4px"></span>اليوم</span>
+      <div class="cal-legend">
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:rgba(16,185,129,0.5)"></div>
+          يوم نظيف
+        </div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:rgba(244,63,94,0.5)"></div>
+          انتكاسة
+        </div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:var(--primary)"></div>
+          اليوم
+        </div>
       </div>
       <div class="calendar-grid" id="calendarGrid"></div>
     </div>
   </section>
 
-  <!-- الإنجازات -->
-  <section class="section" id="sec-achievements">
-    <div class="card"><div class="card-title">🏆 الإنجازات</div><div class="grid-auto" id="achievementsGrid"></div></div>
-  </section>
+  <!-- ===== ACHIEVEMENTS ===== -->
 
-  <!-- المهام -->
-  <section class="section" id="sec-missions">
-    <div class="grid-2">
-      <div class="card"><div class="card-title">📋 مهام اليوم</div><div id="missionsList"></div><div id="missionsXpTotal" style="margin-top:12px;color:var(--text3);font-size:0.9rem"></div></div>
-      <div class="card"><div class="card-title">🛒 متجر المكافآت</div><div class="grid-2" id="rewardStore"></div></div>
+  <section class="section" id="sec-achievements">
+    <div class="section-header">
+      <div class="section-title">الإنجازات</div>
+      <div class="section-sub">افتح الشارات بتحقيق الأهداف</div>
+    </div>
+    <div class="card">
+      <div class="grid-auto" id="achievementsGrid"></div>
     </div>
   </section>
 
-  <!-- اليوميات -->
-  <section class="section" id="sec-journal">
+  <!-- ===== MISSIONS ===== -->
+
+  <section class="section" id="sec-missions">
+    <div class="section-header">
+      <div class="section-title">المهام اليومية</div>
+      <div class="section-sub">اربح XP بإتمام المهام كل يوم</div>
+    </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-title">✍️ إدخال جديد</div>
+        <div class="card-title">
+          <div class="card-title-icon" style="background:rgba(124,58,237,0.12)">📋</div>
+          مهام اليوم
+        </div>
+        <div id="missionsList"></div>
+        <div id="missionsXpTotal" style="margin-top:10px;color:var(--text3);font-size:0.82rem;text-align:center"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-icon" style="background:rgba(245,158,11,0.12)">🛒</div>
+          متجر المكافآت
+        </div>
+        <div class="grid-2" id="rewardStore"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JOURNAL ===== -->
+
+  <section class="section" id="sec-journal">
+    <div class="section-header">
+      <div class="section-title">اليوميات</div>
+      <div class="section-sub">سجّل أفكارك ومشاعرك كل يوم</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-icon" style="background:rgba(6,182,212,0.12)">✍️</div>
+          إدخال جديد
+        </div>
         <textarea class="form-control" id="journalTextInput" rows="4" placeholder="اكتب أفكارك وشعورك اليوم..."></textarea>
-        <div style="margin:12px 0">
-          <label style="font-size:0.9rem;color:var(--text2)">المزاج: <span id="moodValDisp">5</span>/10</label>
-          <input type="range" min="1" max="10" value="5" id="moodSlider" style="width:100%;margin-top:6px" oninput="document.getElementById('moodValDisp').textContent=this.value">
+        <div style="margin:14px 0">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <label style="font-size:0.88rem;color:var(--text2);font-weight:600">المزاج</label>
+            <span class="mood-display" id="moodValDisp">5</span>
+          </div>
+          <input type="range" min="1" max="10" value="5" id="moodSlider" oninput="document.getElementById('moodValDisp').textContent=this.value">
         </div>
-        <button class="btn btn-primary btn-full" id="saveJournalBtn">💾 حفظ</button>
+        <button class="btn btn-primary btn-full" id="saveJournalBtn">
+          <svg viewBox="0 0 24 24" fill="white" style="width:16px;height:16px"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+          حفظ اليومية
+        </button>
       </div>
-      <div class="card"><div class="card-title">📚 سجل اليوميات</div><div id="journalList"></div></div>
+
+```
+  <div class="card">
+    <div class="card-title">
+      <div class="card-title-icon" style="background:rgba(6,182,212,0.12)">📚</div>
+      سجل اليوميات
     </div>
+    <div id="journalList"></div>
+  </div>
+</div>
+```
+
   </section>
 
-  <!-- سجل الانتكاسات -->
+  <!-- ===== RELAPSE LOG ===== -->
+
   <section class="section" id="sec-relapselog">
-    <div class="card"><div class="card-title">📋 سجل الانتكاسات</div><div id="relapseList"></div></div>
+    <div class="section-header">
+      <div class="section-title">سجل الانتكاسات</div>
+      <div class="section-sub">تعلّم من كل تجربة وقف</div>
+    </div>
+    <div class="card">
+      <div id="relapseList"></div>
+    </div>
   </section>
 
-  <!-- الإعدادات -->
+  <!-- ===== SETTINGS ===== -->
+
   <section class="section" id="sec-settings">
+    <div class="section-header">
+      <div class="section-title">الإعدادات</div>
+      <div class="section-sub">تخصيص تجربتك</div>
+    </div>
     <div class="card">
-      <div class="card-title">⚙️ الإعدادات</div>
-      <div style="display:flex;flex-direction:column;gap:0">
-        <div style="padding:16px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-          <div><div style="font-weight:600">الوضع الليلي</div><div style="font-size:0.85rem;color:var(--text3)">تبديل بين الوضع الليلي والنهاري</div></div>
-          <button class="toggle on" id="themeToggle"></button>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-title">الوضع الليلي</div>
+          <div class="setting-desc">تبديل بين الوضع الليلي والنهاري</div>
         </div>
-        <div style="padding:16px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-          <div><div style="font-weight:600">تعديل تاريخ البداية</div><div style="font-size:0.85rem;color:var(--text3)">تغيير تاريخ بدء التحدي</div></div>
-          <button class="btn btn-outline btn-sm" id="changeStartBtn">تعديل</button>
+        <button class="toggle on" id="themeToggle"></button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-title">تعديل تاريخ البداية</div>
+          <div class="setting-desc">تغيير تاريخ بدء التحدي</div>
         </div>
-        <div style="padding:16px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-          <div><div style="font-weight:600">تصدير البيانات</div><div style="font-size:0.85rem;color:var(--text3)">حفظ نسخة احتياطية من بيانات التطبيق</div></div>
-          <button class="btn btn-outline btn-sm" id="exportBtn">تصدير</button>
+        <button class="btn btn-outline btn-sm" id="changeStartBtn">تعديل</button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-title" style="color:var(--rose-light)">مسح البيانات</div>
+          <div class="setting-desc">حذف جميع البيانات نهائياً ولا يمكن التراجع</div>
         </div>
-        <div style="padding:16px 0;display:flex;justify-content:space-between;align-items:center">
-          <div><div style="font-weight:600;color:var(--secondary)">مسح البيانات</div><div style="font-size:0.85rem;color:var(--text3)">حذف جميع البيانات نهائياً</div></div>
-          <button class="btn btn-danger btn-sm" id="resetBtn">إعادة الضبط</button>
-        </div>
+        <button class="btn btn-danger btn-sm" id="resetBtn">إعادة الضبط</button>
       </div>
     </div>
   </section>
+
 </div>
 
-<!-- نوافذ منبثقة -->
+<!-- ===== MODALS ===== -->
 
-<!-- زر الطوارئ -->
+<!-- Panic Modal -->
+
 <div class="modal-overlay" id="panicModal">
   <div class="modal">
-    <h3>🚨 زر الطوارئ - تنفس معي</h3>
-    <p style="color:var(--text2);margin-bottom:8px">هذه اللحظة ستمر. اتبع تمرين التنفس:</p>
-    <div class="panic-timer" id="panicTimerDisplay">60</div>
-    <div id="breathingInstruction" style="text-align:center;font-size:1.1rem;font-weight:600;margin-bottom:16px;color:var(--primary)">استنشق...</div>
-    <div class="panic-tips">
-      <div class="panic-tip">🧊 ضع يديك تحت الماء البارد لـ 30 ثانية</div>
-      <div class="panic-tip">🚶 اخرج للمشي أو الركض الآن</div>
-      <div class="panic-tip">📞 تواصل مع شخص تثق به</div>
-      <div class="panic-tip">💪 تذكر: السلسلة الحالية <strong id="panicStreakDisplay">0</strong> يوم لا تريد كسرها!</div>
-    </div>
-    <button class="btn btn-primary btn-full" onclick="App.closeModal('panicModal')" style="margin-top:8px">✅ تجاوزتها!</button>
+    <div class="modal-title">🚨 زر الطوارئ</div>
+    <p style="color:var(--text2);margin-bottom:16px;font-size:0.9rem">هذه اللحظة ستمر. تنفس معي:</p>
+
+```
+<div class="breathing-ring">
+  <div class="panic-timer" id="panicTimerDisplay" style="margin:0;font-size:2rem">60</div>
+</div>
+
+<div id="breathingInstruction" style="text-align:center;font-size:1rem;font-weight:700;margin:10px 0 16px;color:var(--primary-light)">استنشق...</div>
+
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+  <div class="panic-tip">🧊 ضع يديك تحت الماء البارد لـ 30 ثانية</div>
+  <div class="panic-tip">🚶 اخرج للمشي أو الركض الآن</div>
+  <div class="panic-tip">📞 تواصل مع شخص تثق به</div>
+  <div class="panic-tip">💪 السلسلة الحالية: <strong style="color:var(--amber-light)"><span id="panicStreakDisplay">0</span> يوم</strong> — لا تكسرها!</div>
+</div>
+
+<button class="btn btn-primary btn-full" onclick="App.closeModal('panicModal')">
+  ✅ تجاوزتها! أنا أقوى
+</button>
+```
+
   </div>
 </div>
 
-<!-- تسجيل انتكاسة -->
+<!-- Relapse Modal -->
+
 <div class="modal-overlay" id="relapseModal">
   <div class="modal">
-    <h3>⚠️ تسجيل انتكاسة</h3>
-    <p style="color:var(--text2);margin-bottom:12px">لا بأس، هذا جزء من الرحلة. حدد المحفز لتتعلم منه:</p>
-    <div id="triggerList" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px"></div>
-    <textarea class="form-control" id="relapseReasonInput" placeholder="أي تفاصيل إضافية (اختياري)..." rows="3" style="margin-bottom:16px"></textarea>
+    <div class="modal-title">⚠️ تسجيل انتكاسة</div>
+    <p style="color:var(--text2);margin-bottom:14px;font-size:0.9rem">لا بأس، هذا جزء من الرحلة. ما المحفز؟</p>
+    <div id="triggerList" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px"></div>
+    <textarea class="form-control" id="relapseReasonInput" placeholder="تفاصيل إضافية (اختياري)..." rows="3" style="margin-bottom:16px"></textarea>
     <div style="display:flex;gap:8px">
       <button class="btn btn-danger" id="confirmRelapseBtn">تأكيد وإعادة البدء</button>
       <button class="btn btn-outline" onclick="App.closeModal('relapseModal')">إلغاء</button>
@@ -488,23 +1742,48 @@
   </div>
 </div>
 
-<!-- تأكيد الحذف -->
+<!-- Reset Confirm -->
+
 <div class="modal-overlay" id="resetModal">
   <div class="modal">
-    <h3>⚠️ تأكيد الحذف</h3>
-    <p style="color:var(--text2)">سيتم حذف جميع البيانات نهائياً ولا يمكن التراجع.</p>
-    <div style="display:flex;gap:8px;margin-top:20px">
+    <div class="modal-title">⚠️ تأكيد الحذف</div>
+    <p style="color:var(--text2);margin-bottom:16px">سيتم حذف جميع البيانات نهائياً ولا يمكن التراجع.</p>
+    <div style="display:flex;gap:8px">
       <button class="btn btn-danger" id="confirmResetBtn">نعم، احذف كل شيء</button>
       <button class="btn btn-outline" onclick="App.closeModal('resetModal')">إلغاء</button>
     </div>
   </div>
 </div>
 
+<!-- Toast Container -->
+
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
+  // ===== توليد النجوم =====
+  (function() {
+    var layer = document.getElementById('starsLayer');
+    if (!layer) return;
+    for (var i = 0; i < 80; i++) {
+      var s = document.createElement('div');
+      s.className = 'star';
+      var size = Math.random() * 2.5 + 0.5;
+      s.style.cssText = [
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'left:' + Math.random() * 100 + '%',
+        'top:' + Math.random() * 100 + '%',
+        '--dur:' + (2 + Math.random() * 4) + 's',
+        '--delay:' + (Math.random() * 5) + 's',
+        '--min:' + (0.05 + Math.random() * 0.1),
+        '--max:' + (0.4 + Math.random() * 0.5)
+      ].join(';');
+      layer.appendChild(s);
+    }
+  })();
+
   (function(){
-    let state = {
+    var state = {
       startDate: null,
       originalStartDate: null,
       relapses: [],
@@ -518,35 +1797,22 @@
       theme: 'dark'
     };
 
-    let liveTimer = null, panicInterval = null, calViewDate = new Date();
-    const LEVELS = [0,100,250,500,900,1500,2300,3300,4500,6000,8000,10500];
+    var liveTimer = null, panicInterval = null, calViewDate = new Date();
+    var LEVELS = [0,100,250,500,900,1500,2300,3300,4500,6000,8000,10500];
 
-    const dailyQuotes = [
-      "أصعب بداية هي الخطوة الأولى.",
-      "كل يوم نظيف هو انتصار.",
-      "أنت أقوى مما تعتقد.",
-      "التعافي رحلة، وليس وجهة.",
-      "لا تستسلم، أنت قريب من الهدف.",
-      "كل انتكاسة درس، وليست نهاية.",
-      "الإرادة تقوى بالممارسة.",
-      "أنت تستحق حياة أفضل.",
-      "الصبر هو مفتاح النجاح.",
-      "كل يوم جديد فرصة جديدة."
+    var stages = [
+      {range:"1-3",days:[1,3],title:"الانطلاق والصدمة",recovery:10,benefits:["بداية طاقة","تقليل ضبابية","وضوح متزايد"],motive:"أصعب بداية هي الخطوة الأولى.",tips:["تجنب الخلوة","رياضة خفيفة"],flatline:false},
+      {range:"4-7",days:[4,7],title:"تحدي الأسبوع الأول",recovery:20,benefits:["طاقة متزايدة","تحسن نوم","نشاط ذهني"],motive:"أسبوع كامل من القوة!",tips:["استحمام بارد","قراءة"],flatline:false},
+      {range:"8-14",days:[8,14],title:"بناء الزخم",recovery:30,benefits:["زيادة تركيز","تحسن مزاج","ثقة بالنفس"],motive:"أسبوعان من القوة!",tips:["رياضة مكثفة","طعام صحي"],flatline:true,flatlineText:"قد تشعر بتراجع مؤقت في الطاقة (Flatline) - هذا طبيعي تماماً"},
+      {range:"15-21",days:[15,21],title:"إعادة البناء",recovery:40,benefits:["تحسن أداء","وضوح ذهني","هدوء نفسي"],motive:"21 يوماً تصنع عادة.",tips:["تأمل","كتابة يوميات"],flatline:false},
+      {range:"22-30",days:[22,30],title:"الشهر الأول",recovery:50,benefits:["تحسن طبيعي","ثقة عالية","جاذبية اجتماعية"],motive:"شهر كامل من الانتصار!",tips:["أهداف جديدة","رياضة منتظمة"],flatline:false},
+      {range:"31-45",days:[31,45],title:"منطقة القوة",recovery:60,benefits:["استقرار نفسي","حافز قوي","تحكم ذاتي"],motive:"أنت في منطقة القوة الآن.",tips:["خطط طويلة المدى","صحة بدنية"],flatline:true,flatlineText:"بعض الناس يمرون بـ Flatline هنا - استمر."},
+      {range:"46-60",days:[46,60],title:"نصف الطريق",recovery:70,benefits:["تحول شخصية","جاذبية اجتماعية","إنتاجية عالية"],motive:"60 يوماً من الانتصار!",tips:["تحديات جديدة","عزز علاقاتك"],flatline:false},
+      {range:"61-75",days:[61,75],title:"قريب من القمة",recovery:85,benefits:["تحكم كامل","أداء استثنائي","ثقة راسخة"],motive:"على بعد خطوات من القمة.",tips:["حافظ على روتينك","لا تستهن بالمحفزات"],flatline:false},
+      {range:"76-90",days:[76,90],title:"مرحلة الإتمام",recovery:100,benefits:["تعافٍ شبه كامل","حيوية قصوى","حرية حقيقية"],motive:"90 يوماً من الانتصار!",tips:["استمر","شارك تجربتك"],flatline:false}
     ];
 
-    const stages = [
-      {range:"1-3",days:[1,3],title:"الانطلاق والصدمة",recovery:10,benefits:["بداية طاقة","تقليل ضبابية","وضوح متزايد"],reduces:["رغبة حادة"],motive:"أصعب بداية هي الخطوة الأولى.",tips:["تجنب الخلوة","رياضة خفيفة"],flatline:false},
-      {range:"4-7",days:[4,7],title:"تحدي الأسبوع الأول",recovery:20,benefits:["طاقة متزايدة","تحسن نوم","نشاط ذهني"],reduces:["حدة الرغبات"],motive:"أسبوع كامل من القوة!",tips:["استحمام بارد","قراءة"],flatline:false},
-      {range:"8-14",days:[8,14],title:"بناء الزخم",recovery:30,benefits:["زيادة تركيز","تحسن مزاج","ثقة بالنفس"],reduces:["اكتئاب"],motive:"أسبوعان من القوة!",tips:["رياضة مكثفة","طعام صحي"],flatline:true,flatlineText:"قد تشعر بتراجع مؤقت في الطاقة (Flatline) - هذا طبيعي تماماً"},
-      {range:"15-21",days:[15,21],title:"إعادة البناء",recovery:40,benefits:["تحسن أداء","وضوح ذهني","هدوء نفسي"],reduces:["قلق"],motive:"21 يوماً تصنع عادة.",tips:["تأمل","كتابة يوميات"],flatline:false},
-      {range:"22-30",days:[22,30],title:"الشهر الأول",recovery:50,benefits:["تحسن طبيعي","ثقة عالية","جاذبية اجتماعية"],reduces:["اعتماد إدماني"],motive:"شهر كامل من الانتصار!",tips:["أهداف جديدة","رياضة منتظمة"],flatline:false},
-      {range:"31-45",days:[31,45],title:"منطقة القوة",recovery:60,benefits:["استقرار نفسي","حافز قوي","تحكم ذاتي"],reduces:["أنماط قديمة"],motive:"أنت في منطقة القوة الآن.",tips:["خطط طويلة المدى","صحة بدنية"],flatline:true,flatlineText:"بعض الناس يمرون بـ Flatline هنا - استمر."},
-      {range:"46-60",days:[46,60],title:"نصف الطريق",recovery:70,benefits:["تحول شخصية","جاذبية اجتماعية","إنتاجية عالية"],reduces:["رغبات إدمانية"],motive:"60 يوماً من الانتصار!",tips:["تحديات جديدة","عزز علاقاتك"],flatline:false},
-      {range:"61-75",days:[61,75],title:"قريب من القمة",recovery:85,benefits:["تحكم كامل","أداء استثنائي","ثقة راسخة"],reduces:["انتكاسات نادرة"],motive:"على بعد خطوات من القمة.",tips:["حافظ على روتينك","لا تستهن بالمحفزات"],flatline:false},
-      {range:"76-90",days:[76,90],title:"مرحلة الإتمام",recovery:100,benefits:["تعافٍ شبه كامل","حيوية قصوى","حرية حقيقية"],reduces:["اختفاء الذنب"],motive:"90 يوماً من الانتصار!",tips:["استمر","شارك تجربتك"],flatline:false}
-    ];
-
-    const achievements = [
+    var achievements = [
       {id:"day1",icon:"🌱",name:"البداية",desc:"أول يوم",days:1},
       {id:"day3",icon:"⭐",name:"الشرارة",desc:"3 أيام",days:3},
       {id:"day7",icon:"⚡",name:"أسبوع كامل",desc:"7 أيام",days:7},
@@ -561,18 +1827,18 @@
       {id:"norelapse",icon:"🛡️",name:"محارب",desc:"لا انتكاسات حتى الآن",special:"norelapse"}
     ];
 
-    const missions = [
+    var missions = [
       {id:"m1",icon:"💧",name:"شرب 8 أكواب ماء",xp:10},
       {id:"m2",icon:"🏃",name:"30 دقيقة رياضة",xp:20},
       {id:"m3",icon:"📖",name:"قراءة 10 صفحات",xp:15},
       {id:"m4",icon:"🧘",name:"تأمل 5 دقائق",xp:15},
       {id:"m5",icon:"📵",name:"تقليل السوشيال ميديا",xp:10},
-      {id:"m6",icon:"🌙",name:"النوم قبل 11",xp:15},
+      {id:"m6",icon:"🌙",name:"النوم قبل الساعة 11",xp:15},
       {id:"m7",icon:"🚿",name:"استحمام بارد",xp:20},
       {id:"m8",icon:"🥗",name:"وجبة صحية",xp:10}
     ];
 
-    const rewards = [
+    var rewards = [
       {id:"r1",icon:"🎖️",name:"وسام الاستمرار",cost:50},
       {id:"r2",icon:"🏆",name:"كأس الإرادة",cost:100},
       {id:"r3",icon:"💎",name:"جوهرة الصبر",cost:200},
@@ -581,13 +1847,13 @@
       {id:"r6",icon:"🦁",name:"قلب الأسد",cost:400}
     ];
 
-    const triggersList = ["الملل","الوحدة","التوتر","الفضول","السوشيال ميديا","الليل","المحتوى المثير","الإجهاد"];
+    var triggersList = ["الملل","الوحدة","التوتر","الفضول","السوشيال ميديا","الليل","المحتوى المثير","الإجهاد"];
 
     function save() { try { localStorage.setItem('nofap90_data', JSON.stringify(state)); } catch(e){} }
     function load() {
       try {
-        const saved = JSON.parse(localStorage.getItem('nofap90_data') || '{}');
-        state = {...state, ...saved};
+        var saved = JSON.parse(localStorage.getItem('nofap90_data') || '{}');
+        state = Object.assign({}, state, saved);
         if (state.startDate && !state.originalStartDate) {
           state.originalStartDate = state.startDate;
         }
@@ -596,57 +1862,56 @@
 
     function applyTheme() {
       document.body.setAttribute('data-theme', state.theme);
-      document.getElementById('themeToggleBtn').textContent = state.theme === 'light' ? '☀️' : '🌙';
-      const tog = document.getElementById('themeToggle');
-      if (tog) tog.classList.toggle('on', state.theme === 'dark');
+      var isDark = state.theme === 'dark';
+      var themeIcon = document.getElementById('themeIcon');
+      if (themeIcon) {
+        themeIcon.innerHTML = isDark
+          ? '<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>'
+          : '<path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/>';
+      }
+      var tog = document.getElementById('themeToggle');
+      if (tog) tog.className = 'toggle' + (isDark ? ' on' : '');
+      var starsLayer = document.getElementById('starsLayer');
+      if (starsLayer) starsLayer.style.display = isDark ? '' : 'none';
     }
 
-    function getMoroccoTime(date = new Date()) {
-      return new Date(date.toLocaleString('en-US', {timeZone: 'Africa/Casablanca'}));
+    function getMoroccoTime(date) {
+      var d = date || new Date();
+      return new Date(d.toLocaleString('en-US', {timeZone: 'Africa/Casablanca'}));
     }
 
     function getElapsed() {
       if (!state.startDate) return { days:0, hours:0, minutes:0, totalMs:0 };
-      const start = new Date(state.startDate).getTime();
-      const now = getMoroccoTime().getTime();
-      const diff = Math.max(0, now - start);
-      const totalMinutes = Math.floor(diff / 60000);
-      const days = Math.floor(totalMinutes / 1440);
-      const hours = Math.floor((totalMinutes % 1440) / 60);
-      const minutes = totalMinutes % 60;
-      return { days, hours, minutes, totalMs: diff };
+      var start = new Date(state.startDate).getTime();
+      var now = getMoroccoTime().getTime();
+      var diff = Math.max(0, now - start);
+      var totalMinutes = Math.floor(diff / 60000);
+      var days = Math.floor(totalMinutes / 1440);
+      var hours = Math.floor((totalMinutes % 1440) / 60);
+      var minutes = totalMinutes % 60;
+      return { days: days, hours: hours, minutes: minutes, totalMs: diff };
     }
 
-    function getStreak() {
-      return getElapsed().days;
-    }
+    function getStreak() { return getElapsed().days; }
 
-    function showToast(msg, emoji = '✅') {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
+    function showToast(msg, emoji) {
+      emoji = emoji || '✅';
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
       toast.className = 'toast';
-      toast.innerHTML = `<span>${emoji}</span><span>${msg}</span>`;
+      toast.innerHTML = '<div class="toast-icon">' + emoji + '</div><span>' + msg + '</span>';
       container.appendChild(toast);
-      setTimeout(() => toast.remove(), 3500);
-    }
-
-    function getDailyQuote() {
-      const today = getMoroccoTime();
-      const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-      return dailyQuotes[dayOfYear % dailyQuotes.length];
+      setTimeout(function() { toast.remove(); }, 3500);
     }
 
     function updateDashboard() {
-      const elapsed = getElapsed();
-      const cleanDays = elapsed.days;
-      const streak = cleanDays;
-      const pct = Math.min(100, Math.round((cleanDays / 90) * 100));
-      const daysLeft = Math.max(0, 90 - cleanDays);
+      var elapsed = getElapsed();
+      var cleanDays = elapsed.days;
+      var streak = cleanDays;
+      var pct = Math.min(100, Math.round((cleanDays / 90) * 100));
+      var daysLeft = Math.max(0, 90 - cleanDays);
 
-      if (streak > (state.bestStreak || 0)) {
-        state.bestStreak = streak;
-        save();
-      }
+      if (streak > (state.bestStreak || 0)) { state.bestStreak = streak; save(); }
 
       document.getElementById('heroDays').textContent = cleanDays;
       document.getElementById('streakNum').textContent = streak;
@@ -655,7 +1920,7 @@
       document.getElementById('progressBarFill').style.width = pct + '%';
       document.getElementById('progressDaysRemaining').textContent = daysLeft + ' يوم متبقي';
 
-      const circum = 308;
+      var circum = 308;
       document.getElementById('circleFill').style.strokeDashoffset = circum - (circum * pct / 100);
       document.getElementById('circlePercent').textContent = pct + '%';
 
@@ -664,22 +1929,19 @@
       document.getElementById('s-bestStreak').textContent = state.bestStreak || 0;
       document.getElementById('s-daysLeft').textContent = daysLeft;
 
-      let level = 1;
-      for (let i = 1; i < LEVELS.length; i++) {
+      var level = 1;
+      for (var i = 1; i < LEVELS.length; i++) {
         if (state.xp >= LEVELS[i]) level = i + 1;
         else break;
       }
-      const idx = level - 1;
-      const curr = LEVELS[idx] || 0;
-      const next = LEVELS[idx + 1] || LEVELS[LEVELS.length - 1];
-      const lvlPct = next > curr ? Math.round(((state.xp - curr) / (next - curr)) * 100) : 100;
+      var idx = level - 1;
+      var curr = LEVELS[idx] || 0;
+      var next = LEVELS[idx + 1] || LEVELS[LEVELS.length - 1];
+      var lvlPct = next > curr ? Math.round(((state.xp - curr) / (next - curr)) * 100) : 100;
       document.getElementById('levelText').textContent = level;
       document.getElementById('xpText').textContent = state.xp;
       document.getElementById('xpBarFill').style.width = lvlPct + '%';
       document.getElementById('xpToNext').textContent = Math.max(0, next - state.xp) + ' XP للمستوى التالي';
-
-      const quoteEl = document.getElementById('dailyQuote');
-      if (quoteEl) quoteEl.textContent = '"' + getDailyQuote() + '"';
 
       renderCurrentStage(cleanDays);
       checkNewAchievements(cleanDays);
@@ -691,202 +1953,221 @@
     }
 
     function renderCurrentStage(days) {
-      let stage = stages.find(s => days >= s.days[0] && days <= s.days[1]);
+      var stage = null;
+      for (var i = 0; i < stages.length; i++) {
+        if (days >= stages[i].days[0] && days <= stages[i].days[1]) { stage = stages[i]; break; }
+      }
       if (!stage) stage = days < 1 ? stages[0] : stages[stages.length - 1];
-      const el = document.getElementById('currentStageContent');
-      el.innerHTML = `
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px">
-          <span class="stage-badge">${stage.range} يوم</span>
-          <strong style="font-size:1.1rem">${stage.title}</strong>
-          <span style="font-size:1.4rem;font-weight:900;background:var(--gradient2);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${stage.recovery}% تعافٍ</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-          ${stage.benefits.map(b => `<span class="benefit-item">✅ ${b}</span>`).join('')}
-        </div>
-        <div style="margin:12px 0;font-style:italic;color:var(--text2);">"${stage.motive}"</div>
-        ${stage.flatline ? `<div style="color:var(--secondary);background:rgba(255,101,132,0.1);padding:10px;border-radius:8px;margin-bottom:12px">⚠️ ${stage.flatlineText}</div>` : ''}
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          ${stage.tips.map(t => `<span style="background:rgba(108,99,255,0.1);border:1px solid var(--border);padding:6px 14px;border-radius:100px;font-size:0.85rem">💡 ${t}</span>`).join('')}
-        </div>`;
+      var el = document.getElementById('currentStageContent');
+
+      var benefitsHTML = stage.benefits.map(function(b) {
+        return '<span class="benefit-item"><svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;color:var(--emerald);flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' + b + '</span>';
+      }).join('');
+
+      var tipsHTML = stage.tips.map(function(t) {
+        return '<span class="tip-tag">💡 ' + t + '</span>';
+      }).join('');
+
+      el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">'
+        + '<span class="stage-badge">' + stage.range + ' يوم</span>'
+        + '<strong style="font-size:1.05rem">' + stage.title + '</strong>'
+        + '<span style="font-size:1.1rem;font-weight:900;font-family:var(--font-mono);background:var(--grad-cyan);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">' + stage.recovery + '% تعافٍ</span>'
+        + '</div>'
+        + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">' + benefitsHTML + '</div>'
+        + '<div style="margin:12px 0;font-style:italic;color:var(--text2);padding:10px 14px;background:rgba(124,58,237,0.06);border-radius:10px;border-right:3px solid var(--primary)">"' + stage.motive + '"</div>'
+        + (stage.flatline ? '<div class="flatline-alert">⚠️ ' + stage.flatlineText + '</div>' : '')
+        + '<div style="display:flex;gap:8px;flex-wrap:wrap">' + tipsHTML + '</div>';
     }
 
     function renderTimeline() {
-      const el = document.getElementById('timelineContent');
+      var el = document.getElementById('timelineContent');
       if (!el) return;
-      const days = getElapsed().days;
-      el.innerHTML = stages.map(s => {
-        const active = days >= s.days[0] && days <= s.days[1];
-        const done = days > s.days[1];
-        return `<div style="margin-bottom:16px;padding:16px;border:1.5px solid ${active ? 'var(--primary)' : done ? 'rgba(67,233,123,0.3)' : 'var(--border)'};border-radius:12px;background:${active ? 'rgba(108,99,255,0.05)' : 'transparent'}">
-          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-            <span class="stage-badge">${s.range}</span>
-            <strong>${s.title}</strong>
-            <span style="color:var(--text3)">${s.recovery}% تعافٍ</span>
-            ${done ? '<span style="color:var(--accent)">✅ مكتملة</span>' : ''}
-            ${active ? '<span style="color:var(--primary)">📍 أنت هنا</span>' : ''}
-          </div>
-          <div style="color:var(--text2);margin-top:8px;font-size:0.9rem">${s.motive}</div>
-        </div>`;
+      var days = getElapsed().days;
+      el.innerHTML = stages.map(function(s) {
+        var active = days >= s.days[0] && days <= s.days[1];
+        var done = days > s.days[1];
+        var cls = 'timeline-item' + (active ? ' active-stage' : '') + (done ? ' done-stage' : '');
+        return '<div class="' + cls + '">'
+          + '<div class="timeline-top">'
+          + '<span class="stage-badge">' + s.range + ' يوم</span>'
+          + '<strong>' + s.title + '</strong>'
+          + '<span style="color:var(--text3);font-family:var(--font-mono);font-size:0.85rem">' + s.recovery + '%</span>'
+          + (done ? '<span style="color:var(--emerald);font-size:0.82rem;font-weight:700">✅ مكتملة</span>' : '')
+          + (active ? '<span style="color:var(--primary-light);font-size:0.82rem;font-weight:700">📍 أنت هنا</span>' : '')
+          + '</div>'
+          + '<div style="color:var(--text2);margin-top:6px;font-size:0.88rem;font-style:italic">' + s.motive + '</div>'
+          + '</div>';
       }).join('');
     }
 
     function renderCalendar() {
-      const grid = document.getElementById('calendarGrid');
-      const title = document.getElementById('calMonthTitle');
-      const y = calViewDate.getFullYear(), m = calViewDate.getMonth();
-      const monthNames = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+      var grid = document.getElementById('calendarGrid');
+      var title = document.getElementById('calMonthTitle');
+      var y = calViewDate.getFullYear(), m = calViewDate.getMonth();
+      var monthNames = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
       title.textContent = monthNames[m] + ' ' + y;
 
-      const today = getMoroccoTime();
+      var today = getMoroccoTime();
       today.setHours(0, 0, 0, 0);
 
-      const originalStart = state.originalStartDate ? new Date(state.originalStartDate) : (state.startDate ? new Date(state.startDate) : null);
+      var originalStart = state.originalStartDate ? new Date(state.originalStartDate) : (state.startDate ? new Date(state.startDate) : null);
       if (originalStart) originalStart.setHours(0, 0, 0, 0);
 
-      const relapseSet = new Set(state.relapses.map(r => {
-        const d = new Date(r.date); d.setHours(0,0,0,0); return d.getTime();
-      }));
+      var relapseSet = {};
+      state.relapses.forEach(function(r) {
+        var d = new Date(r.date); d.setHours(0,0,0,0);
+        relapseSet[d.getTime()] = true;
+      });
 
-      const daysInMonth = new Date(y, m + 1, 0).getDate();
-      const firstDay = new Date(y, m, 1).getDay();
+      var daysInMonth = new Date(y, m + 1, 0).getDate();
+      var firstDay = new Date(y, m, 1).getDay();
 
-      let html = ['أح','إث','ثل','أر','خم','جم','سب'].map(d => `<div class="cal-header">${d}</div>`).join('');
-      for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+      var html = ['أح','إث','ثل','أر','خم','جم','سب'].map(function(d) {
+        return '<div class="cal-header">' + d + '</div>';
+      }).join('');
 
-      for (let d = 1; d <= daysInMonth; d++) {
-        const date = new Date(y, m, d);
+      for (var i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var date = new Date(y, m, d);
         date.setHours(0, 0, 0, 0);
-        const ts = date.getTime();
-        const isToday = ts === today.getTime();
-        const isFuture = date > today;
-        const isRelapse = relapseSet.has(ts);
-        const isAfterStart = originalStart && date >= originalStart;
-        const isClean = isAfterStart && !isFuture && !isRelapse;
+        var ts = date.getTime();
+        var isToday = ts === today.getTime();
+        var isFuture = date > today;
+        var isRelapse = !!relapseSet[ts];
+        var isAfterStart = originalStart && date >= originalStart;
+        var isClean = isAfterStart && !isFuture && !isRelapse;
 
-        let cls = 'cal-day';
+        var cls = 'cal-day';
         if (isToday) cls += ' today-day';
         else if (isFuture) cls += ' future-day';
         else if (isRelapse) cls += ' relapse-day';
         else if (isClean) cls += ' clean';
 
-        html += `<div class="${cls}">${d}</div>`;
+        html += '<div class="' + cls + '">' + d + '</div>';
       }
       grid.innerHTML = html;
     }
 
     function checkNewAchievements(days) {
-      let newOnes = [];
-      achievements.forEach(a => {
-        if (state.unlockedAchievements.includes(a.id)) return;
-        let shouldUnlock = false;
+      var newOnes = [];
+      achievements.forEach(function(a) {
+        if (state.unlockedAchievements.indexOf(a.id) !== -1) return;
+        var shouldUnlock = false;
         if (a.days && days >= a.days) shouldUnlock = true;
         if (a.special === 'journal' && state.journal.length >= 1) shouldUnlock = true;
         if (a.special === 'norelapse' && state.relapses.length === 0 && days >= 1) shouldUnlock = true;
-        if (shouldUnlock) {
-          state.unlockedAchievements.push(a.id);
-          newOnes.push(a);
-        }
+        if (shouldUnlock) { state.unlockedAchievements.push(a.id); newOnes.push(a); }
       });
       if (newOnes.length) {
         save();
-        newOnes.forEach(a => showToast(`إنجاز جديد: ${a.name}!`, a.icon));
+        newOnes.forEach(function(a) { showToast('إنجاز جديد: ' + a.name + '!', a.icon); });
       }
     }
 
     function renderAchievements() {
-      const grid = document.getElementById('achievementsGrid');
+      var grid = document.getElementById('achievementsGrid');
       if (!grid) return;
-      grid.innerHTML = achievements.map(a => {
-        const unlocked = state.unlockedAchievements.includes(a.id);
-        return `<div class="achievement-card ${unlocked ? 'unlocked' : ''}" style="opacity:${unlocked ? 1 : 0.4}">
-          <div style="font-size:2rem;margin-bottom:8px">${a.icon}</div>
-          <div style="font-weight:700">${a.name}</div>
-          <div style="font-size:0.8rem;color:var(--text3);margin-top:4px">${a.desc}</div>
-          ${unlocked ? '<div style="color:var(--accent);font-size:0.8rem;margin-top:6px">✅ مفتوح</div>' : ''}
-        </div>`;
+      grid.innerHTML = achievements.map(function(a) {
+        var unlocked = state.unlockedAchievements.indexOf(a.id) !== -1;
+        return '<div class="achievement-card ' + (unlocked ? 'unlocked' : '') + '" style="opacity:' + (unlocked ? 1 : 0.35) + '">'
+          + '<div class="ach-icon">' + a.icon + '</div>'
+          + '<div class="ach-name">' + a.name + '</div>'
+          + '<div class="ach-desc">' + a.desc + '</div>'
+          + (unlocked ? '<div class="ach-badge">✅ مفتوح</div>' : '')
+          + '</div>';
       }).join('');
     }
 
     function renderMissions() {
-      const el = document.getElementById('missionsList');
+      var el = document.getElementById('missionsList');
       if (!el) return;
-      const today = getMoroccoTime().toDateString();
+      var today = getMoroccoTime().toDateString();
       if (state.missionDate !== today) {
         state.missionDate = today;
         state.missionsToday = {};
         save();
       }
-      const completedCount = Object.keys(state.missionsToday).length;
-      el.innerHTML = missions.map(m => `
-        <div class="mission-item ${state.missionsToday[m.id] ? 'done' : ''}" onclick="App.toggleMission('${m.id}')">
-          <span style="font-size:1.3rem">${m.icon}</span>
-          <span style="flex:1">${m.name}</span>
-          <span style="color:var(--accent);font-size:0.85rem;font-weight:700">+${m.xp} XP</span>
-          <span>${state.missionsToday[m.id] ? '✅' : '⬜'}</span>
-        </div>`).join('');
-      const totalEl = document.getElementById('missionsXpTotal');
-      if (totalEl) totalEl.textContent = `${completedCount}/${missions.length} مهام مكتملة اليوم`;
+      var completedCount = Object.keys(state.missionsToday).length;
+      el.innerHTML = missions.map(function(m) {
+        var done = !!state.missionsToday[m.id];
+        return '<div class="mission-item ' + (done ? 'done' : '') + '" onclick="App.toggleMission(\'' + m.id + '\')">'
+          + '<div class="mission-icon">' + m.icon + '</div>'
+          + '<span class="mission-name">' + m.name + '</span>'
+          + '<span class="mission-xp">+' + m.xp + ' XP</span>'
+          + '<div class="mission-check">' + (done ? '<svg viewBox="0 0 24 24" fill="white" style="width:14px;height:14px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' : '') + '</div>'
+          + '</div>';
+      }).join('');
+      var totalEl = document.getElementById('missionsXpTotal');
+      if (totalEl) totalEl.textContent = completedCount + '/' + missions.length + ' مهام مكتملة اليوم';
     }
 
     function renderRewardStore() {
-      const el = document.getElementById('rewardStore');
+      var el = document.getElementById('rewardStore');
       if (!el) return;
-      el.innerHTML = rewards.map(r => {
-        const owned = state.ownedRewards.includes(r.id);
-        const canBuy = state.xp >= r.cost && !owned;
-        return `<div class="reward-item ${owned ? 'owned' : ''}" onclick="App.buyReward('${r.id}')">
-          <div style="font-size:1.8rem;margin-bottom:6px">${r.icon}</div>
-          <div style="font-weight:700;font-size:0.9rem">${r.name}</div>
-          <div style="font-size:0.8rem;color:var(--text3);margin:4px 0">${r.cost} XP</div>
-          ${owned ? '<div style="color:var(--accent);font-size:0.8rem">✅ مملوك</div>'
-            : canBuy ? '<button class="btn btn-warning btn-sm" style="margin-top:6px">شراء</button>'
-            : `<div style="font-size:0.75rem;color:var(--text3)">يحتاج ${r.cost - state.xp} XP</div>`}
-        </div>`;
+      el.innerHTML = rewards.map(function(r) {
+        var owned = state.ownedRewards.indexOf(r.id) !== -1;
+        var canBuy = state.xp >= r.cost && !owned;
+        return '<div class="reward-item ' + (owned ? 'owned' : '') + '" onclick="App.buyReward(\'' + r.id + '\')">'
+          + '<div style="font-size:1.8rem;margin-bottom:6px">' + r.icon + '</div>'
+          + '<div style="font-weight:700;font-size:0.88rem">' + r.name + '</div>'
+          + '<div style="font-size:0.78rem;color:var(--text3);margin:4px 0;font-family:var(--font-mono)">' + r.cost + ' XP</div>'
+          + (owned ? '<div style="color:var(--emerald);font-size:0.78rem;font-weight:700">✅ مملوك</div>'
+            : canBuy ? '<button class="btn btn-warning btn-sm" style="margin-top:6px;width:100%">شراء</button>'
+            : '<div style="font-size:0.72rem;color:var(--text3)">يحتاج ' + (r.cost - state.xp) + ' XP</div>')
+          + '</div>';
       }).join('');
     }
 
     function renderJournalList() {
-      const el = document.getElementById('journalList');
+      var el = document.getElementById('journalList');
       if (!el) return;
       if (!state.journal.length) {
-        el.innerHTML = '<div style="color:var(--text3);text-align:center;padding:20px">لا توجد إدخالات بعد</div>';
+        el.innerHTML = '<div style="color:var(--text3);text-align:center;padding:24px;font-size:0.9rem">لا توجد إدخالات بعد</div>';
         return;
       }
-      el.innerHTML = state.journal.slice(0, 10).map(e => `
-        <div style="padding:12px;background:var(--card2);border-radius:10px;margin-bottom:10px;border:1px solid var(--border)">
-          <div style="font-size:0.95rem">${e.text}</div>
-          <div style="display:flex;justify-content:space-between;margin-top:8px">
-            <small style="color:var(--text3)">${new Date(e.date).toLocaleString('ar')}</small>
-            ${e.mood ? `<small style="color:var(--accent2)">المزاج: ${e.mood}/10</small>` : ''}
-          </div>
-        </div>`).join('');
+      el.innerHTML = state.journal.slice(0, 10).map(function(e) {
+        return '<div class="journal-entry">'
+          + '<div style="font-size:0.9rem;line-height:1.6">' + e.text + '</div>'
+          + '<div style="display:flex;justify-content:space-between;margin-top:8px">'
+          + '<small style="color:var(--text3);font-size:0.75rem">' + new Date(e.date).toLocaleString('ar') + '</small>'
+          + (e.mood ? '<small style="color:var(--amber-light);font-weight:700;font-family:var(--font-mono)">المزاج: ' + e.mood + '/10</small>' : '')
+          + '</div></div>';
+      }).join('');
     }
 
     function renderRelapseList() {
-      const el = document.getElementById('relapseList');
+      var el = document.getElementById('relapseList');
       if (!el) return;
       if (!state.relapses.length) {
-        el.innerHTML = '<div style="color:var(--accent);text-align:center;padding:30px">🛡️ لا توجد انتكاسات - رائع!</div>';
+        el.innerHTML = '<div style="color:var(--emerald);text-align:center;padding:32px;font-size:1rem">🛡️ لا توجد انتكاسات — رائع جداً!</div>';
         return;
       }
-      el.innerHTML = [...state.relapses].reverse().map((r, i) => `
-        <div style="padding:14px;background:var(--card2);border-radius:12px;margin-bottom:12px;border-right:3px solid var(--secondary)">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <span style="color:var(--secondary);font-weight:700">انتكاسة #${state.relapses.length - i}</span>
-            <small style="color:var(--text3)">${new Date(r.date).toLocaleString('ar')}</small>
-          </div>
-          <div style="margin-top:6px;color:var(--text2)">${r.reason || 'بدون سبب محدد'}</div>
-          ${r.triggers && r.triggers.length ? `<div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">${r.triggers.map(t=>`<span style="background:rgba(255,101,132,0.15);padding:2px 8px;border-radius:6px;font-size:0.8rem">${t}</span>`).join('')}</div>` : ''}
-        </div>`).join('');
+      var reversed = state.relapses.slice().reverse();
+      el.innerHTML = reversed.map(function(r, i) {
+        var triggersHTML = (r.triggers && r.triggers.length)
+          ? '<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">'
+            + r.triggers.map(function(t) { return '<span style="background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.2);padding:2px 10px;border-radius:20px;font-size:0.78rem;color:var(--rose-light)">' + t + '</span>'; }).join('')
+            + '</div>'
+          : '';
+        return '<div class="relapse-entry">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
+          + '<span style="color:var(--rose-light);font-weight:800;font-size:0.9rem">انتكاسة #' + (state.relapses.length - i) + '</span>'
+          + '<small style="color:var(--text3);font-size:0.78rem">' + new Date(r.date).toLocaleString('ar') + '</small>'
+          + '</div>'
+          + '<div style="margin-top:6px;color:var(--text2);font-size:0.88rem">' + (r.reason || 'بدون سبب محدد') + '</div>'
+          + triggersHTML
+          + '</div>';
+      }).join('');
     }
 
     function setup() {
-      const val = document.getElementById('startDateInput').value;
-      const errEl = document.getElementById('setupError');
+      var val = document.getElementById('startDateInput').value;
+      var errEl = document.getElementById('setupError');
       errEl.style.display = 'none';
       if (!val) { errEl.textContent = 'يرجى إدخال التاريخ والوقت!'; errEl.style.display = 'block'; return; }
-      const d = new Date(val);
-      const now = getMoroccoTime();
+      var d = new Date(val);
+      var now = getMoroccoTime();
       if (d > now) { errEl.textContent = 'لا يمكن إدخال تاريخ مستقبلي!'; errEl.style.display = 'block'; return; }
       state.startDate = d.toISOString();
       if (!state.originalStartDate) state.originalStartDate = d.toISOString();
@@ -898,16 +2179,17 @@
 
     function startLiveTimer() {
       if (liveTimer) clearInterval(liveTimer);
-      liveTimer = setInterval(() => {
+      liveTimer = setInterval(function() {
         if (!document.getElementById('sec-dashboard').classList.contains('active')) return;
-        const e = getElapsed();
+        var e = getElapsed();
         document.getElementById('t-hours').textContent = String(e.hours).padStart(2, '0');
         document.getElementById('t-minutes').textContent = String(e.minutes).padStart(2, '0');
       }, 30000);
     }
 
     function toggleMission(id) {
-      const m = missions.find(x => x.id === id);
+      var m = null;
+      for (var i = 0; i < missions.length; i++) { if (missions[i].id === id) { m = missions[i]; break; } }
       if (!m) return;
       if (state.missionsToday[id]) {
         delete state.missionsToday[id];
@@ -916,7 +2198,7 @@
       } else {
         state.missionsToday[id] = true;
         state.xp += m.xp;
-        showToast(`+${m.xp} XP! ${m.name}`, '🎯');
+        showToast('+' + m.xp + ' XP! ' + m.name, '🎯');
       }
       save();
       renderMissions();
@@ -924,22 +2206,23 @@
     }
 
     function buyReward(id) {
-      const r = rewards.find(x => x.id === id);
-      if (!r || state.ownedRewards.includes(id) || state.xp < r.cost) return;
+      var r = null;
+      for (var i = 0; i < rewards.length; i++) { if (rewards[i].id === id) { r = rewards[i]; break; } }
+      if (!r || state.ownedRewards.indexOf(id) !== -1 || state.xp < r.cost) return;
       state.xp -= r.cost;
       state.ownedRewards.push(id);
       save();
-      showToast(`حصلت على: ${r.name}!`, r.icon);
+      showToast('حصلت على: ' + r.name + '!', r.icon);
       renderRewardStore();
       updateDashboard();
     }
 
     function saveJournal() {
-      const text = document.getElementById('journalTextInput').value.trim();
-      const mood = document.getElementById('moodSlider').value;
+      var text = document.getElementById('journalTextInput').value.trim();
+      var mood = document.getElementById('moodSlider').value;
       if (!text) { showToast('اكتب شيئاً أولاً!', '✍️'); return; }
-      state.journal.unshift({ date: new Date().toISOString(), text, mood: parseInt(mood) });
-      if (!state.unlockedAchievements.includes('journal1')) {
+      state.journal.unshift({ date: new Date().toISOString(), text: text, mood: parseInt(mood) });
+      if (state.unlockedAchievements.indexOf('journal1') === -1) {
         state.unlockedAchievements.push('journal1');
         showToast('إنجاز جديد: كاتب!', '📓');
       }
@@ -952,42 +2235,42 @@
     }
 
     function confirmRelapse() {
-      const reason = document.getElementById('relapseReasonInput').value.trim();
-      const triggers = [];
-      document.querySelectorAll('#triggerList span.selected').forEach(el => triggers.push(el.textContent));
+      var reason = document.getElementById('relapseReasonInput').value.trim();
+      var triggers = [];
+      var chips = document.querySelectorAll('#triggerList .trigger-chip.selected');
+      for (var i = 0; i < chips.length; i++) triggers.push(chips[i].textContent);
 
-      const streak = getStreak();
+      var streak = getStreak();
       if (streak > (state.bestStreak || 0)) state.bestStreak = streak;
 
       state.relapses.push({
         date: new Date().toISOString(),
         reason: reason || 'بدون سبب محدد',
-        triggers,
+        triggers: triggers,
         streakLost: streak
       });
 
       state.startDate = new Date().toISOString();
-
       save();
-      App.closeModal('relapseModal');
+      closeModal('relapseModal');
       document.getElementById('relapseReasonInput').value = '';
-      showToast('إعادة البدء من الصفر. استمر!', '💪');
+      showToast('إعادة البدء. أنت أقوى مما تعتقد!', '💪');
       updateDashboard();
     }
 
     function openPanic() {
-      const streak = getStreak();
+      var streak = getStreak();
       document.getElementById('panicStreakDisplay').textContent = streak;
-      let seconds = 60;
-      let phase = 0;
-      const phases = ['استنشق... (4 ثوان)', 'أمسك... (4 ثوان)', 'أطلق... (4 ثوان)', 'أمسك... (4 ثوان)'];
-      let phaseTimer = 0;
+      var seconds = 60;
+      var phase = 0;
+      var phaseTimer = 0;
+      var phases = ['استنشق... (4 ثوان)', 'أمسك... (4 ثوان)', 'أطلق... (4 ثوان)', 'أمسك... (4 ثوان)'];
 
       document.getElementById('panicTimerDisplay').textContent = seconds;
       document.getElementById('breathingInstruction').textContent = phases[0];
 
       if (panicInterval) clearInterval(panicInterval);
-      panicInterval = setInterval(() => {
+      panicInterval = setInterval(function() {
         seconds--;
         phaseTimer++;
         if (phaseTimer >= 4) { phaseTimer = 0; phase = (phase + 1) % 4; }
@@ -996,25 +2279,14 @@
         if (seconds <= 0) { clearInterval(panicInterval); panicInterval = null; }
       }, 1000);
 
-      App.openModal('panicModal');
-    }
-
-    function exportData() {
-      const dataStr = JSON.stringify(state, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `nofap90_backup_${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      URL.revokeObjectURL(url);
-      showToast('تم تصدير البيانات بنجاح!', '💾');
+      openModal('panicModal');
     }
 
     function openSidebar() {
       document.getElementById('sidebar').classList.add('open');
       document.getElementById('sidebarOverlay').classList.add('show');
     }
+
     function closeSidebar() {
       document.getElementById('sidebar').classList.remove('open');
       document.getElementById('sidebarOverlay').classList.remove('show');
@@ -1022,10 +2294,12 @@
 
     function nav(section) {
       closeSidebar();
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      var sections = document.querySelectorAll('.section');
+      for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
+      var links = document.querySelectorAll('.sidebar-link');
+      for (var i = 0; i < links.length; i++) links[i].classList.remove('active');
       document.getElementById('sec-' + section).classList.add('active');
-      const link = document.querySelector(`[data-section="${section}"]`);
+      var link = document.querySelector('[data-section="' + section + '"]');
       if (link) link.classList.add('active');
       if (section === 'calendar') renderCalendar();
       if (section === 'timeline') renderTimeline();
@@ -1043,17 +2317,17 @@
       document.getElementById(id).classList.add('open');
       if (id === 'relapseModal') renderTriggerList();
     }
+
     function closeModal(id) {
       document.getElementById(id).classList.remove('open');
       if (id === 'panicModal' && panicInterval) { clearInterval(panicInterval); panicInterval = null; }
     }
 
     function renderTriggerList() {
-      const el = document.getElementById('triggerList');
-      el.innerHTML = triggersList.map(tr =>
-        `<span style="padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);cursor:pointer;transition:var(--transition);user-select:none"
-          onclick="this.classList.toggle('selected');this.style.background=this.classList.contains('selected')?'var(--primary)':'';this.style.color=this.classList.contains('selected')?'white':'';">${tr}</span>`
-      ).join('');
+      var el = document.getElementById('triggerList');
+      el.innerHTML = triggersList.map(function(tr) {
+        return '<span class="trigger-chip" onclick="this.classList.toggle(\'selected\')">' + tr + '</span>';
+      }).join('');
     }
 
     function init() {
@@ -1061,22 +2335,21 @@
       applyTheme();
 
       document.getElementById('startBtn').onclick = setup;
-      document.getElementById('relapseBtn').onclick = () => App.openModal('relapseModal');
+      document.getElementById('relapseBtn').onclick = function() { openModal('relapseModal'); };
       document.getElementById('panicBtnEl').onclick = openPanic;
       document.getElementById('saveJournalBtn').onclick = saveJournal;
       document.getElementById('confirmRelapseBtn').onclick = confirmRelapse;
-      document.getElementById('resetBtn').onclick = () => App.openModal('resetModal');
-      document.getElementById('confirmResetBtn').onclick = () => { localStorage.clear(); location.reload(); };
-      document.getElementById('exportBtn').onclick = exportData;
+      document.getElementById('resetBtn').onclick = function() { openModal('resetModal'); };
+      document.getElementById('confirmResetBtn').onclick = function() { localStorage.clear(); location.reload(); };
       document.getElementById('themeToggle').onclick = toggleTheme;
       document.getElementById('themeToggleBtn').onclick = toggleTheme;
-      document.getElementById('calPrevBtn').onclick = () => { calViewDate.setMonth(calViewDate.getMonth() - 1); renderCalendar(); };
-      document.getElementById('calNextBtn').onclick = () => { calViewDate.setMonth(calViewDate.getMonth() + 1); renderCalendar(); };
+      document.getElementById('calPrevBtn').onclick = function() { calViewDate.setMonth(calViewDate.getMonth() - 1); renderCalendar(); };
+      document.getElementById('calNextBtn').onclick = function() { calViewDate.setMonth(calViewDate.getMonth() + 1); renderCalendar(); };
 
-      document.getElementById('changeStartBtn').onclick = () => {
-        const setupScreen = document.getElementById('setupScreen');
-        const now = getMoroccoTime();
-        const localISO = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+      document.getElementById('changeStartBtn').onclick = function() {
+        var setupScreen = document.getElementById('setupScreen');
+        var now = getMoroccoTime();
+        var localISO = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
         document.getElementById('startDateInput').value = state.startDate
           ? new Date(new Date(state.startDate).getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
           : localISO;
@@ -1084,9 +2357,9 @@
       };
 
       if (!state.startDate) {
-        const setupScreen = document.getElementById('setupScreen');
+        var setupScreen = document.getElementById('setupScreen');
         setupScreen.style.display = 'flex';
-        const now = getMoroccoTime();
+        var now = getMoroccoTime();
         document.getElementById('startDateInput').value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
       } else {
         document.getElementById('setupScreen').style.display = 'none';
@@ -1095,7 +2368,17 @@
       }
     }
 
-    window.App = { openSidebar, closeSidebar, nav, toggleTheme, openModal, closeModal, toggleMission, buyReward };
+    window.App = {
+      openSidebar: openSidebar,
+      closeSidebar: closeSidebar,
+      nav: nav,
+      toggleTheme: toggleTheme,
+      openModal: openModal,
+      closeModal: closeModal,
+      toggleMission: toggleMission,
+      buyReward: buyReward
+    };
+
     window.addEventListener('DOMContentLoaded', init);
   })();
 </script>
