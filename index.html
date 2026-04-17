@@ -1,2498 +1,858 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تحدي 90 يوم | NoFap Tracker</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=Space+Mono:wght@400;700&display=swap');
-
-:root {
-–primary: #6C63FF;
-–primary-dark: #4A42CC;
-–secondary: #FF6584;
-–accent: #43E97B;
-–accent2: #FFD700;
-–bg: #0D0D1A;
-–bg2: #13132A;
-–bg3: #1A1A35;
-–card: #1E1E3A;
-–card2: #252545;
-–border: rgba(108,99,255,0.18);
-–text: #E8E8FF;
-–text2: #A0A0C8;
-–text3: #6060A0;
-–shadow: 0 8px 32px rgba(108,99,255,0.18);
-–shadow2: 0 4px 16px rgba(0,0,0,0.4);
-–radius: 18px;
-–radius2: 12px;
-–gradient: linear-gradient(135deg, #6C63FF, #a855f7);
-–gradient2: linear-gradient(135deg, #43E97B, #38F9D7);
-–gradient3: linear-gradient(135deg, #FF6584, #FF8E53);
-–gradient4: linear-gradient(135deg, #FFD700, #FF8C00);
-–glow: 0 0 20px rgba(108,99,255,0.4);
-–font-main: ‘Cairo’, ‘Tajawal’, sans-serif;
-–font-mono: ‘Space Mono’, monospace;
-–transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
-[data-theme=“light”] {
-–bg: #F0F0FF;
-–bg2: #E8E8FF;
-–bg3: #DDDDF5;
-–card: #FFFFFF;
-–card2: #F5F5FF;
-–border: rgba(108,99,255,0.15);
-–text: #1A1A3A;
-–text2: #444470;
-–text3: #8080B0;
-–shadow: 0 8px 32px rgba(108,99,255,0.12);
-–shadow2: 0 4px 16px rgba(108,99,255,0.08);
-}
-
-- { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-font-family: var(–font-main);
-background: var(–bg);
-color: var(–text);
-min-height: 100vh;
-transition: var(–transition);
-overflow-x: hidden;
-}
-
-body::before {
-content: ‘’;
-position: fixed;
-top: -50%;
-right: -20%;
-width: 700px;
-height: 700px;
-background: radial-gradient(circle, rgba(108,99,255,0.08) 0%, transparent 70%);
-pointer-events: none;
-z-index: 0;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(–bg2); }
-::-webkit-scrollbar-thumb { background: var(–primary); border-radius: 3px; }
-
-/* NAV */
-.navbar {
-position: fixed;
-top: 0; left: 0; right: 0;
-z-index: 1000;
-background: rgba(13,13,26,0.92);
-backdrop-filter: blur(20px);
-border-bottom: 1px solid var(–border);
-padding: 0 20px;
-transition: var(–transition);
-}
-[data-theme=“light”] .navbar { background: rgba(240,240,255,0.92); }
-
-.nav-inner {
-max-width: 1400px;
-margin: 0 auto;
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: 64px;
-gap: 16px;
-}
-
-.nav-logo {
-font-size: 1.3rem;
-font-weight: 900;
-background: var(–gradient);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-white-space: nowrap;
-flex-shrink: 0;
-}
-
-.nav-links {
-display: flex;
-gap: 4px;
-overflow-x: auto;
-scrollbar-width: none;
-flex: 1;
-justify-content: center;
-}
-.nav-links::-webkit-scrollbar { display: none; }
-
-.nav-link {
-padding: 6px 12px;
-border-radius: 8px;
-font-size: 0.82rem;
-font-weight: 600;
-cursor: pointer;
-border: none;
-background: transparent;
-color: var(–text2);
-transition: var(–transition);
-white-space: nowrap;
-font-family: var(–font-main);
-}
-.nav-link:hover, .nav-link.active {
-background: var(–gradient);
-color: white;
-box-shadow: var(–glow);
-}
-
-.nav-actions {
-display: flex;
-gap: 8px;
-flex-shrink: 0;
-}
-
-.icon-btn {
-width: 38px; height: 38px;
-border-radius: 10px;
-border: 1px solid var(–border);
-background: var(–card);
-color: var(–text);
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1rem;
-transition: var(–transition);
-}
-.icon-btn:hover { background: var(–primary); color: white; box-shadow: var(–glow); }
-
-/* MAIN */
-.main {
-max-width: 1400px;
-margin: 0 auto;
-padding: 84px 20px 40px;
-}
-
-/* SECTIONS */
-.section {
-display: none;
-animation: fadeIn 0.4s ease;
-}
-.section.active { display: block; }
-
-@keyframes fadeIn {
-from { opacity: 0; transform: translateY(16px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-/* CARDS */
-.card {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: var(–radius);
-padding: 24px;
-box-shadow: var(–shadow2);
-transition: var(–transition);
-}
-.card:hover { box-shadow: var(–shadow); transform: translateY(-2px); }
-
-.card-title {
-font-size: 1rem;
-font-weight: 700;
-color: var(–text2);
-margin-bottom: 16px;
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-
-@media (max-width: 900px) {
-.grid-4 { grid-template-columns: repeat(2, 1fr); }
-.grid-3 { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-.grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-.nav-links { gap: 2px; }
-.nav-link { padding: 5px 8px; font-size: 0.75rem; }
-}
-
-/* HERO DASHBOARD */
-.hero-card {
-background: var(–gradient);
-border-radius: var(–radius);
-padding: 40px 32px;
-color: white;
-position: relative;
-overflow: hidden;
-margin-bottom: 24px;
-}
-.hero-card::before {
-content: ‘’;
-position: absolute;
-top: -60px; left: -60px;
-width: 200px; height: 200px;
-background: rgba(255,255,255,0.08);
-border-radius: 50%;
-}
-.hero-card::after {
-content: ‘’;
-position: absolute;
-bottom: -80px; right: -40px;
-width: 240px; height: 240px;
-background: rgba(255,255,255,0.06);
-border-radius: 50%;
-}
-
-.hero-top {
-display: flex;
-align-items: center;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 24px;
-}
-
-.hero-days {
-font-size: 5rem;
-font-weight: 900;
-line-height: 1;
-text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-.hero-label { font-size: 1rem; opacity: 0.85; margin-top: 4px; }
-
-.circle-progress-wrap {
-position: relative;
-width: 120px;
-height: 120px;
-flex-shrink: 0;
-}
-.circle-progress-wrap svg {
-transform: rotate(-90deg);
-width: 120px;
-height: 120px;
-}
-.circle-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 8; }
-.circle-fill {
-fill: none;
-stroke: white;
-stroke-width: 8;
-stroke-linecap: round;
-stroke-dasharray: 330;
-stroke-dashoffset: 330;
-transition: stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1);
-}
-.circle-text {
-position: absolute;
-inset: 0;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-font-weight: 900;
-font-size: 1.6rem;
-line-height: 1;
-}
-.circle-text span { font-size: 0.7rem; opacity: 0.8; }
-
-/* PROGRESS BAR */
-.progress-bar-wrap {
-margin-top: 28px;
-background: rgba(255,255,255,0.15);
-border-radius: 100px;
-height: 12px;
-overflow: hidden;
-}
-.progress-bar-fill {
-height: 100%;
-background: white;
-border-radius: 100px;
-transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
-box-shadow: 0 0 12px rgba(255,255,255,0.6);
-}
-
-/* STAT CARDS */
-.stat-card {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: var(–radius2);
-padding: 20px;
-text-align: center;
-position: relative;
-overflow: hidden;
-transition: var(–transition);
-}
-.stat-card::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 3px;
-background: var(–gradient);
-}
-.stat-card:hover { transform: translateY(-3px); box-shadow: var(–shadow); }
-
-.stat-icon { font-size: 1.8rem; margin-bottom: 8px; }
-.stat-num {
-font-size: 2rem;
-font-weight: 900;
-background: var(–gradient);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-font-family: var(–font-mono);
-}
-.stat-label { font-size: 0.8rem; color: var(–text2); margin-top: 4px; font-weight: 500; }
-
-/* TIMER */
-.timer-display {
-display: flex;
-gap: 12px;
-justify-content: center;
-flex-wrap: wrap;
-margin: 20px 0;
-}
-.timer-unit {
-background: var(–card2);
-border: 1px solid var(–border);
-border-radius: var(–radius2);
-padding: 16px 20px;
-text-align: center;
-min-width: 80px;
-}
-.timer-num {
-font-size: 2.2rem;
-font-weight: 900;
-font-family: var(–font-mono);
-background: var(–gradient);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-line-height: 1;
-}
-.timer-label { font-size: 0.72rem; color: var(–text3); margin-top: 4px; }
-
-/* BUTTONS */
-.btn {
-padding: 10px 24px;
-border-radius: 10px;
-border: none;
-font-family: var(–font-main);
-font-size: 0.9rem;
-font-weight: 700;
-cursor: pointer;
-transition: var(–transition);
-display: inline-flex;
-align-items: center;
-gap: 6px;
-}
-.btn-primary {
-background: var(–gradient);
-color: white;
-box-shadow: 0 4px 15px rgba(108,99,255,0.4);
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(108,99,255,0.5); }
-
-.btn-danger {
-background: var(–gradient3);
-color: white;
-box-shadow: 0 4px 15px rgba(255,101,132,0.4);
-}
-.btn-danger:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255,101,132,0.5); }
-
-.btn-success {
-background: var(–gradient2);
-color: #0D2010;
-box-shadow: 0 4px 15px rgba(67,233,123,0.3);
-}
-.btn-success:hover { transform: translateY(-2px); }
-
-.btn-warning {
-background: var(–gradient4);
-color: #1A0F00;
-box-shadow: 0 4px 15px rgba(255,215,0,0.3);
-}
-
-.btn-outline {
-background: transparent;
-border: 1.5px solid var(–primary);
-color: var(–primary);
-}
-.btn-outline:hover { background: var(–primary); color: white; }
-
-.btn-sm { padding: 7px 16px; font-size: 0.82rem; }
-.btn-lg { padding: 14px 36px; font-size: 1.05rem; border-radius: 14px; }
-.btn-full { width: 100%; justify-content: center; }
-
-/* PANIC BUTTON */
-.panic-btn {
-background: linear-gradient(135deg, #FF0050, #FF6584);
-color: white;
-border: none;
-border-radius: var(–radius2);
-padding: 18px 32px;
-font-size: 1.1rem;
-font-weight: 900;
-cursor: pointer;
-font-family: var(–font-main);
-transition: var(–transition);
-box-shadow: 0 6px 30px rgba(255,0,80,0.4);
-animation: pulseRed 2s infinite;
-display: flex;
-align-items: center;
-gap: 8px;
-justify-content: center;
-}
-.panic-btn:hover { transform: scale(1.05); }
-
-@keyframes pulseRed {
-0%,100% { box-shadow: 0 6px 30px rgba(255,0,80,0.4); }
-50% { box-shadow: 0 6px 40px rgba(255,0,80,0.7); }
-}
-
-/* FORMS */
-.form-group { margin-bottom: 16px; }
-.form-label {
-display: block;
-font-size: 0.85rem;
-font-weight: 600;
-color: var(–text2);
-margin-bottom: 6px;
-}
-.form-control {
-width: 100%;
-padding: 10px 14px;
-background: var(–card2);
-border: 1.5px solid var(–border);
-border-radius: 10px;
-color: var(–text);
-font-family: var(–font-main);
-font-size: 0.9rem;
-transition: var(–transition);
-outline: none;
-}
-.form-control:focus { border-color: var(–primary); box-shadow: 0 0 0 3px rgba(108,99,255,0.15); }
-textarea.form-control { resize: vertical; min-height: 80px; }
-
-.slider-wrap { display: flex; align-items: center; gap: 12px; }
-input[type=“range”] {
--webkit-appearance: none;
-flex: 1;
-height: 6px;
-border-radius: 3px;
-background: var(–border);
-outline: none;
-}
-input[type=“range”]::-webkit-slider-thumb {
--webkit-appearance: none;
-width: 20px; height: 20px;
-border-radius: 50%;
-background: var(–gradient);
-cursor: pointer;
-box-shadow: 0 2px 8px rgba(108,99,255,0.4);
-}
-.slider-val {
-min-width: 36px;
-text-align: center;
-font-weight: 700;
-font-size: 1rem;
-color: var(–primary);
-font-family: var(–font-mono);
-}
-
-/* MODAL */
-.modal-overlay {
-display: none;
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.7);
-backdrop-filter: blur(8px);
-z-index: 2000;
-align-items: center;
-justify-content: center;
-padding: 20px;
-}
-.modal-overlay.open { display: flex; animation: fadeIn 0.3s ease; }
-
-.modal {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: var(–radius);
-padding: 32px;
-max-width: 500px;
-width: 100%;
-max-height: 90vh;
-overflow-y: auto;
-box-shadow: 0 24px 80px rgba(0,0,0,0.5);
-position: relative;
-}
-
-.modal-title {
-font-size: 1.3rem;
-font-weight: 800;
-margin-bottom: 20px;
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.modal-close {
-position: absolute;
-top: 16px;
-left: 16px;
-width: 32px; height: 32px;
-border-radius: 8px;
-border: 1px solid var(–border);
-background: var(–card2);
-color: var(–text);
-cursor: pointer;
-font-size: 1rem;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: var(–transition);
-}
-.modal-close:hover { background: var(–secondary); color: white; }
-
-/* SETUP SCREEN */
-.setup-screen {
-position: fixed;
-inset: 0;
-background: var(–bg);
-z-index: 3000;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 20px;
-}
-.setup-card {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: var(–radius);
-padding: 48px 40px;
-max-width: 480px;
-width: 100%;
-box-shadow: var(–shadow);
-text-align: center;
-}
-.setup-logo { font-size: 3rem; margin-bottom: 8px; }
-.setup-title { font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
-.setup-sub { color: var(–text2); font-size: 0.95rem; margin-bottom: 32px; }
-
-/* TIMELINE */
-.timeline-stage {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: var(–radius2);
-padding: 20px;
-margin-bottom: 16px;
-position: relative;
-overflow: hidden;
-transition: var(–transition);
-}
-.timeline-stage.active-stage { border-color: var(–primary); box-shadow: 0 0 20px rgba(108,99,255,0.2); }
-.timeline-stage.completed-stage { border-color: var(–accent); }
-.stage-badge {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-background: var(–gradient);
-color: white;
-font-size: 0.78rem;
-font-weight: 700;
-padding: 4px 12px;
-border-radius: 100px;
-margin-bottom: 12px;
-}
-.stage-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
-.stage-recovery {
-font-size: 2rem;
-font-weight: 900;
-font-family: var(–font-mono);
-background: var(–gradient2);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-margin-bottom: 12px;
-}
-
-.benefits-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 8px;
-margin-bottom: 12px;
-}
-.benefit-item {
-display: flex;
-align-items: center;
-gap: 6px;
-font-size: 0.82rem;
-color: var(–text2);
-background: var(–card2);
-padding: 6px 10px;
-border-radius: 8px;
-}
-.benefit-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–accent); flex-shrink: 0; }
-.benefit-dot.red { background: var(–secondary); }
-
-.stage-motive {
-background: linear-gradient(135deg, rgba(108,99,255,0.1), rgba(67,233,123,0.1));
-border: 1px solid var(–border);
-border-radius: 10px;
-padding: 12px 16px;
-font-size: 0.88rem;
-font-style: italic;
-color: var(–text2);
-margin-top: 12px;
-}
-
-.flatline-warning {
-background: linear-gradient(135deg, rgba(255,101,132,0.1), rgba(255,142,83,0.1));
-border: 1px solid rgba(255,101,132,0.3);
-border-radius: 10px;
-padding: 10px 14px;
-font-size: 0.82rem;
-color: #FF6584;
-margin-top: 10px;
-display: flex;
-gap: 8px;
-}
-
-/* CALENDAR */
-.calendar-grid {
-display: grid;
-grid-template-columns: repeat(7, 1fr);
-gap: 6px;
-margin-top: 16px;
-}
-.cal-header {
-text-align: center;
-font-size: 0.75rem;
-font-weight: 700;
-color: var(–text3);
-padding: 6px;
-}
-.cal-day {
-aspect-ratio: 1;
-border-radius: 8px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.78rem;
-font-weight: 600;
-cursor: default;
-transition: var(–transition);
-position: relative;
-}
-.cal-day.clean {
-background: linear-gradient(135deg, rgba(67,233,123,0.3), rgba(56,249,215,0.3));
-color: var(–accent);
-border: 1px solid rgba(67,233,123,0.4);
-}
-.cal-day.relapse-day {
-background: linear-gradient(135deg, rgba(255,101,132,0.3), rgba(255,142,83,0.3));
-color: var(–secondary);
-border: 1px solid rgba(255,101,132,0.4);
-}
-.cal-day.today-day {
-background: var(–gradient);
-color: white;
-box-shadow: var(–glow);
-}
-.cal-day.empty { background: transparent; }
-.cal-day.future-day {
-background: var(–card2);
-color: var(–text3);
-opacity: 0.5;
-}
-
-/* ACHIEVEMENTS */
-.achievement-card {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: var(–radius2);
-padding: 16px;
-text-align: center;
-transition: var(–transition);
-position: relative;
-overflow: hidden;
-}
-.achievement-card.unlocked {
-border-color: var(–accent2);
-box-shadow: 0 4px 20px rgba(255,215,0,0.2);
-}
-.achievement-card.locked { opacity: 0.5; filter: grayscale(0.8); }
-.achievement-icon { font-size: 2.5rem; margin-bottom: 8px; }
-.achievement-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
-.achievement-desc { font-size: 0.75rem; color: var(–text3); }
-.achievement-card.unlocked .achievement-icon { animation: bounce 0.5s ease; }
-
-@keyframes bounce {
-0%,100% { transform: translateY(0); }
-50% { transform: translateY(-8px); }
-}
-
-/* XP BAR */
-.xp-bar-wrap {
-background: var(–card2);
-border-radius: 100px;
-height: 10px;
-overflow: hidden;
-margin-top: 8px;
-}
-.xp-bar-fill {
-height: 100%;
-background: var(–gradient4);
-border-radius: 100px;
-transition: width 1s ease;
-}
-
-.level-badge {
-background: var(–gradient4);
-color: #1A0F00;
-font-weight: 900;
-padding: 4px 12px;
-border-radius: 100px;
-font-size: 0.85rem;
-display: inline-flex;
-align-items: center;
-gap: 4px;
-}
-
-/* MISSIONS */
-.mission-item {
-background: var(–card2);
-border: 1px solid var(–border);
-border-radius: 12px;
-padding: 14px 18px;
-display: flex;
-align-items: center;
-gap: 14px;
-margin-bottom: 10px;
-transition: var(–transition);
-cursor: pointer;
-}
-.mission-item:hover { border-color: var(–primary); transform: translateX(-3px); }
-.mission-item.done {
-opacity: 0.6;
-border-color: var(–accent);
-background: linear-gradient(135deg, rgba(67,233,123,0.05), transparent);
-}
-.mission-checkbox {
-width: 22px; height: 22px;
-border-radius: 6px;
-border: 2px solid var(–border);
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-transition: var(–transition);
-}
-.mission-item.done .mission-checkbox {
-background: var(–gradient2);
-border-color: var(–accent);
-color: #0D2010;
-}
-.mission-xp {
-margin-right: auto;
-background: var(–gradient4);
-color: #1A0F00;
-font-size: 0.75rem;
-font-weight: 700;
-padding: 3px 8px;
-border-radius: 100px;
-}
-
-/* JOURNAL */
-.journal-entry {
-background: var(–card2);
-border: 1px solid var(–border);
-border-radius: var(–radius2);
-padding: 16px;
-margin-bottom: 12px;
-transition: var(–transition);
-}
-.journal-entry:hover { border-color: var(–primary); }
-.journal-date { font-size: 0.8rem; color: var(–text3); margin-bottom: 8px; font-family: var(–font-mono); }
-.journal-text { font-size: 0.9rem; color: var(–text); line-height: 1.6; }
-.journal-ratings {
-display: flex;
-gap: 12px;
-margin-top: 10px;
-flex-wrap: wrap;
-}
-.rating-badge {
-font-size: 0.75rem;
-font-weight: 700;
-padding: 3px 10px;
-border-radius: 100px;
-display: flex;
-align-items: center;
-gap: 4px;
-}
-.mood-badge { background: rgba(108,99,255,0.2); color: var(–primary); }
-.stress-badge { background: rgba(255,101,132,0.2); color: var(–secondary); }
-.energy-badge { background: rgba(67,233,123,0.2); color: var(–accent); }
-
-/* RELAPSE LOG */
-.relapse-entry {
-background: var(–card2);
-border: 1px solid rgba(255,101,132,0.2);
-border-radius: var(–radius2);
-padding: 16px;
-margin-bottom: 12px;
-}
-.relapse-date {
-font-size: 0.8rem;
-color: var(–secondary);
-font-family: var(–font-mono);
-margin-bottom: 6px;
-}
-.relapse-reason { font-size: 0.88rem; color: var(–text); }
-
-/* BREATHING TIMER */
-.breathing-circle {
-width: 180px; height: 180px;
-border-radius: 50%;
-background: radial-gradient(circle, rgba(108,99,255,0.3), rgba(108,99,255,0.1));
-border: 3px solid var(–primary);
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-margin: 24px auto;
-animation: breathe 4s ease-in-out infinite;
-box-shadow: 0 0 40px rgba(108,99,255,0.3);
-}
-.breathing-text { font-size: 1.1rem; font-weight: 700; color: var(–primary); }
-.breathing-sub { font-size: 0.75rem; color: var(–text3); margin-top: 4px; }
-
-@keyframes breathe {
-0%,100% { transform: scale(1); box-shadow: 0 0 20px rgba(108,99,255,0.2); }
-50% { transform: scale(1.18); box-shadow: 0 0 60px rgba(108,99,255,0.5); }
-}
-
-.emergency-tips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
-.tip-item {
-background: var(–card2);
-border-radius: 10px;
-padding: 12px;
-font-size: 0.82rem;
-display: flex;
-gap: 8px;
-align-items: flex-start;
-}
-.tip-icon { font-size: 1.2rem; flex-shrink: 0; }
-
-/* SETTINGS */
-.setting-item {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 16px 0;
-border-bottom: 1px solid var(–border);
-}
-.setting-item:last-child { border-bottom: none; }
-.setting-label { font-size: 0.9rem; font-weight: 600; }
-.setting-desc { font-size: 0.78rem; color: var(–text3); margin-top: 2px; }
-
-/* TOGGLE */
-.toggle {
-width: 48px; height: 26px;
-background: var(–border);
-border-radius: 13px;
-position: relative;
-cursor: pointer;
-transition: var(–transition);
-border: none;
-flex-shrink: 0;
-}
-.toggle.on { background: var(–primary); }
-.toggle::after {
-content: ‘’;
-position: absolute;
-top: 3px; right: 3px;
-width: 20px; height: 20px;
-border-radius: 50%;
-background: white;
-transition: var(–transition);
-box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-}
-.toggle.on::after { right: auto; left: 3px; }
-
-/* REWARD STORE */
-.reward-item {
-background: var(–card2);
-border: 1px solid var(–border);
-border-radius: var(–radius2);
-padding: 16px;
-text-align: center;
-transition: var(–transition);
-}
-.reward-item.can-buy { border-color: var(–accent2); }
-.reward-item:hover { transform: translateY(-3px); }
-.reward-icon { font-size: 2rem; margin-bottom: 8px; }
-.reward-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
-.reward-cost { font-size: 0.8rem; color: var(–accent2); font-weight: 700; }
-.reward-owned { font-size: 0.75rem; color: var(–accent); font-weight: 700; }
-
-/* PAGE HEADER */
-.page-header {
-margin-bottom: 24px;
-padding-bottom: 20px;
-border-bottom: 1px solid var(–border);
-}
-.page-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 4px; }
-.page-sub { font-size: 0.9rem; color: var(–text2); }
-
-/* NOTIFICATION TOAST */
-.toast-container {
-position: fixed;
-top: 80px;
-right: 20px;
-z-index: 9999;
-display: flex;
-flex-direction: column;
-gap: 10px;
-}
-[dir=“rtl”] .toast-container { right: auto; left: 20px; }
-
-.toast {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: 12px;
-padding: 12px 18px;
-box-shadow: var(–shadow);
-font-size: 0.88rem;
-font-weight: 600;
-max-width: 300px;
-display: flex;
-align-items: center;
-gap: 10px;
-animation: slideInToast 0.3s ease;
-}
-.toast.success { border-color: var(–accent); }
-.toast.error { border-color: var(–secondary); }
-.toast.warning { border-color: var(–accent2); }
-
-@keyframes slideInToast {
-from { opacity: 0; transform: translateX(30px); }
-to { opacity: 1; transform: translateX(0); }
-}
-
-/* TRIGGERS CHECKLIST */
-.trigger-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.trigger-tag {
-padding: 6px 14px;
-border-radius: 100px;
-border: 1.5px solid var(–border);
-font-size: 0.8rem;
-cursor: pointer;
-transition: var(–transition);
-background: var(–card2);
-}
-.trigger-tag.selected { background: var(–gradient3); border-color: transparent; color: white; }
-
-/* EMPTY STATE */
-.empty-state {
-text-align: center;
-padding: 60px 20px;
-color: var(–text3);
-}
-.empty-icon { font-size: 3rem; margin-bottom: 12px; }
-.empty-text { font-size: 1rem; font-weight: 600; }
-.empty-sub { font-size: 0.85rem; margin-top: 6px; }
-
-/* ANIMATED NUMBER */
-.animated-num { transition: all 0.5s ease; }
-
-/* STREAK FLAME */
-.streak-flame {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-font-size: 1.8rem;
-font-weight: 900;
-font-family: var(–font-mono);
-}
-
-.section-gap { margin-bottom: 24px; }
-
-/* Countdown in panic */
-.countdown-ring {
-width: 100px; height: 100px;
-margin: 0 auto;
-position: relative;
-}
-.countdown-ring svg { transform: rotate(-90deg); }
-.countdown-bg { fill: none; stroke: var(–border); stroke-width: 6; }
-.countdown-fg {
-fill: none;
-stroke: var(–secondary);
-stroke-width: 6;
-stroke-linecap: round;
-stroke-dasharray: 283;
-stroke-dashoffset: 0;
-transition: stroke-dashoffset 1s linear;
-}
-.countdown-num {
-position: absolute;
-inset: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.8rem;
-font-weight: 900;
-font-family: var(–font-mono);
-color: var(–secondary);
-}
-
-.quote-box {
-background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(67,233,123,0.08));
-border: 1px solid var(–border);
-border-radius: 12px;
-padding: 16px 20px;
-text-align: center;
-font-size: 1rem;
-font-style: italic;
-color: var(–text2);
-margin-top: 20px;
-line-height: 1.6;
-}
-
-/* tips advice grid in stage */
-.tips-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.tip-tag {
-background: rgba(108,99,255,0.12);
-border: 1px solid rgba(108,99,255,0.2);
-color: var(–primary);
-font-size: 0.78rem;
-font-weight: 600;
-padding: 4px 12px;
-border-radius: 100px;
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>تحدي 90 يوم • NoFap المتكامل</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
+    }
+
+    :root {
+      --bg-gradient: linear-gradient(145deg, #f8f0ff 0%, #e6d9fe 100%);
+      --surface: rgba(255, 255, 255, 0.75);
+      --surface-solid: #ffffff;
+      --text-primary: #1e103a;
+      --text-secondary: #4a3a6a;
+      --accent: #7c3aed;
+      --accent-light: #a78bfa;
+      --accent-glow: #c084fc;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --border-light: rgba(255, 255, 255, 0.5);
+      --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --shadow-lg: 0 25px 35px -12px rgba(0, 0, 0, 0.15);
+      --card-blur: blur(12px);
+      --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+      --radius-xl: 2rem;
+      --radius-lg: 1.5rem;
+      --radius-md: 1rem;
+    }
+
+    body.dark {
+      --bg-gradient: linear-gradient(145deg, #0f0b1e 0%, #1a1430 100%);
+      --surface: rgba(20, 15, 35, 0.8);
+      --surface-solid: #1e1836;
+      --text-primary: #f1eaff;
+      --text-secondary: #c9b8f0;
+      --accent: #a78bfa;
+      --accent-light: #c4b5fd;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --shadow-sm: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 16px 20px 40px;
+      backdrop-filter: blur(4px);
+      transition: background 0.3s, color 0.2s;
+    }
+
+    /* ===== LAYOUT ===== */
+    .app-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ===== HEADER ===== */
+    .app-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      background: var(--surface);
+      backdrop-filter: var(--card-blur);
+      padding: 14px 24px;
+      border-radius: 60px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), #d8b4fe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn {
+      background: var(--surface-solid);
+      border: none;
+      border-radius: 40px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.02);
+      background: var(--accent-light);
+      color: #0b0720;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ===== NAVBAR ===== */
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 30px;
+      background: var(--surface);
+      backdrop-filter: var(--card-blur);
+      padding: 10px 18px;
+      border-radius: 48px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      justify-content: center;
+    }
+
+    .nav-link {
+      background: transparent;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+
+    .nav-link:hover {
+      background: var(--accent-light);
+      color: #0b0720;
+    }
+
+    .nav-link.active {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 8px 18px -6px var(--accent);
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      display: none;
+      animation: fadeSlide 0.3s ease;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0.5; transform: translateY(6px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--surface);
+      backdrop-filter: var(--card-blur);
+      border-radius: var(--radius-xl);
+      padding: 24px 26px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-light);
+      margin-bottom: 30px;
+      transition: var(--transition);
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .progress-circle-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .big-counter {
+      font-size: 3.6rem;
+      font-weight: 800;
+      background: linear-gradient(to right, var(--accent), #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar-wrapper {
+      height: 20px;
+      background: rgba(128, 128, 128, 0.15);
+      border-radius: 40px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #c084fc);
+      border-radius: 40px;
+      box-shadow: 0 0 12px var(--accent-glow);
+      transition: width 0.5s ease;
+    }
+
+    /* ===== TIMELINE PHASES ===== */
+    .phase-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .phase-item {
+      background: var(--surface-solid);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border-right: 6px solid var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .recovery-badge {
+      background: var(--accent);
+      color: white;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tip-tag {
+      background: rgba(124, 58, 237, 0.1);
+      padding: 6px 10px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      background: var(--accent);
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 14px 24px;
+      border-radius: 60px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 12px 20px -10px var(--accent);
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      box-shadow: none;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      box-shadow: 0 8px 18px -6px var(--danger);
+    }
+
+    /* ===== FORMS ===== */
+    input, textarea, select {
+      background: var(--surface-solid);
+      border: 1px solid var(--border-light);
+      border-radius: 40px;
+      padding: 14px 20px;
+      width: 100%;
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin: 8px 0;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: var(--surface-solid);
+      max-width: 500px;
+      width: 90%;
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ===== DARK MODE OVERRIDES ===== */
+    body.dark .icon-btn, body.dark .nav-bar, body.dark .card {
+      background: var(--surface);
+    }
+
+    /* ===== RTL/LTR SUPPORT ===== */
+    [dir="ltr"] {
+      text-align: left;
+    }
+    [dir="ltr"] .phase-item {
+      border-right: none;
+      border-left: 6px solid var(--accent);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      h1 { font-size: 1.5rem; }
+      .nav-bar { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+    }
+
+    /* counters animation */
+    .counter-value {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
 </head>
-<body data-theme="dark">
-
-<!-- SETUP SCREEN -->
-
-<div class="setup-screen" id="setupScreen">
-  <div class="setup-card">
-    <div class="setup-logo">🔥</div>
-    <div class="setup-title" id="setupTitle">تحدي الـ 90 يوم</div>
-    <div class="setup-sub" id="setupSub">ابدأ رحلتك نحو الحرية. أدخل تاريخ آخر يوم نظيف لك.</div>
-    <div class="form-group" style="text-align:right">
-      <label class="form-label" id="startDateLabel">تاريخ بداية التحدي (آخر يوم نظيف)</label>
-      <input type="datetime-local" class="form-control" id="startDateInput">
+<body class="light">
+<div class="app-wrapper">
+  <!-- HEADER -->
+  <header class="app-header">
+    <h1>🧘 90 يوم نقاء</h1>
+    <div class="header-actions">
+      <button class="icon-btn" id="langToggle">🌐 English</button>
+      <button class="icon-btn" id="darkModeToggle">🌙 داكن</button>
+      <button class="icon-btn" id="soundToggle">🔊 صوت</button>
     </div>
-    <div id="setupError" style="color:var(--secondary);font-size:0.85rem;margin-bottom:12px;display:none"></div>
-    <button class="btn btn-primary btn-full btn-lg" id="startBtn" onclick="App.setup()">🚀 <span id="startBtnText">ابدأ التحدي</span></button>
-  </div>
-</div>
+  </header>
 
-<!-- PANIC MODAL -->
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <button class="nav-link active" data-section="dashboard">📊 لوحة التحكم</button>
+    <button class="nav-link" data-section="timeline">⏳ المراحل</button>
+    <button class="nav-link" data-section="calendar">📅 التقويم</button>
+    <button class="nav-link" data-section="achievements">🏆 الإنجازات</button>
+    <button class="nav-link" data-section="missions">🎯 المهام</button>
+    <button class="nav-link" data-section="journal">📓 اليوميات</button>
+    <button class="nav-link" data-section="relapse-log">⚠️ سجل الانتكاسات</button>
+    <button class="nav-link" data-section="settings">⚙️ الإعدادات</button>
+  </nav>
 
-<div class="modal-overlay" id="panicModal">
-  <div class="modal" style="text-align:center;max-width:440px">
-    <button class="modal-close" onclick="App.closeModal('panicModal')">✕</button>
-    <div class="modal-title" style="justify-content:center">🆘 <span id="panicTitle">زر الطوارئ</span></div>
-    <div class="breathing-circle">
-      <div class="breathing-text" id="breatheText">تنفس</div>
-      <div class="breathing-sub" id="breatheSub">شهيق... زفير...</div>
-    </div>
-    <div class="countdown-ring">
-      <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle class="countdown-bg" cx="50" cy="50" r="45"/>
-        <circle class="countdown-fg" id="countdownRing" cx="50" cy="50" r="45"/>
-      </svg>
-      <div class="countdown-num" id="countdownNum">60</div>
-    </div>
-    <div id="panicCountdownLabel" style="color:var(--text3);font-size:0.82rem;margin-top:8px">ثوانٍ للتغلب على الرغبة</div>
-    <div class="emergency-tips">
-      <div class="tip-item"><div class="tip-icon">💪</div><div id="pt1">20 تمرين ضغط الآن</div></div>
-      <div class="tip-item"><div class="tip-icon">🚶</div><div id="pt2">اخرج للمشي فوراً</div></div>
-      <div class="tip-item"><div class="tip-icon">🚿</div><div id="pt3">استحم بالماء البارد</div></div>
-      <div class="tip-item"><div class="tip-icon">📵</div><div id="pt4">ضع الهاتف بعيداً</div></div>
-      <div class="tip-item"><div class="tip-icon">🚪</div><div id="pt5">غير المكان الذي أنت فيه</div></div>
-      <div class="tip-item"><div class="tip-icon">🤲</div><div id="pt6">تذكر لماذا بدأت</div></div>
-    </div>
-    <div class="quote-box" id="panicQuote"></div>
-  </div>
-</div>
-
-<!-- RELAPSE MODAL -->
-
-<div class="modal-overlay" id="relapseModal">
-  <div class="modal">
-    <button class="modal-close" onclick="App.closeModal('relapseModal')">✕</button>
-    <div class="modal-title">😔 <span id="relapseModalTitle">تسجيل انتكاسة</span></div>
-    <div class="form-group">
-      <label class="form-label" id="relapseReasonLabel">ما سبب الانتكاسة؟</label>
-      <textarea class="form-control" id="relapseReasonInput" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-      <label class="form-label" id="relapseTriggersLabel">اختر المحفزات</label>
-      <div class="trigger-list" id="triggerList"></div>
-    </div>
-    <div style="display:flex;gap:10px;margin-top:20px">
-      <button class="btn btn-danger btn-full" onclick="App.confirmRelapse()" id="confirmRelapseBtn">تأكيد الانتكاسة</button>
-      <button class="btn btn-outline btn-full" onclick="App.closeModal('relapseModal')" id="cancelRelapseBtn">إلغاء</button>
-    </div>
-  </div>
-</div>
-
-<!-- RESET MODAL -->
-
-<div class="modal-overlay" id="resetModal">
-  <div class="modal" style="text-align:center">
-    <button class="modal-close" onclick="App.closeModal('resetModal')">✕</button>
-    <div style="font-size:3rem;margin-bottom:16px">⚠️</div>
-    <div class="modal-title" style="justify-content:center" id="resetTitle">هل أنت متأكد؟</div>
-    <p style="color:var(--text2);font-size:0.9rem;margin-bottom:24px" id="resetDesc">سيتم حذف جميع بياناتك بشكل نهائي. هذا الإجراء لا يمكن التراجع عنه.</p>
-    <div style="display:flex;gap:10px">
-      <button class="btn btn-danger btn-full" onclick="App.confirmReset()" id="confirmResetBtn">نعم، احذف كل شيء</button>
-      <button class="btn btn-outline btn-full" onclick="App.closeModal('resetModal')" id="cancelResetBtn">إلغاء</button>
-    </div>
-  </div>
-</div>
-
-<!-- TOAST CONTAINER -->
-
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- NAVBAR -->
-
-<nav class="navbar">
-  <div class="nav-inner">
-    <div class="nav-logo">🔥 <span id="navLogo">تحدي 90</span></div>
-    <div class="nav-links" id="navLinks">
-      <button class="nav-link active" onclick="App.nav('dashboard')" data-section="dashboard" id="nl-dashboard">لوحة التحكم</button>
-      <button class="nav-link" onclick="App.nav('timeline')" data-section="timeline" id="nl-timeline">المراحل</button>
-      <button class="nav-link" onclick="App.nav('calendar')" data-section="calendar" id="nl-calendar">التقويم</button>
-      <button class="nav-link" onclick="App.nav('achievements')" data-section="achievements" id="nl-achievements">الإنجازات</button>
-      <button class="nav-link" onclick="App.nav('missions')" data-section="missions" id="nl-missions">المهام</button>
-      <button class="nav-link" onclick="App.nav('journal')" data-section="journal" id="nl-journal">اليوميات</button>
-      <button class="nav-link" onclick="App.nav('relapselog')" data-section="relapselog" id="nl-relapselog">سجل الانتكاسات</button>
-      <button class="nav-link" onclick="App.nav('settings')" data-section="settings" id="nl-settings">الإعدادات</button>
-    </div>
-    <div class="nav-actions">
-      <button class="icon-btn" onclick="App.toggleLang()" id="langBtn" title="تغيير اللغة">EN</button>
-      <button class="icon-btn" onclick="App.toggleTheme()" id="themeBtn" title="تغيير المظهر">🌙</button>
-    </div>
-  </div>
-</nav>
-
-<!-- MAIN CONTENT -->
-
-<div class="main">
-
-  <!-- DASHBOARD -->
-
-  <section class="section active" id="sec-dashboard">
-    <!-- Hero -->
-    <div class="hero-card" id="heroCard">
-      <div class="hero-top">
+  <!-- ========== DASHBOARD SECTION ========= -->
+  <section id="dashboard" class="section active">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>⚡ ملخص الرحلة</h2>
+        <button class="icon-btn" id="setStartDateBtn">📆 ضبط تاريخ البدء</button>
+      </div>
+      <div class="grid-2col">
         <div>
-          <div class="hero-days animated-num" id="heroDays">0</div>
-          <div class="hero-label" id="heroDaysLabel">يوم نظيف</div>
-          <div style="margin-top:16px">
-            <span class="streak-flame">🔥 <span id="streakNum">0</span></span>
-            <span style="font-size:0.85rem;opacity:0.8;margin-right:4px" id="streakLabel">أيام سلسلة حالية</span>
+          <div class="progress-circle-container">
+            <svg width="160" height="160" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(128,128,128,0.2)" stroke-width="8"/>
+              <circle id="progressCircle" cx="60" cy="60" r="54" fill="none" stroke="url(#grad)" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292" transform="rotate(-90 60 60)" style="transition: stroke-dashoffset 0.6s;"/>
+              <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs>
+            </svg>
+          </div>
+          <div style="text-align: center; margin-top: 10px;">
+            <span class="big-counter" id="progressPercent">0%</span>
           </div>
         </div>
-        <div class="circle-progress-wrap">
-          <svg viewBox="0 0 120 120">
-            <circle class="circle-bg" cx="60" cy="60" r="52.5"/>
-            <circle class="circle-fill" id="circleFill" cx="60" cy="60" r="52.5"/>
-          </svg>
-          <div class="circle-text">
-            <span id="circlePercent">0%</span>
-            <span id="circleLabel">تقدم</span>
-          </div>
+        <div>
+          <div><span>📅 الأيام النظيفة: </span><strong class="counter-value" id="cleanDays">0</strong></div>
+          <div><span>⏱️ الساعات: </span><strong id="hoursCounter">0</strong> ساعة <strong id="minutesCounter">0</strong> دقيقة</div>
+          <div><span>🔥 السلسلة الحالية: </span><strong id="currentStreak">0</strong> يوم</div>
+          <div><span>🏅 أطول سلسلة: </span><strong id="longestStreak">0</strong> يوم</div>
+          <div><span>📉 أيام متبقية للـ90: </span><strong id="daysLeft">90</strong></div>
+          <div><span>💔 عدد الانتكاسات: </span><strong id="totalRelapses">0</strong></div>
+          <div><span>📊 متوسط السلسلة: </span><strong id="avgStreak">0</strong></div>
+          <div><span>✨ أفضل إنجاز: </span><strong id="bestStreak">0</strong></div>
         </div>
       </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div>
+      <div class="progress-bar-wrapper">
+        <div class="progress-fill" id="progressBarFill" style="width:0%"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:0.8rem;opacity:0.8;margin-top:8px">
-        <span>اليوم 0</span>
-        <span id="progressDaysRemaining">90 يوم متبقي</span>
-        <span>اليوم 90</span>
-      </div>
-    </div>
-
-```
-<!-- Timer -->
-<div class="card section-gap">
-  <div class="card-title">⏱️ <span id="timerTitle">الوقت المنقضي</span></div>
-  <div class="timer-display" id="timerDisplay">
-    <div class="timer-unit"><div class="timer-num" id="t-days">0</div><div class="timer-label" id="tl-days">يوم</div></div>
-    <div class="timer-unit"><div class="timer-num" id="t-hours">0</div><div class="timer-label" id="tl-hours">ساعة</div></div>
-    <div class="timer-unit"><div class="timer-num" id="t-minutes">0</div><div class="timer-label" id="tl-minutes">دقيقة</div></div>
-    <div class="timer-unit"><div class="timer-num" id="t-seconds">0</div><div class="timer-label" id="tl-seconds">ثانية</div></div>
-  </div>
-</div>
-
-<!-- Stats Grid -->
-<div class="grid-4 section-gap">
-  <div class="stat-card">
-    <div class="stat-icon">✅</div>
-    <div class="stat-num animated-num" id="s-cleanDays">0</div>
-    <div class="stat-label" id="sl-cleanDays">أيام نظيفة</div>
-  </div>
-  <div class="stat-card" style="--gradient:linear-gradient(135deg,#FF6584,#FF8E53)">
-    <div class="stat-icon">😔</div>
-    <div class="stat-num animated-num" id="s-relapses">0</div>
-    <div class="stat-label" id="sl-relapses">عدد الانتكاسات</div>
-  </div>
-  <div class="stat-card" style="--gradient:linear-gradient(135deg,#FFD700,#FF8C00)">
-    <div class="stat-icon">🏆</div>
-    <div class="stat-num animated-num" id="s-bestStreak">0</div>
-    <div class="stat-label" id="sl-bestStreak">أفضل سلسلة</div>
-  </div>
-  <div class="stat-card" style="--gradient:linear-gradient(135deg,#43E97B,#38F9D7)">
-    <div class="stat-icon">⏳</div>
-    <div class="stat-num animated-num" id="s-daysLeft">90</div>
-    <div class="stat-label" id="sl-daysLeft">أيام متبقية</div>
-  </div>
-</div>
-
-<!-- Level + XP + Actions -->
-<div class="grid-2 section-gap">
-  <div class="card">
-    <div class="card-title">⭐ <span id="levelTitle">المستوى والنقاط</span></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <span class="level-badge">⭐ <span id="levelText">المستوى 1</span></span>
-      <span style="font-size:0.85rem;color:var(--text2)"><span id="xpText">0</span> XP</span>
-    </div>
-    <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xpBarFill" style="width:0%"></div></div>
-    <div style="font-size:0.78rem;color:var(--text3);margin-top:6px;text-align:center" id="xpToNext">0 XP للمستوى التالي</div>
-  </div>
-  <div class="card">
-    <div class="card-title">🎯 <span id="actionTitle">الإجراءات السريعة</span></div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <button class="btn btn-danger btn-full" onclick="App.openModal('relapseModal')" id="relapseBtn">😔 لقد انتكست</button>
-      <button class="panic-btn" onclick="App.openPanic()" id="panicBtnEl">🆘 زر الطوارئ</button>
-    </div>
-  </div>
-</div>
-
-<!-- Current Stage Card -->
-<div class="card section-gap" id="currentStageCard">
-  <div class="card-title">📍 <span id="curStageTitle">مرحلتك الحالية</span></div>
-  <div id="currentStageContent"></div>
-</div>
-```
-
-  </section>
-
-  <!-- TIMELINE -->
-
-  <section class="section" id="sec-timeline">
-    <div class="page-header">
-      <div class="page-title" id="timelinePageTitle">🗓️ مراحل التعافي</div>
-      <div class="page-sub" id="timelinePageSub">تعرف على ما يحدث في جسمك وعقلك في كل مرحلة</div>
-    </div>
-    <div id="timelineContent"></div>
-  </section>
-
-  <!-- CALENDAR -->
-
-  <section class="section" id="sec-calendar">
-    <div class="page-header">
-      <div class="page-title" id="calPageTitle">📅 تقويم التحدي</div>
-      <div class="page-sub" id="calPageSub">تتبع أيامك النظيفة يوماً بيوم</div>
-    </div>
-    <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-        <button class="icon-btn" onclick="App.calPrev()" id="calPrevBtn">‹</button>
-        <div style="font-weight:700;font-size:1.1rem" id="calMonthTitle"></div>
-        <button class="icon-btn" onclick="App.calNext()" id="calNextBtn">›</button>
-      </div>
-      <div class="calendar-grid" id="calendarGrid"></div>
-      <div style="display:flex;gap:16px;margin-top:20px;flex-wrap:wrap">
-        <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;border-radius:4px;background:rgba(67,233,123,0.4)"></div><span style="font-size:0.8rem;color:var(--text2)" id="calCleanLegend">يوم نظيف</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;border-radius:4px;background:rgba(255,101,132,0.4)"></div><span style="font-size:0.8rem;color:var(--text2)" id="calRelapseLegend">انتكاسة</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:14px;border-radius:4px;background:var(--gradient)"></div><span style="font-size:0.8rem;color:var(--text2)" id="calTodayLegend">اليوم</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ACHIEVEMENTS -->
-
-  <section class="section" id="sec-achievements">
-    <div class="page-header">
-      <div class="page-title" id="achPageTitle">🏆 الإنجازات</div>
-      <div class="page-sub" id="achPageSub">افتح الشارات وحقق الإنجازات</div>
-    </div>
-    <div class="grid-auto" id="achievementsGrid"></div>
-  </section>
-
-  <!-- MISSIONS -->
-
-  <section class="section" id="sec-missions">
-    <div class="page-header">
-      <div class="page-title" id="missPageTitle">📋 المهام اليومية</div>
-      <div class="page-sub" id="missPageSub">أكمل مهامك اليومية واكسب نقاط XP</div>
-    </div>
-    <div class="grid-2">
-      <div>
-        <div class="card section-gap">
-          <div class="card-title" id="dailyMissTitle">🌅 مهام اليوم</div>
-          <div id="missionsList"></div>
-          <div style="margin-top:16px;text-align:center;color:var(--text3);font-size:0.82rem" id="missResetNote">تتجدد المهام يومياً</div>
-        </div>
-      </div>
-      <div>
-        <div class="card section-gap">
-          <div class="card-title" id="rewardStoreTitle">🛒 متجر المكافآت</div>
-          <div class="grid-2" id="rewardStore"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- JOURNAL -->
-
-  <section class="section" id="sec-journal">
-    <div class="page-header">
-      <div class="page-title" id="journalPageTitle">📓 اليوميات</div>
-      <div class="page-sub" id="journalPageSub">سجل مشاعرك وتقدمك اليومي</div>
-    </div>
-    <div class="grid-2">
-      <div>
-        <div class="card section-gap">
-          <div class="card-title" id="newEntryTitle">✍️ إدخال جديد</div>
-          <div class="form-group">
-            <label class="form-label" id="jTextLabel">ما الذي تشعر به اليوم؟</label>
-            <textarea class="form-control" id="journalTextInput" rows="4"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label" id="jMoodLabel">المزاج <span id="moodValDisp">5</span>/10</label>
-            <div class="slider-wrap"><span>😞</span><input type="range" min="1" max="10" value="5" id="moodSlider" oninput="document.getElementById('moodValDisp').textContent=this.value"><span>😄</span></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" id="jStressLabel">التوتر <span id="stressValDisp">5</span>/10</label>
-            <div class="slider-wrap"><span>😌</span><input type="range" min="1" max="10" value="5" id="stressSlider" oninput="document.getElementById('stressValDisp').textContent=this.value"><span>😰</span></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" id="jEnergyLabel">الطاقة <span id="energyValDisp">5</span>/10</label>
-            <div class="slider-wrap"><span>😴</span><input type="range" min="1" max="10" value="5" id="energySlider" oninput="document.getElementById('energyValDisp').textContent=this.value"><span>⚡</span></div>
-          </div>
-          <button class="btn btn-primary btn-full" onclick="App.saveJournal()" id="saveJournalBtn">💾 حفظ الإدخال</button>
-        </div>
-      </div>
-      <div>
-        <div class="card">
-          <div class="card-title" id="journalHistoryTitle">📚 سجل اليوميات</div>
-          <div id="journalList"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RELAPSE LOG -->
-
-  <section class="section" id="sec-relapselog">
-    <div class="page-header">
-      <div class="page-title" id="rlogPageTitle">📊 سجل الانتكاسات</div>
-      <div class="page-sub" id="rlogPageSub">تحليل أنماط الانتكاسات لتجنبها مستقبلاً</div>
-    </div>
-    <div class="grid-2 section-gap">
-      <div class="stat-card">
-        <div class="stat-icon">📉</div>
-        <div class="stat-num" id="rl-total">0</div>
-        <div class="stat-label" id="rls-total">إجمالي الانتكاسات</div>
-      </div>
-      <div class="stat-card" style="--gradient:linear-gradient(135deg,#43E97B,#38F9D7)">
-        <div class="stat-icon">📈</div>
-        <div class="stat-num" id="rl-avgStreak">0</div>
-        <div class="stat-label" id="rls-avgStreak">متوسط السلسلة</div>
+      <div style="display: flex; gap: 14px; margin-top: 18px;">
+        <button class="btn" id="panicButton">🚨 زر الطوارئ</button>
+        <button class="btn btn-danger" id="relapseButton">❗ لقد انتكست</button>
       </div>
     </div>
     <div class="card">
-      <div class="card-title" id="rlogListTitle">📋 قائمة الانتكاسات</div>
-      <div id="relapseList"></div>
+      <h3>📈 المرحلة الحالية</h3>
+      <div id="currentPhaseWidget">تحميل...</div>
     </div>
   </section>
 
-  <!-- SETTINGS -->
-
-  <section class="section" id="sec-settings">
-    <div class="page-header">
-      <div class="page-title" id="settingsPageTitle">⚙️ الإعدادات</div>
-      <div class="page-sub" id="settingsPageSub">تخصيص تجربتك</div>
-    </div>
+  <!-- ========== TIMELINE ========= -->
+  <section id="timeline" class="section">
     <div class="card">
-      <div class="setting-item">
-        <div><div class="setting-label" id="setThemeLabel">الوضع الليلي</div><div class="setting-desc" id="setThemeDesc">تغيير بين الوضع الليلي والنهاري</div></div>
-        <button class="toggle" id="themeToggle" onclick="App.toggleTheme()"></button>
-      </div>
-      <div class="setting-item">
-        <div><div class="setting-label" id="setLangLabel">اللغة</div><div class="setting-desc" id="setLangDesc">تغيير لغة التطبيق</div></div>
-        <button class="btn btn-outline btn-sm" onclick="App.toggleLang()" id="langToggleBtn">English</button>
-      </div>
-      <div class="setting-item">
-        <div><div class="setting-label" id="setSoundLabel">الأصوات</div><div class="setting-desc" id="setSoundDesc">تشغيل/إيقاف الأصوات</div></div>
-        <button class="toggle" id="soundToggle" onclick="App.toggleSound()"></button>
-      </div>
-      <div class="setting-item">
-        <div><div class="setting-label" id="setResetLabel">إعادة ضبط</div><div class="setting-desc" id="setResetDesc">حذف جميع البيانات وإعادة البدء</div></div>
-        <button class="btn btn-danger btn-sm" onclick="App.openModal('resetModal')" id="resetBtn">🗑️ إعادة ضبط</button>
-      </div>
-      <div class="setting-item" style="border-bottom:none">
-        <div><div class="setting-label" id="setStartLabel">تاريخ البداية</div><div class="setting-desc" id="setStartDesc">تعديل تاريخ بداية التحدي</div></div>
-        <button class="btn btn-outline btn-sm" onclick="App.changeStartDate()" id="changeStartBtn">تعديل</button>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <div class="card-title" id="aboutTitle">ℹ️ عن التطبيق</div>
-      <p style="color:var(--text2);font-size:0.9rem;line-height:1.7" id="aboutText">تطبيق تحدي الـ 90 يوم هو أداة للمساعدة على الإقلاع عن العادات السلبية وبناء حياة أفضل. جميع البيانات محفوظة محلياً على جهازك فقط ولا يتم إرسال أي بيانات للخارج.</p>
+      <h2>🧬 مراحل التعافي (90 يوم)</h2>
+      <div id="timelineContainer" class="phase-cards"></div>
     </div>
   </section>
 
-</div><!-- /main -->
+  <!-- ========== CALENDAR ========= -->
+  <section id="calendar" class="section">
+    <div class="card">
+      <h2>📆 تقويم الأيام النظيفة</h2>
+      <div id="calendarView" style="display: grid; grid-template-columns: repeat(7,1fr); gap:6px;"></div>
+    </div>
+  </section>
+
+  <!-- ========== ACHIEVEMENTS ========= -->
+  <section id="achievements" class="section">
+    <div class="card">
+      <h2>🏆 الإنجازات والمستوى</h2>
+      <p>⭐ نقاط الخبرة: <span id="xpValue">0</span> XP | المستوى: <span id="levelValue">1</span></p>
+      <div id="achievementsList" style="display: flex; flex-wrap: wrap; gap: 12px;"></div>
+      <h3 style="margin-top: 30px;">🎁 متجر المكافآت</h3>
+      <div id="rewardStore"></div>
+    </div>
+  </section>
+
+  <!-- ========== MISSIONS ========= -->
+  <section id="missions" class="section">
+    <div class="card">
+      <h2>📋 المهام اليومية</h2>
+      <div id="dailyMissions"></div>
+      <button class="btn" id="claimMissionXP" style="margin-top:20px;">✅ استلام نقاط المهام</button>
+    </div>
+  </section>
+
+  <!-- ========== JOURNAL ========= -->
+  <section id="journal" class="section">
+    <div class="card">
+      <h2>📖 تدوين اليوم</h2>
+      <div><label>المزاج (1-10)</label><input type="number" id="mood" min="1" max="10" value="5"></div>
+      <div><label>التوتر</label><input type="number" id="stress" min="1" max="10" value="5"></div>
+      <div><label>الطاقة</label><input type="number" id="energy" min="1" max="10" value="5"></div>
+      <textarea id="journalNote" placeholder="ملاحظاتك..." rows="3"></textarea>
+      <button class="btn" id="saveJournal">💾 حفظ اليومية</button>
+      <h3>📚 سجل اليوميات</h3>
+      <div id="journalEntries"></div>
+    </div>
+  </section>
+
+  <!-- ========== RELAPSE LOG ========= -->
+  <section id="relapse-log" class="section">
+    <div class="card">
+      <h2>📋 سجل الانتكاسات</h2>
+      <div id="relapseHistory"></div>
+    </div>
+  </section>
+
+  <!-- ========== SETTINGS ========= -->
+  <section id="settings" class="section">
+    <div class="card">
+      <h2>⚙️ الإعدادات والتحكم</h2>
+      <button class="btn btn-outline" id="resetDataBtn">🔄 إعادة ضبط جميع البيانات</button>
+      <p style="margin-top: 20px;">اختر اللغة / الوضع الداكن من الأعلى.</p>
+    </div>
+  </section>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
 
 <script>
-const TRANSLATIONS = {
-  ar: {
-    appName: "تحدي 90", navLogo: "تحدي 90 يوم",
-    nav: { dashboard:"لوحة التحكم", timeline:"المراحل", calendar:"التقويم", achievements:"الإنجازات", missions:"المهام", journal:"اليوميات", relapselog:"سجل الانتكاسات", settings:"الإعدادات" },
-    setup: { title:"تحدي الـ 90 يوم", sub:"ابدأ رحلتك نحو الحرية. أدخل تاريخ آخر يوم نظيف لك.", startDateLabel:"تاريخ بداية التحدي", startBtn:"ابدأ التحدي", futureError:"لا يمكن إدخال تاريخ مستقبلي!" },
-    hero: { daysLabel:"يوم نظيف", streakLabel:"أيام سلسلة حالية", circleLabel:"تقدم" },
-    timer: { title:"الوقت المنقضي", days:"يوم", hours:"ساعة", minutes:"دقيقة", seconds:"ثانية" },
-    stats: { cleanDays:"أيام نظيفة", relapses:"عدد الانتكاسات", bestStreak:"أفضل سلسلة", daysLeft:"أيام متبقية" },
-    level: { title:"المستوى والنقاط", toNext:"XP للمستوى التالي" },
-    actions: { title:"الإجراءات السريعة", relapseBtn:"😔 لقد انتكست", panicBtn:"🆘 زر الطوارئ" },
-    curStage: { title:"مرحلتك الحالية" },
-    panic: { title:"زر الطوارئ", breathe:"تنفس", breatheSub:"شهيق... زفير...", countdown:"ثوانٍ للتغلب على الرغبة", tips:["20 تمرين ضغط الآن","اخرج للمشي فوراً","استحم بالماء البارد","ضع الهاتف بعيداً","غير المكان الذي أنت فيه","تذكر لماذا بدأت"] },
-    relapse: { title:"😔 تسجيل انتكاسة", reasonLabel:"ما سبب الانتكاسة؟", triggersLabel:"اختر المحفزات", confirm:"تأكيد الانتكاسة", cancel:"إلغاء" },
-    reset: { title:"هل أنت متأكد؟", desc:"سيتم حذف جميع بياناتك بشكل نهائي. هذا الإجراء لا يمكن التراجع عنه.", confirm:"نعم، احذف كل شيء", cancel:"إلغاء" },
-    pages: {
-      timeline: { title:"🗓️ مراحل التعافي", sub:"تعرف على ما يحدث في جسمك وعقلك في كل مرحلة" },
-      calendar: { title:"📅 تقويم التحدي", sub:"تتبع أيامك النظيفة يوماً بيوم", cleanLegend:"يوم نظيف", relapseLegend:"انتكاسة", todayLegend:"اليوم" },
-      achievements: { title:"🏆 الإنجازات", sub:"افتح الشارات وحقق الإنجازات" },
-      missions: { title:"📋 المهام اليومية", sub:"أكمل مهامك اليومية واكسب نقاط XP", dailyTitle:"🌅 مهام اليوم", storeTitle:"🛒 متجر المكافآت", resetNote:"تتجدد المهام يومياً" },
-      journal: { title:"📓 اليوميات", sub:"سجل مشاعرك وتقدمك اليومي", newEntry:"✍️ إدخال جديد", historyTitle:"📚 سجل اليوميات", textLabel:"ما الذي تشعر به اليوم؟", moodLabel:"المزاج", stressLabel:"التوتر", energyLabel:"الطاقة", saveBtn:"💾 حفظ الإدخال" },
-      relapselog: { title:"📊 سجل الانتكاسات", sub:"تحليل أنماط الانتكاسات لتجنبها مستقبلاً", total:"إجمالي الانتكاسات", avgStreak:"متوسط السلسلة", listTitle:"📋 قائمة الانتكاسات" },
-      settings: { title:"⚙️ الإعدادات", sub:"تخصيص تجربتك", themeLabel:"الوضع الليلي", themeDesc:"تغيير بين الوضع الليلي والنهاري", langLabel:"اللغة", langDesc:"تغيير لغة التطبيق", soundLabel:"الأصوات", soundDesc:"تشغيل/إيقاف الأصوات", resetLabel:"إعادة ضبط", resetDesc:"حذف جميع البيانات وإعادة البدء", startLabel:"تاريخ البداية", startDesc:"تعديل تاريخ بداية التحدي", changeStartBtn:"تعديل", aboutTitle:"ℹ️ عن التطبيق", aboutText:"تطبيق تحدي الـ 90 يوم هو أداة للمساعدة على الإقلاع عن العادات السلبية وبناء حياة أفضل. جميع البيانات محفوظة محلياً على جهازك فقط ولا يتم إرسال أي بيانات للخارج." },
-    },
-    triggers: ["الملل","الوحدة","التوتر","الفضول","السوشيال ميديا","الليل المتأخر","المحتوى المثير","الإحباط","الحزن","الفراغ"],
-    quotes: [
-      "كل لحظة صعبة هي فرصة لتثبت لنفسك قوتك الحقيقية.",
-      "الانتصار الأكبر هو الانتصار على نفسك.",
-      "ستندم على الاستسلام أكثر بكثير مما ستندم على المقاومة.",
-      "جسدك يستحق أفضل منك. كن الشخص الذي يستحقه.",
-      "الرغبة مؤقتة، لكن الندم دائم.",
-      "قوتك أكبر من أي إغراء.",
-      "أنت لست عبداً لغرائزك، أنت حر.",
-      "كل ثانية تقاومها هي انتصار لروحك.",
-    ],
-    achievements: [
-      { id:"day1", icon:"🌱", name:"البداية", desc:"أول يوم نظيف", days:1 },
-      { id:"day3", icon:"🔥", name:"الشرارة", desc:"3 أيام نظيفة", days:3 },
-      { id:"day7", icon:"⚡", name:"أسبوع كامل", desc:"7 أيام نظيفة", days:7 },
-      { id:"day14", icon:"💪", name:"أسبوعان", desc:"14 يوم نظيف", days:14 },
-      { id:"day21", icon:"🏅", name:"ثلاثة أسابيع", desc:"21 يوم نظيف", days:21 },
-      { id:"day30", icon:"🥇", name:"شهر كامل", desc:"30 يوم نظيف", days:30 },
-      { id:"day45", icon:"🌟", name:"المنتصف", desc:"45 يوم نظيف", days:45 },
-      { id:"day60", icon:"💎", name:"شهران", desc:"60 يوم نظيف", days:60 },
-      { id:"day75", icon:"🚀", name:"قاب قوسين", desc:"75 يوم نظيف", days:75 },
-      { id:"day90", icon:"👑", name:"الملك", desc:"90 يوم نظيف - تحدي مكتمل!", days:90 },
-      { id:"journal1", icon:"📓", name:"كاتب", desc:"سجل يومياتك لأول مرة", special:"journal" },
-      { id:"norelapse", icon:"🛡️", name:"المحارب", desc:"لا انتكاسات حتى الآن", special:"norelapse" },
-    ],
-    missions: [
-      { id:"m1", icon:"💧", name:"شرب 8 أكواب ماء", xp:10 },
-      { id:"m2", icon:"🏃", name:"30 دقيقة رياضة", xp:20 },
-      { id:"m3", icon:"📖", name:"قراءة 10 صفحات", xp:15 },
-      { id:"m4", icon:"🧘", name:"تأمل 5 دقائق", xp:15 },
-      { id:"m5", icon:"📵", name:"تقليل السوشيال ميديا", xp:10 },
-      { id:"m6", icon:"🌙", name:"النوم قبل 11 مساءً", xp:15 },
-      { id:"m7", icon:"🚿", name:"استحمام بارد", xp:20 },
-      { id:"m8", icon:"🥗", name:"تناول وجبة صحية", xp:10 },
-    ],
-    rewards: [
-      { id:"r1", icon:"🎖️", name:"وسام الاستمرار", cost:50 },
-      { id:"r2", icon:"🏆", name:"كأس الإرادة", cost:100 },
-      { id:"r3", icon:"💎", name:"جوهرة الصبر", cost:200 },
-      { id:"r4", icon:"👑", name:"تاج الانتصار", cost:500 },
-      { id:"r5", icon:"🌟", name:"نجم الحكمة", cost:300 },
-      { id:"r6", icon:"🦁", name:"قلب الأسد", cost:400 },
-    ],
-    stages: [
-      { range:"1-3", days:[1,3], title:"الانطلاق والصدمة", recovery:10, benefits:["بداية زيادة الطاقة","تقليل ضبابية الذهن","وعي بقوة الإرادة","شعور أولي بالتحكم"], reduces:["الرغبة في الإباحية","الشعور بالذنب","التعب اليومي","ضعف الدوبامين"], motive:"أصعب بداية هي الخطوة الأولى. أنت هنا الآن وهذا يكفي.", tips:["تجنب الخلوة","ابتعد عن المحفزات","مارس رياضة خفيفة"], flatline:false },
-      { range:"4-7", days:[4,7], title:"تحدي الأسبوع الأول", recovery:20, benefits:["طاقة متزايدة بشكل ملحوظ","تحسن النوم","بداية تحسن الثقة","صفاء ذهني أكبر"], reduces:["حدة الرغبات","الاكتئاب الخفيف","القلق الاجتماعي","الخمول"], motive:"أسبوع كامل! أنت تثبت لنفسك أنك أقوى مما تظن.", tips:["الاستحمام البارد يومياً","قراءة كتاب تحفيزي","التواصل الاجتماعي الإيجابي"], flatline:false },
-      { range:"8-14", days:[8,14], title:"بناء الزخم", recovery:30, benefits:["زيادة ملحوظة في التركيز","تحسن المزاج العام","طاقة جنسية طبيعية","ثقة أكبر في النفس"], reduces:["الميل للاكتئاب","التوتر الزائد","ضعف التركيز","العزلة الاجتماعية"], motive:"أسبوعان من القوة! عقلك يتعيد بناءه من جديد.", tips:["مارس رياضة مكثفة","تناول طعاماً صحياً","ابدأ مشروعاً جديداً"], flatline:true, flatlineText:"قد تشعر بتراجع مؤقت في الطاقة (Flatline) - هذا طبيعي جداً ويدل على التعافي" },
-      { range:"15-21", days:[15,21], title:"مرحلة إعادة البناء", recovery:40, benefits:["تحسن ملحوظ في الأداء","وضوح ذهني كبير","ثقة اجتماعية أعلى","نوم عميق وهادئ"], reduces:["نوبات الاكتئاب","القلق المزمن","الشعور بالفراغ","الرغبة في الانعزال"], motive:"21 يوماً تصنع عادة جديدة. أنت تُعيد برمجة نفسك.", tips:["تأمل يومي","اكتب يومياتك","مارس الرياضة بانتظام"], flatline:false },
-      { range:"22-30", days:[22,30], title:"الشهر الأول", recovery:50, benefits:["تحسن كبير في الأداء الجنسي الطبيعي","طاقة قياسية","ثقة عالية جداً","تحسن العلاقات الاجتماعية"], reduces:["الاعتماد على الإباحية","التعب المزمن","الشعور بالدونية","اضطرابات المزاج"], motive:"شهر كامل! الآن أصبحت جزءاً من من أنت.", tips:["حدد أهدافاً جديدة","انضم لمجموعة رياضية","تعلم مهارة جديدة"], flatline:false },
-      { range:"31-45", days:[31,45], title:"منطقة القوة", recovery:60, benefits:["استقرار نفسي عالٍ","حافز قوي لتحقيق الأهداف","تحسن جذري في التركيز","طاقة دائمة ومستمرة"], reduces:["الأنماط القديمة","القلق الاجتماعي","اضطرابات النوم","ضعف الإرادة"], motive:"أنت في منطقة القوة. لا شيء يستطيع إيقافك الآن.", tips:["ضع خططاً طويلة المدى","اهتم بصحتك البدنية","استثمر وقتك في التعلم"], flatline:true, flatlineText:"بعض الناس يمرون بـ Flatline هنا. الصبر هو الحل." },
-      { range:"46-60", days:[46,60], title:"نصف الطريق وما بعده", recovery:70, benefits:["تحول جذري في الشخصية","جاذبية اجتماعية أعلى","وضوح الرؤية للمستقبل","استقرار عاطفي كامل"], reduces:["الأنماط السلبية القديمة","الرغبات الإدمانية","القلق من المستقبل","الملل الوجودي"], motive:"60 يوماً من الانتصار! أنت تصبح نسخة مختلفة تماماً.", tips:["واجه تحديات جديدة","قيّم ما تحقق","عزز علاقاتك الاجتماعية"], flatline:false },
-      { range:"61-75", days:[61,75], title:"قريب من القمة", recovery:85, benefits:["تحكم كامل في الرغبات","أداء عقلي وجسدي استثنائي","ثقة لا حدود لها","تحسن العلاقات الحميمة الطبيعية"], reduces:["كل الأعراض السابقة تقريباً","الانتكاسات تصبح نادرة","المحفزات أقل تأثيراً","الوسواس القهري"], motive:"أنت على بعد خطوات من القمة. لا تتوقف الآن!", tips:["حافظ على روتينك","لا تستهن بالمحفزات","كافئ نفسك بشيء صحي"], flatline:false },
-      { range:"76-90", days:[76,90], title:"مرحلة الإتمام", recovery:100, benefits:["تعافٍ شبه كامل","طاقة وحيوية قصوى","ثقة وتوازن مطلق","حياة جنسية صحية وطبيعية"], reduces:["انتهاء معظم الأعراض","الرغبات تصبح طبيعية ومتحكم بها","اختفاء الذنب والعار","تلاشي القلق المزمن"], motive:"90 يوماً من الانتصار على النفس. أنت بطل حقيقي!", tips:["استمر في الروتين الصحي","شارك تجربتك لتحفيز الآخرين","ضع أهدافاً للمرحلة القادمة"], flatline:false },
-    ],
-  },
-  en: {
-    appName: "90 Day", navLogo: "90 Day Challenge",
-    nav: { dashboard:"Dashboard", timeline:"Timeline", calendar:"Calendar", achievements:"Achievements", missions:"Missions", journal:"Journal", relapselog:"Relapse Log", settings:"Settings" },
-    setup: { title:"The 90-Day Challenge", sub:"Begin your journey to freedom. Enter the date and time you started.", startDateLabel:"Challenge start date", startBtn:"Start Challenge", futureError:"Cannot enter a future date!" },
-    hero: { daysLabel:"Clean Days", streakLabel:"Current Streak", circleLabel:"Progress" },
-    timer: { title:"Elapsed Time", days:"Days", hours:"Hours", minutes:"Mins", seconds:"Secs" },
-    stats: { cleanDays:"Clean Days", relapses:"Relapses", bestStreak:"Best Streak", daysLeft:"Days Left" },
-    level: { title:"Level & XP", toNext:"XP to next level" },
-    actions: { title:"Quick Actions", relapseBtn:"😔 I Relapsed", panicBtn:"🆘 Panic Button" },
-    curStage: { title:"Your Current Stage" },
-    panic: { title:"Panic Button", breathe:"Breathe", breatheSub:"Inhale... Exhale...", countdown:"seconds to overcome the urge", tips:["Do 20 push-ups NOW","Go for a walk immediately","Take a cold shower","Put your phone away","Change your location","Remember why you started"] },
-    relapse: { title:"😔 Log Relapse", reasonLabel:"What caused the relapse?", triggersLabel:"Select triggers", confirm:"Confirm Relapse", cancel:"Cancel" },
-    reset: { title:"Are you sure?", desc:"All your data will be permanently deleted. This action cannot be undone.", confirm:"Yes, delete everything", cancel:"Cancel" },
-    pages: {
-      timeline: { title:"🗓️ Recovery Stages", sub:"Learn what happens in your body and mind at each stage" },
-      calendar: { title:"📅 Challenge Calendar", sub:"Track your clean days one by one", cleanLegend:"Clean day", relapseLegend:"Relapse", todayLegend:"Today" },
-      achievements: { title:"🏆 Achievements", sub:"Unlock badges and reach milestones" },
-      missions: { title:"📋 Daily Missions", sub:"Complete daily missions and earn XP", dailyTitle:"🌅 Today's Missions", storeTitle:"🛒 Reward Store", resetNote:"Missions reset daily" },
-      journal: { title:"📓 Journal", sub:"Record your feelings and daily progress", newEntry:"✍️ New Entry", historyTitle:"📚 Journal History", textLabel:"How do you feel today?", moodLabel:"Mood", stressLabel:"Stress", energyLabel:"Energy", saveBtn:"💾 Save Entry" },
-      relapselog: { title:"📊 Relapse Log", sub:"Analyze relapse patterns to avoid them in the future", total:"Total Relapses", avgStreak:"Average Streak", listTitle:"📋 Relapse List" },
-      settings: { title:"⚙️ Settings", sub:"Customize your experience", themeLabel:"Dark Mode", themeDesc:"Toggle between dark and light mode", langLabel:"Language", langDesc:"Change app language", soundLabel:"Sounds", soundDesc:"Enable/disable sounds", resetLabel:"Reset", resetDesc:"Delete all data and start over", startLabel:"Start Date", startDesc:"Edit challenge start date", changeStartBtn:"Edit", aboutTitle:"ℹ️ About", aboutText:"The 90-Day Challenge app is a tool to help overcome negative habits and build a better life. All data is stored locally on your device only and no data is sent externally." },
-    },
-    triggers: ["Boredom","Loneliness","Stress","Curiosity","Social Media","Late Night","Triggering Content","Frustration","Sadness","Free Time"],
-    quotes: [
-      "Every difficult moment is an opportunity to prove your true strength.",
-      "The greatest victory is the victory over yourself.",
-      "You'll regret giving up far more than you'll regret resisting.",
-      "Your body deserves better. Be the person who deserves it.",
-      "The urge is temporary, but regret is permanent.",
-      "Your strength is greater than any temptation.",
-      "You are not a slave to your impulses. You are free.",
-      "Every second you resist is a victory for your soul.",
-    ],
-    achievements: [
-      { id:"day1", icon:"🌱", name:"The Beginning", desc:"First clean day", days:1 },
-      { id:"day3", icon:"🔥", name:"The Spark", desc:"3 clean days", days:3 },
-      { id:"day7", icon:"⚡", name:"Full Week", desc:"7 clean days", days:7 },
-      { id:"day14", icon:"💪", name:"Two Weeks", desc:"14 clean days", days:14 },
-      { id:"day21", icon:"🏅", name:"Three Weeks", desc:"21 clean days", days:21 },
-      { id:"day30", icon:"🥇", name:"Full Month", desc:"30 clean days", days:30 },
-      { id:"day45", icon:"🌟", name:"Halfway", desc:"45 clean days", days:45 },
-      { id:"day60", icon:"💎", name:"Two Months", desc:"60 clean days", days:60 },
-      { id:"day75", icon:"🚀", name:"Almost There", desc:"75 clean days", days:75 },
-      { id:"day90", icon:"👑", name:"The King", desc:"90 clean days - Challenge Complete!", days:90 },
-      { id:"journal1", icon:"📓", name:"Writer", desc:"Log your journal for the first time", special:"journal" },
-      { id:"norelapse", icon:"🛡️", name:"Warrior", desc:"No relapses so far", special:"norelapse" },
-    ],
-    missions: [
-      { id:"m1", icon:"💧", name:"Drink 8 glasses of water", xp:10 },
-      { id:"m2", icon:"🏃", name:"30 min workout", xp:20 },
-      { id:"m3", icon:"📖", name:"Read 10 pages", xp:15 },
-      { id:"m4", icon:"🧘", name:"5 min meditation", xp:15 },
-      { id:"m5", icon:"📵", name:"Reduce social media", xp:10 },
-      { id:"m6", icon:"🌙", name:"Sleep before 11 PM", xp:15 },
-      { id:"m7", icon:"🚿", name:"Cold shower", xp:20 },
-      { id:"m8", icon:"🥗", name:"Eat a healthy meal", xp:10 },
-    ],
-    rewards: [
-      { id:"r1", icon:"🎖️", name:"Persistence Medal", cost:50 },
-      { id:"r2", icon:"🏆", name:"Willpower Cup", cost:100 },
-      { id:"r3", icon:"💎", name:"Patience Gem", cost:200 },
-      { id:"r4", icon:"👑", name:"Victory Crown", cost:500 },
-      { id:"r5", icon:"🌟", name:"Wisdom Star", cost:300 },
-      { id:"r6", icon:"🦁", name:"Lion Heart", cost:400 },
-    ],
-    stages: [
-      { range:"1-3", days:[1,3], title:"Launch & Shock", recovery:10, benefits:["Energy beginning to rise","Brain fog starting to clear","Willpower awareness growing","Initial sense of control"], reduces:["Urge to watch porn","Feelings of guilt","Daily fatigue","Dopamine deficiency"], motive:"The hardest start is the first step. You're here now and that's enough.", tips:["Avoid being alone","Stay away from triggers","Light exercise daily"], flatline:false },
-      { range:"4-7", days:[4,7], title:"First Week Challenge", recovery:20, benefits:["Noticeably increased energy","Improved sleep quality","Beginning of confidence boost","Greater mental clarity"], reduces:["Intensity of urges","Mild depression","Social anxiety","Sluggishness"], motive:"A full week! You're proving to yourself you're stronger than you thought.", tips:["Daily cold showers","Read a motivational book","Positive social interaction"], flatline:false },
-      { range:"8-14", days:[8,14], title:"Building Momentum", recovery:30, benefits:["Noticeable focus improvement","General mood improvement","Natural sexual energy","Greater self-confidence"], reduces:["Tendency toward depression","Excessive stress","Poor concentration","Social isolation"], motive:"Two weeks of strength! Your mind is rebuilding itself.", tips:["Intense exercise","Eat healthy food","Start a new project"], flatline:true, flatlineText:"You may feel a temporary energy dip (Flatline) - this is completely normal and indicates recovery" },
-      { range:"15-21", days:[15,21], title:"Rebuilding Phase", recovery:40, benefits:["Noticeable performance improvement","Great mental clarity","Higher social confidence","Deep restful sleep"], reduces:["Episodes of depression","Chronic anxiety","Feeling of emptiness","Desire to isolate"], motive:"21 days create a new habit. You are reprogramming yourself.", tips:["Daily meditation","Write in your journal","Regular exercise"], flatline:false },
-      { range:"22-30", days:[22,30], title:"The First Month", recovery:50, benefits:["Great improvement in natural performance","Record energy levels","Very high confidence","Improved social relationships"], reduces:["Dependence on pornography","Chronic fatigue","Feeling of inferiority","Mood disorders"], motive:"A full month! Now it's become part of who you are.", tips:["Set new goals","Join a sports group","Learn a new skill"], flatline:false },
-      { range:"31-45", days:[31,45], title:"Power Zone", recovery:60, benefits:["High psychological stability","Strong motivation for goals","Radical improvement in focus","Constant sustained energy"], reduces:["Old patterns","Social anxiety","Sleep disorders","Weak willpower"], motive:"You're in the power zone. Nothing can stop you now.", tips:["Make long-term plans","Take care of your physical health","Invest time in learning"], flatline:true, flatlineText:"Some people experience a Flatline here. Patience is the solution." },
-      { range:"46-60", days:[46,60], title:"Past the Halfway Point", recovery:70, benefits:["Radical personality transformation","Higher social magnetism","Clear vision for the future","Complete emotional stability"], reduces:["Old negative patterns","Addictive urges","Anxiety about the future","Existential boredom"], motive:"60 days of victory! You are becoming a completely different version of yourself.", tips:["Face new challenges","Assess what you've achieved","Strengthen your social ties"], flatline:false },
-      { range:"61-75", days:[61,75], title:"Near the Peak", recovery:85, benefits:["Complete control over urges","Exceptional mental and physical performance","Boundless confidence","Improved natural intimacy"], reduces:["Almost all previous symptoms","Relapses become rare","Triggers less impactful","Obsessive-compulsive tendencies"], motive:"You're steps away from the summit. Don't stop now!", tips:["Maintain your routine","Don't underestimate triggers","Reward yourself with something healthy"], flatline:false },
-      { range:"76-90", days:[76,90], title:"Completion Phase", recovery:100, benefits:["Near-complete recovery","Peak energy and vitality","Absolute confidence and balance","Healthy natural intimate life"], reduces:["Most symptoms ended","Urges become natural and controlled","Guilt and shame disappear","Chronic anxiety fades"], motive:"90 days of victory over yourself. You are a true champion!", tips:["Continue the healthy routine","Share your story to inspire others","Set goals for the next phase"], flatline:false },
-    ],
-  }
-};
+  (function(){
+    "use strict";
 
-const App = (() => {
-  let data = {};
-  let lang = 'ar';
-  let panicTimer = null;
-  let liveTimer = null;
-  let calViewDate = new Date();
-
-  const LEVELS = [0,100,250,500,900,1500,2300,3300,4500,6000,8000,10500,13500,17000,21000,26000,32000,39000,47000,56000];
-
-  function t() { return TRANSLATIONS[lang]; }
-
-  function load() {
-    try { data = JSON.parse(localStorage.getItem('nofap90_data') || '{}'); } catch(e) { data = {}; }
-    lang = data.lang || 'ar';
-    if (!data.theme) data.theme = 'dark';
-    applyTheme();
-    applyLang();
-  }
-
-  function save() {
-    localStorage.setItem('nofap90_data', JSON.stringify(data));
-  }
-
-  function applyTheme() {
-    document.body.setAttribute('data-theme', data.theme === 'light' ? 'light' : 'dark');
-    const btn = document.getElementById('themeBtn');
-    const tog = document.getElementById('themeToggle');
-    if(btn) btn.textContent = data.theme === 'light' ? '☀️' : '🌙';
-    if(tog) tog.classList.toggle('on', data.theme === 'dark');
-  }
-
-  function applyLang() {
-    const isAr = lang === 'ar';
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
-    const btn = document.getElementById('langBtn');
-    const togBtn = document.getElementById('langToggleBtn');
-    if(btn) btn.textContent = isAr ? 'EN' : 'ع';
-    if(togBtn) togBtn.textContent = isAr ? 'English' : 'عربي';
-    updateAllText();
-  }
-
-  function updateAllText() {
-    const T = t();
-    // Nav
-    document.getElementById('navLogo').textContent = T.navLogo;
-    const navSections = ['dashboard','timeline','calendar','achievements','missions','journal','relapselog','settings'];
-    navSections.forEach(s => {
-      const el = document.getElementById('nl-'+s);
-      if(el) el.textContent = T.nav[s];
-    });
-    // Hero
-    document.getElementById('heroDaysLabel').textContent = T.hero.daysLabel;
-    document.getElementById('streakLabel').textContent = T.hero.streakLabel;
-    document.getElementById('circleLabel').textContent = T.hero.circleLabel;
-    // Timer
-    document.getElementById('timerTitle').textContent = T.timer.title;
-    document.getElementById('tl-days').textContent = T.timer.days;
-    document.getElementById('tl-hours').textContent = T.timer.hours;
-    document.getElementById('tl-minutes').textContent = T.timer.minutes;
-    document.getElementById('tl-seconds').textContent = T.timer.seconds;
-    // Stats
-    document.getElementById('sl-cleanDays').textContent = T.stats.cleanDays;
-    document.getElementById('sl-relapses').textContent = T.stats.relapses;
-    document.getElementById('sl-bestStreak').textContent = T.stats.bestStreak;
-    document.getElementById('sl-daysLeft').textContent = T.stats.daysLeft;
-    // Misc
-    document.getElementById('levelTitle').textContent = T.level.title;
-    document.getElementById('actionTitle').textContent = T.actions.title;
-    document.getElementById('curStageTitle').textContent = T.curStage.title;
-    const rb = document.getElementById('relapseBtn');
-    const pb = document.getElementById('panicBtnEl');
-    if(rb) rb.innerHTML = T.actions.relapseBtn;
-    if(pb) pb.innerHTML = T.actions.panicBtn;
-    // Panic modal
-    document.getElementById('panicTitle').textContent = T.panic.title;
-    document.getElementById('breatheText').textContent = T.panic.breathe;
-    document.getElementById('breatheSub').textContent = T.panic.breatheSub;
-    document.getElementById('panicCountdownLabel').textContent = T.panic.countdown;
-    T.panic.tips.forEach((tip,i) => {
-      const el = document.getElementById('pt'+(i+1));
-      if(el) el.textContent = tip;
-    });
-    // Relapse modal
-    document.getElementById('relapseModalTitle').textContent = T.relapse.title;
-    document.getElementById('relapseReasonLabel').textContent = T.relapse.reasonLabel;
-    document.getElementById('relapseTriggersLabel').textContent = T.relapse.triggersLabel;
-    document.getElementById('confirmRelapseBtn').textContent = T.relapse.confirm;
-    document.getElementById('cancelRelapseBtn').textContent = T.relapse.cancel;
-    // Reset modal
-    document.getElementById('resetTitle').textContent = T.reset.title;
-    document.getElementById('resetDesc').textContent = T.reset.desc;
-    document.getElementById('confirmResetBtn').textContent = T.reset.confirm;
-    document.getElementById('cancelResetBtn').textContent = T.reset.cancel;
-    // Pages
-    const P = T.pages;
-    document.getElementById('timelinePageTitle').textContent = P.timeline.title;
-    document.getElementById('timelinePageSub').textContent = P.timeline.sub;
-    document.getElementById('calPageTitle').textContent = P.calendar.title;
-    document.getElementById('calPageSub').textContent = P.calendar.sub;
-    document.getElementById('calCleanLegend').textContent = P.calendar.cleanLegend;
-    document.getElementById('calRelapseLegend').textContent = P.calendar.relapseLegend;
-    document.getElementById('calTodayLegend').textContent = P.calendar.todayLegend;
-    document.getElementById('achPageTitle').textContent = P.achievements.title;
-    document.getElementById('achPageSub').textContent = P.achievements.sub;
-    document.getElementById('missPageTitle').textContent = P.missions.title;
-    document.getElementById('missPageSub').textContent = P.missions.sub;
-    document.getElementById('dailyMissTitle').textContent = P.missions.dailyTitle;
-    document.getElementById('rewardStoreTitle').textContent = P.missions.storeTitle;
-    document.getElementById('missResetNote').textContent = P.missions.resetNote;
-    document.getElementById('journalPageTitle').textContent = P.journal.title;
-    document.getElementById('journalPageSub').textContent = P.journal.sub;
-    document.getElementById('newEntryTitle').textContent = P.journal.newEntry;
-    document.getElementById('journalHistoryTitle').textContent = P.journal.historyTitle;
-    document.getElementById('jTextLabel').textContent = P.journal.textLabel;
-    document.getElementById('jMoodLabel').innerHTML = P.journal.moodLabel + ' <span id="moodValDisp">' + (document.getElementById('moodSlider')?.value||5) + '</span>/10';
-    document.getElementById('jStressLabel').innerHTML = P.journal.stressLabel + ' <span id="stressValDisp">' + (document.getElementById('stressSlider')?.value||5) + '</span>/10';
-    document.getElementById('jEnergyLabel').innerHTML = P.journal.energyLabel + ' <span id="energyValDisp">' + (document.getElementById('energySlider')?.value||5) + '</span>/10';
-    document.getElementById('saveJournalBtn').textContent = P.journal.saveBtn;
-    document.getElementById('rlogPageTitle').textContent = P.relapselog.title;
-    document.getElementById('rlogPageSub').textContent = P.relapselog.sub;
-    document.getElementById('rls-total').textContent = P.relapselog.total;
-    document.getElementById('rls-avgStreak').textContent = P.relapselog.avgStreak;
-    document.getElementById('rlogListTitle').textContent = P.relapselog.listTitle;
-    document.getElementById('settingsPageTitle').textContent = P.settings.title;
-    document.getElementById('settingsPageSub').textContent = P.settings.sub;
-    document.getElementById('setThemeLabel').textContent = P.settings.themeLabel;
-    document.getElementById('setThemeDesc').textContent = P.settings.themeDesc;
-    document.getElementById('setLangLabel').textContent = P.settings.langLabel;
-    document.getElementById('setLangDesc').textContent = P.settings.langDesc;
-    document.getElementById('setSoundLabel').textContent = P.settings.soundLabel;
-    document.getElementById('setSoundDesc').textContent = P.settings.soundDesc;
-    document.getElementById('setResetLabel').textContent = P.settings.resetLabel;
-    document.getElementById('setResetDesc').textContent = P.settings.resetDesc;
-    document.getElementById('setStartLabel').textContent = P.settings.startLabel;
-    document.getElementById('setStartDesc').textContent = P.settings.startDesc;
-    document.getElementById('changeStartBtn').textContent = P.settings.changeStartBtn;
-    document.getElementById('aboutTitle').textContent = P.settings.aboutTitle;
-    document.getElementById('aboutText').textContent = P.settings.aboutText;
-    // Setup
-    document.getElementById('setupTitle').textContent = T.setup.title;
-    document.getElementById('setupSub').textContent = T.setup.sub;
-    document.getElementById('startDateLabel').textContent = T.setup.startDateLabel;
-    document.getElementById('startBtnText').textContent = T.setup.startBtn;
-    // Refresh dynamic content
-    renderTriggerList();
-    renderAchievements();
-    renderMissions();
-    renderRewardStore();
-    renderTimeline();
-    renderJournalList();
-    renderRelapseList();
-  }
-
-  function setup() {
-    const val = document.getElementById('startDateInput').value;
-    if (!val) { showSetupError(lang==='ar'?'يرجى اختيار تاريخ':'Please select a date'); return; }
-    const chosen = new Date(val);
-    const now = new Date();
-    if (chosen > now) { showSetupError(t().setup.futureError); return; }
-    data.startDate = chosen.toISOString();
-    data.relapses = data.relapses || [];
-    data.journal = data.journal || [];
-    data.xp = data.xp || 0;
-    data.missionsToday = data.missionsToday || {};
-    data.missionDate = data.missionDate || '';
-    data.ownedRewards = data.ownedRewards || [];
-    data.unlockedAchievements = data.unlockedAchievements || [];
-    data.bestStreak = data.bestStreak || 0;
-    save();
-    document.getElementById('setupScreen').style.display = 'none';
-    init();
-  }
-
-  function showSetupError(msg) {
-    const el = document.getElementById('setupError');
-    el.textContent = msg;
-    el.style.display = 'block';
-  }
-
-  function getElapsed() {
-    if (!data.startDate) return { days:0, hours:0, minutes:0, seconds:0, totalSeconds:0 };
-    const start = new Date(data.startDate).getTime();
-    const now = Date.now();
-    const diff = Math.max(0, now - start);
-    const totalSeconds = Math.floor(diff / 1000);
-    const days = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    return { days, hours, minutes, seconds, totalSeconds };
-  }
-
-  function getStreak() {
-    if (!data.startDate) return 0;
-    const relapses = data.relapses || [];
-    if (relapses.length === 0) return getElapsed().days;
-    const lastRelapse = new Date(relapses[relapses.length-1].date);
-    const now = new Date();
-    return Math.floor((now - lastRelapse) / 86400000);
-  }
-
-  function getXPLevel() {
-    const xp = data.xp || 0;
-    let level = 1;
-    for (let i = 1; i < LEVELS.length; i++) {
-      if (xp >= LEVELS[i]) level = i+1;
-      else break;
-    }
-    const levelIdx = level - 1;
-    const nextIdx = levelIdx + 1;
-    const current = LEVELS[levelIdx] || 0;
-    const next = LEVELS[nextIdx] || LEVELS[LEVELS.length-1];
-    const pct = nextIdx >= LEVELS.length ? 100 : Math.round(((xp - current) / (next - current)) * 100);
-    return { level, xp, current, next, pct, toNext: Math.max(0, next - xp) };
-  }
-
-  function addXP(amount) {
-    data.xp = (data.xp || 0) + amount;
-    save();
-    updateDashboard();
-    toast(`+${amount} XP 🌟`, 'success');
-  }
-
-  function updateDashboard() {
-    const elapsed = getElapsed();
-    const streak = getStreak();
-    const cleanDays = elapsed.days;
-    const pct = Math.min(100, Math.round((cleanDays / 90) * 100));
-    const daysLeft = Math.max(0, 90 - cleanDays);
-    const relapses = (data.relapses||[]).length;
-    const bestStreak = data.bestStreak || 0;
-
-    // Hero
-    animateNum('heroDays', cleanDays);
-    animateNum('streakNum', streak);
-    document.getElementById('progressBarFill').style.width = pct + '%';
-    document.getElementById('progressDaysRemaining').textContent = (lang==='ar' ? daysLeft + ' يوم متبقي' : daysLeft + ' days left');
-    // Circle
-    const circum = 330;
-    const offset = circum - (circum * pct / 100);
-    document.getElementById('circleFill').style.strokeDashoffset = offset;
-    document.getElementById('circlePercent').textContent = pct + '%';
-    // Timer
-    document.getElementById('t-days').textContent = pad(elapsed.days);
-    document.getElementById('t-hours').textContent = pad(elapsed.hours);
-    document.getElementById('t-minutes').textContent = pad(elapsed.minutes);
-    document.getElementById('t-seconds').textContent = pad(elapsed.seconds);
-    // Stats
-    animateNum('s-cleanDays', cleanDays);
-    animateNum('s-relapses', relapses);
-    animateNum('s-bestStreak', bestStreak);
-    animateNum('s-daysLeft', daysLeft);
-    // Level/XP
-    const lvl = getXPLevel();
-    document.getElementById('levelText').textContent = (lang==='ar' ? 'المستوى ' : 'Level ') + lvl.level;
-    document.getElementById('xpText').textContent = lvl.xp;
-    document.getElementById('xpBarFill').style.width = lvl.pct + '%';
-    document.getElementById('xpToNext').textContent = lvl.toNext + ' ' + t().level.toNext;
-    // Relapse log stats
-    const rl1 = document.getElementById('rl-total');
-    const rl2 = document.getElementById('rl-avgStreak');
-    if(rl1) rl1.textContent = relapses;
-    if(rl2) {
-      const rArr = data.relapses || [];
-      const avg = rArr.length > 0 ? Math.round(rArr.reduce((acc,r,i,a) => {
-        const prev = i === 0 ? new Date(data.startDate) : new Date(a[i-1].date);
-        return acc + Math.floor((new Date(r.date) - prev) / 86400000);
-      }, 0) / rArr.length) : cleanDays;
-      rl2.textContent = avg;
-    }
-    // Current stage
-    renderCurrentStage(cleanDays);
-    checkAchievements(cleanDays, streak);
-    checkMissionReset();
-    renderMissions();
-    renderAchievements();
-    renderRewardStore();
-  }
-
-  function renderCurrentStage(days) {
-    const stages = t().stages;
-    let stage = stages[0];
-    for (const s of stages) {
-      if (days >= s.days[0] && days <= s.days[1]) { stage = s; break; }
-      if (days > s.days[1]) stage = s;
-    }
-    const el = document.getElementById('currentStageContent');
-    if (!el) return;
-    el.innerHTML = `
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px">
-        <span class="stage-badge">📍 ${lang==='ar'?'الأيام':'Days'} ${stage.range}</span>
-        <span style="font-size:1.1rem;font-weight:800">${stage.title}</span>
-        <span class="stage-recovery">${stage.recovery}%</span>
-      </div>
-      <div class="benefits-grid">
-        ${stage.benefits.slice(0,4).map(b=>`<div class="benefit-item"><div class="benefit-dot"></div>${b}</div>`).join('')}
-      </div>
-      <div class="stage-motive">"${stage.motive}"</div>
-      ${stage.flatline ? `<div class="flatline-warning">⚠️ ${stage.flatlineText}</div>` : ''}
-      <div class="tips-grid" style="margin-top:12px">
-        ${stage.tips.map(tip=>`<span class="tip-tag">💡 ${tip}</span>`).join('')}
-      </div>
-    `;
-  }
-
-  function renderTimeline() {
-    const el = document.getElementById('timelineContent');
-    if (!el) return;
-    const elapsed = getElapsed();
-    const days = elapsed.days;
-    const stages = t().stages;
-    el.innerHTML = stages.map(stage => {
-      const isActive = days >= stage.days[0] && days <= stage.days[1];
-      const isDone = days > stage.days[1];
-      const cls = isActive ? 'active-stage' : (isDone ? 'completed-stage' : '');
-      return `
-        <div class="timeline-stage ${cls}">
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
-            <span class="stage-badge">${isDone?'✅':isActive?'📍':'🔒'} ${lang==='ar'?'الأيام':'Days'} ${stage.range}</span>
-            <span style="font-size:1.05rem;font-weight:800">${stage.title}</span>
-            <span class="stage-recovery">${stage.recovery}%</span>
-            ${isActive ? `<span style="background:var(--gradient);color:white;font-size:0.75rem;padding:3px 10px;border-radius:100px;font-weight:700">${lang==='ar'?'مرحلتك الآن':'Your Stage Now'}</span>` : ''}
-          </div>
-          <div style="font-weight:700;font-size:0.85rem;color:var(--text2);margin-bottom:8px">✅ ${lang==='ar'?'التحسينات المتوقعة:':'Expected Improvements:'}</div>
-          <div class="benefits-grid">
-            ${stage.benefits.map(b=>`<div class="benefit-item"><div class="benefit-dot"></div>${b}</div>`).join('')}
-          </div>
-          <div style="font-weight:700;font-size:0.85rem;color:var(--text2);margin:12px 0 8px">📉 ${lang==='ar'?'ما سيتقلص:':'What Decreases:'}</div>
-          <div class="benefits-grid">
-            ${stage.reduces.map(r=>`<div class="benefit-item"><div class="benefit-dot red"></div>${r}</div>`).join('')}
-          </div>
-          <div class="stage-motive">"${stage.motive}"</div>
-          ${stage.flatline ? `<div class="flatline-warning">⚠️ ${stage.flatlineText}</div>` : ''}
-          <div class="tips-grid">
-            ${stage.tips.map(tip=>`<span class="tip-tag">💡 ${tip}</span>`).join('')}
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  function renderCalendar() {
-    const grid = document.getElementById('calendarGrid');
-    const title = document.getElementById('calMonthTitle');
-    if (!grid) return;
-    const year = calViewDate.getFullYear();
-    const month = calViewDate.getMonth();
-    const today = new Date();
-    const isAr = lang === 'ar';
-    const monthNames = isAr
-      ? ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر']
-      : ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const dayNames = isAr ? ['أح','إث','ثل','أر','خم','جم','سب'] : ['Su','Mo','Tu','We','Th','Fr','Sa'];
-    title.textContent = monthNames[month] + ' ' + year;
-    const startDate = data.startDate ? new Date(data.startDate) : null;
-    const relapses = (data.relapses||[]).map(r => new Date(r.date).toDateString());
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month+1, 0).getDate();
-    let html = dayNames.map(d => `<div class="cal-header">${d}</div>`).join('');
-    for (let i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
-    for (let d = 1; d <= daysInMonth; d++) {
-      const date = new Date(year, month, d);
-      const dateStr = date.toDateString();
-      const isToday = dateStr === today.toDateString();
-      const isFuture = date > today;
-      const isRelapse = relapses.includes(dateStr);
-      const isClean = startDate && date >= startDate && !isFuture && !isRelapse && date <= today;
-      let cls = 'cal-day';
-      if (isToday) cls += ' today-day';
-      else if (isFuture) cls += ' future-day';
-      else if (isRelapse) cls += ' relapse-day';
-      else if (isClean) cls += ' clean';
-      html += `<div class="${cls}" title="${dateStr}">${d}</div>`;
-    }
-    grid.innerHTML = html;
-  }
-
-  function calPrev() { calViewDate.setMonth(calViewDate.getMonth()-1); renderCalendar(); }
-  function calNext() { calViewDate.setMonth(calViewDate.getMonth()+1); renderCalendar(); }
-
-  function renderAchievements() {
-    const grid = document.getElementById('achievementsGrid');
-    if (!grid) return;
-    const elapsed = getElapsed();
-    const days = elapsed.days;
-    const relapses = (data.relapses||[]).length;
-    const journalEntries = (data.journal||[]).length;
-    const unlocked = data.unlockedAchievements || [];
-    const achievements = t().achievements;
-    grid.innerHTML = achievements.map(a => {
-      let isUnlocked = unlocked.includes(a.id);
-      if (!isUnlocked) {
-        if (a.days && days >= a.days) isUnlocked = true;
-        if (a.special === 'journal' && journalEntries > 0) isUnlocked = true;
-        if (a.special === 'norelapse' && relapses === 0 && days > 0) isUnlocked = true;
-        if (isUnlocked) {
-          if (!data.unlockedAchievements) data.unlockedAchievements = [];
-          if (!data.unlockedAchievements.includes(a.id)) { data.unlockedAchievements.push(a.id); save(); }
-        }
-      }
-      return `
-        <div class="achievement-card ${isUnlocked?'unlocked':'locked'}">
-          <div class="achievement-icon">${a.icon}</div>
-          <div class="achievement-name">${a.name}</div>
-          <div class="achievement-desc">${a.desc}</div>
-          ${isUnlocked ? '<div style="font-size:0.7rem;color:var(--accent);margin-top:6px;font-weight:700">✅ ' + (lang==='ar'?'مفتوح':'Unlocked') + '</div>' : '<div style="font-size:0.7rem;color:var(--text3);margin-top:6px">🔒 ' + (lang==='ar'?'مقفل':'Locked') + (a.days ? ' • '+a.days+(lang==='ar'?' يوم':' days') : '') + '</div>'}
-        </div>
-      `;
-    }).join('');
-  }
-
-  function checkAchievements(days, streak) {
-    const achievements = t().achievements;
-    achievements.forEach(a => {
-      if (!data.unlockedAchievements) data.unlockedAchievements = [];
-      if (!data.unlockedAchievements.includes(a.id)) {
-        let unlock = false;
-        if (a.days && days >= a.days) unlock = true;
-        if (a.special === 'norelapse' && (data.relapses||[]).length === 0 && days > 0) unlock = true;
-        if (unlock) {
-          data.unlockedAchievements.push(a.id);
-          save();
-          toast(`🏆 ${a.icon} ${a.name}`, 'warning');
-          addXP(50);
-        }
-      }
-    });
-  }
-
-  function checkMissionReset() {
-    const today = new Date().toDateString();
-    if (data.missionDate !== today) {
-      data.missionDate = today;
-      data.missionsToday = {};
-      // Daily XP bonus
-      if (data.startDate) {
-        data.xp = (data.xp||0) + 5;
-      }
-      save();
-    }
-  }
-
-  function renderMissions() {
-    const el = document.getElementById('missionsList');
-    if (!el) return;
-    const missions = t().missions;
-    const done = data.missionsToday || {};
-    el.innerHTML = missions.map(m => `
-      <div class="mission-item ${done[m.id]?'done':''}" onclick="App.toggleMission('${m.id}')">
-        <div class="mission-checkbox">${done[m.id]?'✓':''}</div>
-        <span style="font-size:1.2rem">${m.icon}</span>
-        <span style="font-size:0.9rem;font-weight:600;flex:1">${m.name}</span>
-        <span class="mission-xp">+${m.xp} XP</span>
-      </div>
-    `).join('');
-  }
-
-  function toggleMission(id) {
-    if (!data.missionsToday) data.missionsToday = {};
-    const mission = t().missions.find(m => m.id === id);
-    if (!mission) return;
-    if (data.missionsToday[id]) {
-      delete data.missionsToday[id];
-      data.xp = Math.max(0, (data.xp||0) - mission.xp);
-      save();
-    } else {
-      data.missionsToday[id] = true;
-      save();
-      addXP(mission.xp);
-    }
-    renderMissions();
-  }
-
-  function renderRewardStore() {
-    const el = document.getElementById('rewardStore');
-    if (!el) return;
-    const rewards = t().rewards;
-    const owned = data.ownedRewards || [];
-    const xp = data.xp || 0;
-    el.innerHTML = rewards.map(r => {
-      const isOwned = owned.includes(r.id);
-      const canBuy = xp >= r.cost && !isOwned;
-      return `
-        <div class="reward-item ${canBuy?'can-buy':''}" onclick="App.buyReward('${r.id}')">
-          <div class="reward-icon">${r.icon}</div>
-          <div class="reward-name">${r.name}</div>
-          ${isOwned ? `<div class="reward-owned">✅ ${lang==='ar'?'مملوك':'Owned'}</div>` : `<div class="reward-cost">💰 ${r.cost} XP</div>`}
-          ${canBuy ? `<button class="btn btn-warning btn-sm btn-full" style="margin-top:8px">${lang==='ar'?'شراء':'Buy'}</button>` : ''}
-        </div>
-      `;
-    }).join('');
-  }
-
-  function buyReward(id) {
-    const rewards = t().rewards;
-    const r = rewards.find(x => x.id === id);
-    if (!r) return;
-    if (!data.ownedRewards) data.ownedRewards = [];
-    if (data.ownedRewards.includes(id)) return;
-    if ((data.xp||0) < r.cost) { toast(lang==='ar'?'نقاط XP غير كافية!':'Not enough XP!', 'error'); return; }
-    data.xp -= r.cost;
-    data.ownedRewards.push(id);
-    save();
-    toast(`${r.icon} ${r.name} ✅`, 'success');
-    renderRewardStore();
-    updateDashboard();
-  }
-
-  function saveJournal() {
-    const text = document.getElementById('journalTextInput').value.trim();
-    if (!text) { toast(lang==='ar'?'يرجى كتابة شيء':'Please write something', 'error'); return; }
-    const mood = parseInt(document.getElementById('moodSlider').value);
-    const stress = parseInt(document.getElementById('stressSlider').value);
-    const energy = parseInt(document.getElementById('energySlider').value);
-    if (!data.journal) data.journal = [];
-    data.journal.unshift({ date: new Date().toISOString(), text, mood, stress, energy });
-    save();
-    document.getElementById('journalTextInput').value = '';
-    addXP(5);
-    if (!data.unlockedAchievements) data.unlockedAchievements = [];
-    if (!data.unlockedAchievements.includes('journal1')) {
-      data.unlockedAchievements.push('journal1');
-      save();
-      toast('📓 ' + (lang==='ar'?'إنجاز جديد: كاتب':'New Achievement: Writer'), 'warning');
-    }
-    renderJournalList();
-    toast(lang==='ar'?'تم حفظ اليوميات ✅':'Journal saved ✅', 'success');
-  }
-
-  function renderJournalList() {
-    const el = document.getElementById('journalList');
-    if (!el) return;
-    const entries = data.journal || [];
-    if (entries.length === 0) {
-      el.innerHTML = `<div class="empty-state"><div class="empty-icon">📓</div><div class="empty-text">${lang==='ar'?'لا توجد إدخالات بعد':'No entries yet'}</div></div>`;
-      return;
-    }
-    el.innerHTML = entries.map(e => `
-      <div class="journal-entry">
-        <div class="journal-date">${new Date(e.date).toLocaleString(lang==='ar'?'ar-SA':'en-US')}</div>
-        <div class="journal-text">${e.text}</div>
-        <div class="journal-ratings">
-          <span class="rating-badge mood-badge">😊 ${lang==='ar'?'مزاج':'Mood'}: ${e.mood}/10</span>
-          <span class="rating-badge stress-badge">😰 ${lang==='ar'?'توتر':'Stress'}: ${e.stress}/10</span>
-          <span class="rating-badge energy-badge">⚡ ${lang==='ar'?'طاقة':'Energy'}: ${e.energy}/10</span>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function renderTriggerList() {
-    const el = document.getElementById('triggerList');
-    if (!el) return;
-    const triggers = t().triggers;
-    el.innerHTML = triggers.map(tr => `<span class="trigger-tag" onclick="App.toggleTrigger(this)">${tr}</span>`).join('');
-  }
-
-  function toggleTrigger(el) { el.classList.toggle('selected'); }
-
-  function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    if (id === 'relapseModal') renderTriggerList();
-  }
-
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-  function confirmRelapse() {
-    const reason = document.getElementById('relapseReasonInput').value.trim();
-    const triggers = [...document.querySelectorAll('.trigger-tag.selected')].map(t => t.textContent);
-    const streakNow = getStreak();
-    if (!data.relapses) data.relapses = [];
-    data.relapses.push({
-      date: new Date().toISOString(),
-      reason: reason || (lang==='ar'?'لم يُذكر سبب':'No reason given'),
-      triggers
-    });
-    // Update start date to now for new streak
-    data.startDate = new Date().toISOString();
-    // Update best streak
-    if (streakNow > (data.bestStreak||0)) { data.bestStreak = streakNow; }
-    save();
-    closeModal('relapseModal');
-    document.getElementById('relapseReasonInput').value = '';
-    toast(lang==='ar'?'تم تسجيل الانتكاسة. لا بأس، ابدأ من جديد 💪':'Relapse logged. It\'s okay, start again 💪', 'error');
-    updateDashboard();
-    renderRelapseList();
-  }
-
-  function renderRelapseList() {
-    const el = document.getElementById('relapseList');
-    if (!el) return;
-    const relapses = data.relapses || [];
-    if (relapses.length === 0) {
-      el.innerHTML = `<div class="empty-state"><div class="empty-icon">🛡️</div><div class="empty-text">${lang==='ar'?'لا توجد انتكاسات - أنت بطل!':'No relapses - you\'re a champion!'}</div></div>`;
-      return;
-    }
-    el.innerHTML = [...relapses].reverse().map((r,i) => `
-      <div class="relapse-entry">
-        <div class="relapse-date">#${relapses.length-i} • ${new Date(r.date).toLocaleString(lang==='ar'?'ar-SA':'en-US')}</div>
-        <div class="relapse-reason">${r.reason}</div>
-        ${r.triggers && r.triggers.length > 0 ? `<div class="trigger-list" style="margin-top:8px">${r.triggers.map(tr=>`<span class="trigger-tag selected" style="cursor:default;font-size:0.75rem">${tr}</span>`).join('')}</div>` : ''}
-      </div>
-    `).join('');
-  }
-
-  function openPanic() {
-    openModal('panicModal');
-    document.getElementById('panicQuote').textContent = '"' + randomQuote() + '"';
-    let countdown = 60;
-    const ring = document.getElementById('countdownRing');
-    const num = document.getElementById('countdownNum');
-    const circ = 283;
-    if (panicTimer) clearInterval(panicTimer);
-    panicTimer = setInterval(() => {
-      countdown--;
-      if (num) num.textContent = countdown;
-      if (ring) ring.style.strokeDashoffset = circ - (circ * countdown / 60);
-      if (countdown <= 0) { clearInterval(panicTimer); if(num) num.textContent = '✅'; }
-    }, 1000);
-    let phase = 0;
-    const phases = lang==='ar'
-      ? [['شهيق...','4 ثوانٍ'],['احبس نفسك...','4 ثوانٍ'],['زفير...','4 ثوانٍ']]
-      : [['Inhale...','4 seconds'],['Hold...','4 seconds'],['Exhale...','4 seconds']];
-    const bText = document.getElementById('breatheText');
-    const bSub = document.getElementById('breatheSub');
-    const breatheInt = setInterval(() => {
-      if (!document.getElementById('panicModal').classList.contains('open')) { clearInterval(breatheInt); return; }
-      if (bText) bText.textContent = phases[phase][0];
-      if (bSub) bSub.textContent = phases[phase][1];
-      phase = (phase+1) % 3;
-    }, 4000);
-  }
-
-  function randomQuote() { const q = t().quotes; return q[Math.floor(Math.random()*q.length)]; }
-
-  function toggleTheme() {
-    data.theme = data.theme === 'dark' ? 'light' : 'dark';
-    save();
-    applyTheme();
-  }
-
-  function toggleLang() {
-    lang = lang === 'ar' ? 'en' : 'ar';
-    data.lang = lang;
-    save();
-    applyLang();
-    updateDashboard();
-    renderTimeline();
-    renderCalendar();
-  }
-
-  function toggleSound() {
-    data.soundEnabled = !data.soundEnabled;
-    const tog = document.getElementById('soundToggle');
-    if(tog) tog.classList.toggle('on', data.soundEnabled);
-    save();
-  }
-
-  function confirmReset() {
-    localStorage.removeItem('nofap90_data');
-    data = {};
-    closeModal('resetModal');
-    location.reload();
-  }
-
-  function changeStartDate() {
-    document.getElementById('setupScreen').style.display = 'flex';
-    const si = document.getElementById('startDateInput');
-    if (data.startDate) {
-      const d = new Date(data.startDate);
-      const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0,16);
-      si.value = local;
-    }
-  }
-
-  function nav(section) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-    document.getElementById('sec-'+section).classList.add('active');
-    document.getElementById('nl-'+section).classList.add('active');
-    if (section === 'calendar') renderCalendar();
-    if (section === 'timeline') renderTimeline();
-    if (section === 'achievements') renderAchievements();
-    if (section === 'missions') { checkMissionReset(); renderMissions(); renderRewardStore(); }
-    if (section === 'journal') renderJournalList();
-    if (section === 'relapselog') renderRelapseList();
-  }
-
-  function animateNum(id, target) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const start = parseInt(el.textContent) || 0;
-    const diff = target - start;
-    if (diff === 0) { el.textContent = target; return; }
-    const steps = 20;
-    let step = 0;
-    const int = setInterval(() => {
-      step++;
-      el.textContent = Math.round(start + (diff * step / steps));
-      if (step >= steps) { el.textContent = target; clearInterval(int); }
-    }, 30);
-  }
-
-  function pad(n) { return String(n).padStart(2,'0'); }
-
-  function toast(msg, type='success') {
-    const cont = document.getElementById('toastContainer');
-    const div = document.createElement('div');
-    div.className = 'toast ' + type;
-    div.innerHTML = `<span>${type==='success'?'✅':type==='error'?'❌':'⚠️'}</span><span>${msg}</span>`;
-    cont.appendChild(div);
-    setTimeout(() => { div.style.opacity='0'; div.style.transform='translateX(30px)'; setTimeout(()=>div.remove(),300); }, 3000);
-  }
-
-  function startLiveTimer() {
-    if (liveTimer) clearInterval(liveTimer);
-    liveTimer = setInterval(() => {
-      if (document.getElementById('sec-dashboard').classList.contains('active')) {
-        const el = getElapsed();
-        document.getElementById('t-days').textContent = pad(el.days);
-        document.getElementById('t-hours').textContent = pad(el.hours);
-        document.getElementById('t-minutes').textContent = pad(el.minutes);
-        document.getElementById('t-seconds').textContent = pad(el.seconds);
-      }
-    }, 1000);
-  }
-
-  function init() {
-    load();
-    if (!data.startDate) {
-      document.getElementById('setupScreen').style.display = 'flex';
-      const now = new Date();
-      const local = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
-      document.getElementById('startDateInput').value = local;
-      document.getElementById('startDateInput').max = local;
-      return;
-    }
-    document.getElementById('setupScreen').style.display = 'none';
-    const tog = document.getElementById('soundToggle');
-    if(tog) tog.classList.toggle('on', !!data.soundEnabled);
-    updateDashboard();
-    renderTimeline();
-    renderCalendar();
-    startLiveTimer();
-  }
-
-  // Public
-  return { setup, nav, toggleTheme, toggleLang, toggleSound, confirmReset, openModal, closeModal, openPanic, toggleMission, buyReward, saveJournal, toggleTrigger, confirmRelapse, calPrev, calNext, changeStartDate };
-})();
-
-// Boot
-window.addEventListener('DOMContentLoaded', () => {
-  App.setup && (function() {
-    // We use the module's init via load
-    const appLoad = () => {
-      try {
-        const d = JSON.parse(localStorage.getItem('nofap90_data') || '{}');
-        const lang = d.lang || 'ar';
-        if (d.theme) document.body.setAttribute('data-theme', d.theme);
-        if (lang === 'en') {
-          document.documentElement.setAttribute('lang','en');
-          document.documentElement.setAttribute('dir','ltr');
-        }
-      } catch(e) {}
+    // ---------- STATE & STORAGE ----------
+    let appData = {
+      userStart: null,        // ISO string
+      relapses: [],
+      journal: [],
+      achievements: [],
+      xp: 0,
+      level: 1,
+      settings: { language: 'ar', darkMode: false, soundEnabled: true },
+      missions: { lastClaimDate: null, completed: {} }, // per date
+      rewardsUnlocked: []
     };
-    appLoad();
-  })();
-  // Small delay for DOM stability
-  setTimeout(() => {
-    // Re-call init properly
-    const data = (() => { try { return JSON.parse(localStorage.getItem('nofap90_data')||'{}'); } catch(e){return{};} })();
-    if (!data.startDate) {
-      document.getElementById('setupScreen').style.display = 'flex';
-      const now = new Date();
-      const local = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
-      document.getElementById('startDateInput').value = local;
-      document.getElementById('startDateInput').max = local;
-    } else {
-      document.getElementById('setupScreen').style.display = 'none';
-    }
-    // Full init through the module
-    if (typeof App !== 'undefined') {
-      // Trigger internal init
-      const evt = new Event('appready');
-      window.dispatchEvent(evt);
-    }
-  }, 50);
-});
 
-// Better init - re-run on load
-(function() {
-  function fullInit() {
-    try {
-      const stored = localStorage.getItem('nofap90_data');
-      const data = stored ? JSON.parse(stored) : {};
-      const lang = data.lang || 'ar';
+    // DOM elements
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const langToggle = document.getElementById('langToggle');
+    const darkToggle = document.getElementById('darkModeToggle');
+    const soundToggle = document.getElementById('soundToggle');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
 
-      // Apply theme & lang immediately
-      if (data.theme) document.body.setAttribute('data-theme', data.theme);
-      document.documentElement.setAttribute('lang', lang);
-      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    let currentLang = 'ar';
+    let soundEnabled = true;
+    let audioCtx = null;
 
-      const themeBtn = document.getElementById('themeBtn');
-      const themeToggle = document.getElementById('themeToggle');
-      const langBtn = document.getElementById('langBtn');
-      const langToggleBtn = document.getElementById('langToggleBtn');
-
-      if(themeBtn) themeBtn.textContent = data.theme === 'light' ? '☀️' : '🌙';
-      if(themeToggle) themeToggle.classList.toggle('on', data.theme === 'dark');
-      if(langBtn) langBtn.textContent = lang === 'ar' ? 'EN' : 'ع';
-      if(langToggleBtn) langToggleBtn.textContent = lang === 'ar' ? 'English' : 'عربي';
-
-      if (!data.startDate) {
-        document.getElementById('setupScreen').style.display = 'flex';
-        const now = new Date();
-        const local = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
-        const si = document.getElementById('startDateInput');
-        if(si) { si.value = local; si.max = local; }
-      } else {
-        document.getElementById('setupScreen').style.display = 'none';
-        // Call all renders after everything is loaded
-        window.dispatchEvent(new Event('appboot'));
+    // Load from localStorage
+    function loadData() {
+      const saved = localStorage.getItem('nofap_premium_data');
+      if(saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          appData = { ...appData, ...parsed };
+          if(!appData.settings) appData.settings = { language:'ar', darkMode:false, soundEnabled:true };
+        } catch(e){}
       }
-    } catch(e) { console.error(e); }
-  }
+      currentLang = appData.settings.language;
+      soundEnabled = appData.settings.soundEnabled;
+      applyLanguageUI();
+      applyDarkMode(appData.settings.darkMode);
+      updateSoundButton();
+    }
+    function saveData() {
+      localStorage.setItem('nofap_premium_data', JSON.stringify(appData));
+    }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fullInit);
-  } else {
-    fullInit();
-  }
+    // UI updates
+    function applyDarkMode(enabled) {
+      document.body.classList.toggle('dark', enabled);
+      darkToggle.innerHTML = enabled ? '☀️ فاتح' : '🌙 داكن';
+    }
+    function applyLanguageUI() {
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      langToggle.textContent = currentLang === 'ar' ? '🌐 English' : '🌐 العربية';
+      // some texts updated dynamically elsewhere
+    }
 
-  window.addEventListener('appboot', () => {
-    try {
-      setTimeout(() => {
-        if (typeof App !== 'undefined') {
-          App.nav('dashboard');
-          // Start live timer
-          _startLiveTimer();
+    function updateSoundButton(){
+      soundToggle.innerHTML = soundEnabled ? '🔊 صوت' : '🔇 صامت';
+    }
+
+    // Helper: play sound
+    function playBeep() {
+      if(!soundEnabled) return;
+      try {
+        if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine'; osc.frequency.value = 880;
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.15);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime+0.15);
+      } catch(e){}
+    }
+
+    // ---------- CORE CALCULATIONS ----------
+    function getStartTimestamp() {
+      return appData.userStart ? new Date(appData.userStart).getTime() : null;
+    }
+
+    function getDaysPassed() {
+      const start = getStartTimestamp();
+      if(!start) return 0;
+      const now = Date.now();
+      return Math.max(0, Math.floor((now - start) / (1000*60*60*24)));
+    }
+
+    function getCurrentStreak() {
+      const relapses = appData.relapses.slice().sort((a,b)=> b.timestamp - a.timestamp);
+      const lastRelapse = relapses.length ? relapses[0].timestamp : null;
+      const start = getStartTimestamp();
+      if(!start) return 0;
+      const effectiveStart = lastRelapse ? Math.max(start, lastRelapse) : start;
+      return Math.floor((Date.now() - effectiveStart) / (1000*60*60*24));
+    }
+
+    function getLongestStreak() {
+      const relapses = appData.relapses.map(r=>r.timestamp).sort((a,b)=>a-b);
+      const start = getStartTimestamp();
+      if(!start) return 0;
+      let prev = start;
+      let maxStreak = 0;
+      for(let r of relapses) {
+        if(r > start) {
+          const streak = Math.floor((r - prev) / (1000*60*60*24));
+          if(streak > maxStreak) maxStreak = streak;
+          prev = r;
         }
-      }, 100);
-    } catch(e) {}
-  });
-})();
+      }
+      const finalStreak = Math.floor((Date.now() - prev) / (1000*60*60*24));
+      return Math.max(maxStreak, finalStreak);
+    }
 
-function _startLiveTimer() {
-  setInterval(() => {
-    if (!document.getElementById('sec-dashboard').classList.contains('active')) return;
-    try {
-      const stored = localStorage.getItem('nofap90_data');
-      if (!stored) return;
-      const d = JSON.parse(stored);
-      if (!d.startDate) return;
-      const start = new Date(d.startDate).getTime();
-      const diff = Math.max(0, Date.now() - start);
-      const total = Math.floor(diff/1000);
-      const days = Math.floor(total/86400);
-      const hours = Math.floor((total%86400)/3600);
-      const minutes = Math.floor((total%3600)/60);
-      const seconds = total%60;
-      const p = n => String(n).padStart(2,'0');
-      const td = document.getElementById('t-days');
-      const th = document.getElementById('t-hours');
-      const tm = document.getElementById('t-minutes');
-      const ts = document.getElementById('t-seconds');
-      if(td) td.textContent = p(days);
-      if(th) th.textContent = p(hours);
-      if(tm) tm.textContent = p(minutes);
-      if(ts) ts.textContent = p(seconds);
-    } catch(e){}
-  }, 1000);
-}
+    function getTotalRelapses() { return appData.relapses.length; }
+    function getAvgStreak() {
+      const total = getTotalRelapses();
+      if(total===0) return getDaysPassed();
+      const streaks = [];
+      const relapses = appData.relapses.map(r=>r.timestamp).sort((a,b)=>a-b);
+      let prev = getStartTimestamp();
+      for(let r of relapses) { if(r>prev) streaks.push(Math.floor((r-prev)/86400000)); prev = r; }
+      streaks.push(Math.floor((Date.now()-prev)/86400000));
+      const sum = streaks.reduce((a,b)=>a+b,0);
+      return (sum / streaks.length).toFixed(1);
+    }
 
-// Override App.setup to also trigger init
-const _origSetup = App.setup;
-App.setup = function() {
-  _origSetup.call(App);
-  setTimeout(() => {
-    try { App.nav('dashboard'); _startLiveTimer(); } catch(e){}
-  }, 200);
-};
+    function getProgressPercent() {
+      const days = Math.min(getDaysPassed(), 90);
+      return (days/90*100).toFixed(1);
+    }
+
+    // Update dashboard counters
+    function refreshDashboard() {
+      const clean = getDaysPassed();
+      document.getElementById('cleanDays').textContent = clean;
+      const now = Date.now(); const start = getStartTimestamp();
+      if(start){
+        const diff = now - start;
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000)/60000);
+        document.getElementById('hoursCounter').textContent = hours;
+        document.getElementById('minutesCounter').textContent = minutes;
+      }
+      document.getElementById('currentStreak').textContent = getCurrentStreak();
+      const long = getLongestStreak();
+      document.getElementById('longestStreak').textContent = long;
+      document.getElementById('bestStreak').textContent = long;
+      document.getElementById('daysLeft').textContent = Math.max(0, 90 - clean);
+      document.getElementById('totalRelapses').textContent = getTotalRelapses();
+      document.getElementById('avgStreak').textContent = getAvgStreak();
+
+      const percent = getProgressPercent();
+      document.getElementById('progressPercent').textContent = percent+'%';
+      document.getElementById('progressBarFill').style.width = percent+'%';
+      const circle = document.getElementById('progressCircle');
+      const radius = 54, circumference = 2*Math.PI*radius;
+      const offset = circumference - (percent/100)*circumference;
+      circle.style.strokeDasharray = `${circumference}`;
+      circle.style.strokeDashoffset = offset;
+
+      updateCurrentPhaseWidget();
+      renderTimeline();
+      renderCalendar();
+      renderAchievements();
+      renderMissions();
+      renderJournal();
+      renderRelapseLog();
+      updateXPLevelDisplay();
+    }
+
+    function updateCurrentPhaseWidget(){
+      const day = getDaysPassed();
+      const phase = getPhaseByDay(day);
+      document.getElementById('currentPhaseWidget').innerHTML = `<strong>${phase.name}</strong> - ${phase.recovery}% تعافي · ${phase.motivation}`;
+    }
+
+    // Phase data
+    const phases = [
+      { min:1, max:3, name:'البداية (1-3)', recovery:15, motivation:'بداية موفقة! استمر.' },
+      { min:4, max:7, name:'الصدمة الأولى (4-7)', recovery:25, motivation:'أسبوع نظيف! أنت قوي.' },
+      { min:8, max:14, name:'التكيف (8-14)', recovery:35 },
+      { min:15, max:21, name:'استقرار (15-21)', recovery:50 },
+      { min:22, max:30, name:'التعافي العميق', recovery:65 },
+      { min:31, max:45, name:'التحرر', recovery:75 },
+      { min:46, max:60, name:'الصفاء', recovery:85 },
+      { min:61, max:75, name:'القوة', recovery:92 },
+      { min:76, max:90, name:'النقاء', recovery:100 }
+    ];
+    function getPhaseByDay(day){
+      for(let p of phases) if(day>=p.min && day<=p.max) return p;
+      return phases[phases.length-1];
+    }
+
+    function renderTimeline(){
+      const container = document.getElementById('timelineContainer');
+      container.innerHTML = '';
+      const day = getDaysPassed();
+      phases.forEach(p=>{
+        const div = document.createElement('div'); div.className='phase-item';
+        const active = (day>=p.min);
+        div.innerHTML = `<div class="phase-header"><span>${p.name}</span><span class="recovery-badge">${p.recovery}% تعافي</span></div>
+          <p>💪 تحسن: طاقة، ثقة، تركيز | 🧠 تقليل: ضباب، قلق</p>
+          <div class="tips-grid"><span class="tip-tag">رياضة</span><span class="tip-tag">نوم جيد</span><span class="tip-tag">استحمام بارد</span></div>`;
+        container.appendChild(div);
+      });
+    }
+
+    function renderCalendar(){
+      const grid = document.getElementById('calendarView');
+      grid.innerHTML = '';
+      const start = getStartTimestamp(); if(!start) return;
+      const daysPassed = getDaysPassed();
+      for(let i=1; i<=90; i++){
+        const dayDiv = document.createElement('div');
+        dayDiv.style.padding='10px'; dayDiv.style.borderRadius='12px';
+        dayDiv.style.background = i<=daysPassed ? 'var(--accent)' : 'rgba(128,128,128,0.1)';
+        dayDiv.textContent = i;
+        grid.appendChild(dayDiv);
+      }
+    }
+
+    // Achievements + level
+    const achievementDefs = [
+      {key:'3days', name:'3 أيام', days:3},{key:'7days',name:'أسبوع',days:7},{key:'14days',days:14},{key:'30days',days:30},{key:'60days',days:60},{key:'90days',days:90}
+    ];
+    function checkAchievements(){
+      const streak = getCurrentStreak();
+      achievementDefs.forEach(a=>{ if(streak>=a.days && !appData.achievements.includes(a.key)) appData.achievements.push(a.key); });
+    }
+    function renderAchievements(){
+      checkAchievements();
+      const list = document.getElementById('achievementsList');
+      list.innerHTML = achievementDefs.map(a=>`<span style="padding:8px 16px;border-radius:30px;background:${appData.achievements.includes(a.key)?'var(--accent)':'gray'}">${a.name}</span>`).join('');
+      // reward store dummy
+      document.getElementById('rewardStore').innerHTML = `<button class="icon-btn" id="buyMeditation">🧘 تأمل (50 XP)</button>`;
+    }
+    function updateXPLevelDisplay(){
+      const xp = appData.xp; const lvl = Math.floor(xp/100)+1;
+      appData.level = lvl;
+      document.getElementById('xpValue').textContent = xp;
+      document.getElementById('levelValue').textContent = lvl;
+    }
+
+    // Missions
+    const missionList = ['💧 شرب الماء','🏋️ تمرين','📖 قراءة','🧘 تأمل','📵 تقليل السوشيال'];
+    function renderMissions(){
+      const div = document.getElementById('dailyMissions');
+      div.innerHTML = missionList.map(m=>`<label><input type="checkbox" class="mission-check" value="${m}"> ${m}</label><br>`).join('');
+    }
+
+    // Journal
+    function renderJournal(){
+      const entriesDiv = document.getElementById('journalEntries');
+      entriesDiv.innerHTML = appData.journal.slice(-5).map(j=>`<div>${j.date} - مزاج:${j.mood} توتر:${j.stress} طاقة:${j.energy} - ${j.note}</div>`).join('');
+    }
+    function renderRelapseLog(){
+      const hist = document.getElementById('relapseHistory');
+      hist.innerHTML = appData.relapses.map(r=>`<div>📅 ${new Date(r.timestamp).toLocaleString()} - ${r.reason}</div>`).join('');
+    }
+
+    // Relapse modal
+    function openRelapseModal(){
+      modalContent.innerHTML = `<h3>تسجيل انتكاسة</h3><textarea id="relapseReason" placeholder="السبب..."></textarea>
+        <div>المحفزات: <label><input type="checkbox" value="ملل"> ملل</label> ...</div>
+        <button class="btn" id="confirmRelapse">تأكيد</button>`;
+      modalOverlay.style.display = 'flex';
+      document.getElementById('confirmRelapse').onclick = ()=>{
+        const reason = document.getElementById('relapseReason').value;
+        appData.relapses.push({ timestamp: Date.now(), reason });
+        saveData(); refreshDashboard(); modalOverlay.style.display = 'none'; playBeep();
+      };
+    }
+
+    // Panic modal
+    function openPanicModal(){
+      let timer = 60;
+      modalContent.innerHTML = `<h3>🚨 تنفس بعمق</h3><div id="panicTimer" style="font-size:3rem;">60</div>
+        <p>نصيحة: قم بتمرين ضغط، استحم بماء بارد.</p><p id="panicQuote"></p>`;
+      modalOverlay.style.display = 'flex';
+      const interval = setInterval(()=>{
+        timer--; document.getElementById('panicTimer').textContent = timer;
+        if(timer<=0){ clearInterval(interval); modalOverlay.style.display = 'none'; }
+      },1000);
+    }
+
+    // Event listeners
+    function initEvents(){
+      langToggle.onclick = ()=>{
+        currentLang = currentLang==='ar'?'en':'ar';
+        appData.settings.language = currentLang;
+        applyLanguageUI(); saveData();
+      };
+      darkToggle.onclick = ()=>{
+        const newMode = !appData.settings.darkMode;
+        appData.settings.darkMode = newMode;
+        applyDarkMode(newMode); saveData();
+      };
+      soundToggle.onclick = ()=>{
+        soundEnabled = !soundEnabled; appData.settings.soundEnabled = soundEnabled;
+        updateSoundButton(); saveData(); playBeep();
+      };
+      document.getElementById('relapseButton').onclick = openRelapseModal;
+      document.getElementById('panicButton').onclick = openPanicModal;
+      document.getElementById('setStartDateBtn').onclick = ()=>{
+        const dateStr = prompt('أدخل تاريخ ووقت البدء (YYYY-MM-DDTHH:MM)');
+        if(dateStr){
+          const d = new Date(dateStr);
+          if(d.getTime() > Date.now()) { alert('لا يمكن تاريخ مستقبلي'); return; }
+          appData.userStart = d.toISOString(); saveData(); refreshDashboard();
+        }
+      };
+      document.getElementById('saveJournal').onclick = ()=>{
+        const mood = document.getElementById('mood').value;
+        const stress = document.getElementById('stress').value;
+        const energy = document.getElementById('energy').value;
+        const note = document.getElementById('journalNote').value;
+        appData.journal.push({ date: new Date().toLocaleDateString(), mood, stress, energy, note });
+        saveData(); renderJournal(); playBeep();
+      };
+      document.getElementById('claimMissionXP').onclick = ()=>{
+        appData.xp += 20; saveData(); updateXPLevelDisplay(); playBeep();
+      };
+      document.getElementById('resetDataBtn').onclick = ()=>{
+        if(confirm('هل أنت متأكد من إعادة ضبط جميع البيانات؟')){
+          localStorage.clear(); location.reload();
+        }
+      };
+      // nav
+      navLinks.forEach(link=>{
+        link.addEventListener('click', ()=>{
+          const sectionId = link.dataset.section;
+          sections.forEach(s=> s.classList.remove('active'));
+          navLinks.forEach(l=> l.classList.remove('active'));
+          document.getElementById(sectionId).classList.add('active');
+          link.classList.add('active');
+        });
+      });
+      modalOverlay.onclick = (e) => { if(e.target === modalOverlay) modalOverlay.style.display = 'none'; };
+    }
+
+    // Init
+    function initialize(){
+      loadData();
+      if(!appData.userStart) appData.userStart = new Date().toISOString(); // default now
+      refreshDashboard();
+      initEvents();
+      setInterval(refreshDashboard, 60000);
+      saveData();
+    }
+    initialize();
+  })();
 </script>
-
 </body>
 </html>
