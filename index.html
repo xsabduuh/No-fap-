@@ -5,6 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>تحدي 90 يوم • رحلة التعافي</title>
+  .refresh-btn {
+  position: fixed; bottom: 24px; left: 16px; z-index: 999;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--grad-primary); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px var(--primary-glow);
+  transition: var(--transition);
+}
+.refresh-btn:hover { transform: scale(1.1); }
+.refresh-btn:active { transform: scale(0.95) rotate(180deg); }
+.refresh-btn svg { width: 22px; height: 22px; fill: white; }
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
 
@@ -81,6 +92,9 @@
 }
 
 html { scroll-behavior: smooth; }
+<button class="refresh-btn" onclick="location.reload(true)" title="تحديث">
+<svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+</button>
 
 body {
 font-family: var(–font-main);
@@ -92,6 +106,7 @@ overflow-x: hidden;
 position: relative;
 }
 
+/* === أرضية الفضاء === */
 body::before {
 content: ‘’;
 position: fixed;
@@ -110,6 +125,7 @@ radial-gradient(ellipse 80% 60% at 10% 0%, rgba(124,58,237,0.06) 0%, transparent
 radial-gradient(ellipse 60% 50% at 90% 80%, rgba(6,182,212,0.04) 0%, transparent 55%);
 }
 
+/* نجوم متحركة */
 .stars-layer {
 position: fixed;
 inset: 0;
@@ -132,6 +148,7 @@ from { opacity: var(–min, 0.1); transform: scale(1); }
 to { opacity: var(–max, 0.7); transform: scale(1.3); }
 }
 
+/* ===== TOPBAR ===== */
 .top-bar {
 position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
 background: rgba(7, 7, 20, 0.85);
@@ -208,6 +225,7 @@ color: white;
 
 .menu-btn svg, .icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
+/* ===== SIDEBAR ===== */
 .sidebar {
 position: fixed; top: 0; right: 0; bottom: 0;
 width: var(–sidebar-width);
@@ -319,6 +337,7 @@ box-shadow: 0 0 12px var(–primary-glow);
 border-color: transparent;
 }
 
+/* أيقونات ملونة لكل قسم */
 [data-section=“timeline”] .nav-icon { background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.15); color: var(–cyan); }
 [data-section=“calendar”] .nav-icon { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.15); color: var(–emerald); }
 [data-section=“achievements”] .nav-icon { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.15); color: var(–amber); }
@@ -345,6 +364,7 @@ transition: 0.25s;
 }
 .sidebar-overlay.show { opacity: 1; visibility: visible; }
 
+/* ===== MAIN ===== */
 .main {
 max-width: 1200px; margin: 0 auto;
 padding: 82px 16px 48px;
@@ -359,6 +379,7 @@ from { opacity: 0; transform: translateY(20px); }
 to { opacity: 1; transform: translateY(0); }
 }
 
+/* ===== CARDS ===== */
 .card {
 background: var(–card);
 border: 1px solid var(–border);
@@ -402,6 +423,7 @@ font-size: 0.9rem; flex-shrink: 0;
 .main { padding: 78px 12px 40px; }
 }
 
+/* ===== HERO CARD ===== */
 .hero-card {
 border-radius: var(–radius);
 padding: 28px;
@@ -414,6 +436,7 @@ border: 1px solid rgba(124,58,237,0.3);
 box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.2);
 }
 
+/* نجيمات في الخلفية */
 .hero-card::before {
 content: ‘’;
 position: absolute; inset: 0;
@@ -490,6 +513,7 @@ display: block;
 
 .timer-box .unit { font-size: 0.72rem; opacity: 0.6; letter-spacing: 0.05em; }
 
+/* دائرة التقدم */
 .circle-progress-wrap {
 position: relative; width: 110px; height: 110px; flex-shrink: 0;
 }
@@ -573,6 +597,7 @@ font-size: 0.85rem; font-weight: 700;
 color: var(–amber-light);
 }
 
+/* ===== STAT CARDS ===== */
 .stat-card {
 background: var(–card);
 border: 1px solid var(–border);
@@ -637,6 +662,7 @@ font-size: 0.78rem; color: var(–text3);
 margin-top: 5px; font-weight: 600;
 }
 
+/* ===== BUTTONS ===== */
 .btn {
 padding: 10px 22px; border-radius: 10px; border: none;
 font-family: var(–font-main); font-size: 0.9rem; font-weight: 700;
@@ -644,19 +670,40 @@ cursor: pointer; transition: var(–transition);
 display: inline-flex; align-items: center; justify-content: center; gap: 7px;
 }
 
-.btn-primary { background: var(–grad-primary); color: white; box-shadow: 0 4px 16px var(–primary-glow); }
+.btn-primary {
+background: var(–grad-primary); color: white;
+box-shadow: 0 4px 16px var(–primary-glow);
+}
 .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 6px 20px var(–primary-glow); }
-.btn-cyan { background: var(–grad-cyan); color: #041820; box-shadow: 0 4px 16px var(–cyan-glow); }
+
+.btn-cyan {
+background: var(–grad-cyan); color: #041820;
+box-shadow: 0 4px 16px var(–cyan-glow);
+}
 .btn-cyan:hover { opacity: 0.88; transform: translateY(-1px); }
-.btn-danger { background: var(–grad-rose); color: white; box-shadow: 0 4px 16px var(–rose-glow); }
+
+.btn-danger {
+background: var(–grad-rose); color: white;
+box-shadow: 0 4px 16px var(–rose-glow);
+}
 .btn-danger:hover { opacity: 0.88; transform: translateY(-1px); }
-.btn-warning { background: var(–grad-amber); color: #1A0E00; box-shadow: 0 4px 16px var(–amber-glow); }
+
+.btn-warning {
+background: var(–grad-amber); color: #1A0E00;
+box-shadow: 0 4px 16px var(–amber-glow);
+}
 .btn-warning:hover { opacity: 0.88; transform: translateY(-1px); }
-.btn-outline { background: transparent; border: 1.5px solid var(–border); color: var(–text2); }
+
+.btn-outline {
+background: transparent; border: 1.5px solid var(–border);
+color: var(–text2);
+}
 .btn-outline:hover { border-color: var(–primary-light); color: var(–primary-light); background: rgba(124,58,237,0.08); }
+
 .btn-full { width: 100%; }
 .btn-sm { padding: 7px 14px; font-size: 0.8rem; border-radius: 8px; }
 
+/* زر الطوارئ */
 .panic-btn {
 background: linear-gradient(135deg, #C81E3E, #F43F5E);
 color: white; border: none;
@@ -675,6 +722,7 @@ display: flex; align-items: center; justify-content: center; gap: 8px;
 50% { box-shadow: 0 6px 40px rgba(244,63,94,0.75), 0 0 20px rgba(244,63,94,0.3); }
 }
 
+/* ===== FORMS ===== */
 .form-control {
 width: 100%; padding: 12px 16px;
 background: var(–card2); border: 1.5px solid var(–border);
@@ -689,6 +737,7 @@ box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
 
 textarea.form-control { resize: vertical; min-height: 80px; }
 
+/* ===== XP BAR ===== */
 .xp-bar-bg {
 background: var(–card2); border-radius: 100px; height: 8px;
 overflow: hidden; position: relative;
@@ -702,6 +751,7 @@ transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
 box-shadow: 0 0 8px var(–amber-glow);
 }
 
+/* ===== MODAL ===== */
 .modal-overlay {
 display: none; position: fixed; inset: 0;
 background: rgba(0,0,0,0.75);
@@ -727,6 +777,7 @@ margin-bottom: 14px;
 display: flex; align-items: center; gap: 8px;
 }
 
+/* ===== SETUP SCREEN ===== */
 .setup-screen {
 position: fixed; inset: 0; background: var(–bg); z-index: 4000;
 display: flex; align-items: center; justify-content: center;
@@ -757,6 +808,7 @@ font-size: 2rem;
 box-shadow: 0 0 30px var(–primary-glow);
 }
 
+/* ===== TOAST ===== */
 .toast-container {
 position: fixed; top: 76px; left: 16px;
 z-index: 9999; display: flex; flex-direction: column; gap: 8px;
@@ -786,6 +838,7 @@ background: rgba(124,58,237,0.15);
 flex-shrink: 0;
 }
 
+/* ===== CALENDAR ===== */
 .calendar-grid {
 display: grid;
 grid-template-columns: repeat(7, 1fr);
@@ -819,9 +872,15 @@ display: flex; gap: 16px; margin-bottom: 14px; flex-wrap: wrap;
 font-size: 0.82rem; color: var(–text2);
 }
 
-.cal-legend-item { display: flex; align-items: center; gap: 6px; }
-.cal-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+.cal-legend-item {
+display: flex; align-items: center; gap: 6px;
+}
 
+.cal-legend-dot {
+width: 10px; height: 10px; border-radius: 3px;
+}
+
+/* ===== ACHIEVEMENTS ===== */
 .achievement-card {
 background: var(–card);
 border: 1px solid var(–border);
@@ -831,9 +890,21 @@ transition: var(–transition);
 position: relative; overflow: hidden;
 }
 
-.achievement-card.unlocked { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.05); }
-.achievement-card.unlocked::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(–grad-emerald); }
-.achievement-card.unlocked:hover { box-shadow: 0 8px 24px var(–emerald-glow); transform: translateY(-3px); }
+.achievement-card.unlocked {
+border-color: rgba(16,185,129,0.4);
+background: rgba(16,185,129,0.05);
+}
+
+.achievement-card.unlocked::before {
+content: ‘’;
+position: absolute; top: 0; left: 0; right: 0; height: 2px;
+background: var(–grad-emerald);
+}
+
+.achievement-card.unlocked:hover {
+box-shadow: 0 8px 24px var(–emerald-glow);
+transform: translateY(-3px);
+}
 
 .ach-icon {
 width: 54px; height: 54px; border-radius: 14px;
@@ -844,11 +915,22 @@ background: var(–card2);
 border: 1px solid var(–border);
 }
 
-.achievement-card.unlocked .ach-icon { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); box-shadow: 0 0 16px rgba(16,185,129,0.2); }
+.achievement-card.unlocked .ach-icon {
+background: rgba(16,185,129,0.15);
+border-color: rgba(16,185,129,0.3);
+box-shadow: 0 0 16px rgba(16,185,129,0.2);
+}
+
 .ach-name { font-weight: 800; font-size: 0.9rem; }
 .ach-desc { font-size: 0.75rem; color: var(–text3); margin-top: 4px; }
-.ach-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.72rem; font-weight: 700; color: var(–emerald); margin-top: 8px; }
 
+.ach-badge {
+display: inline-flex; align-items: center; gap: 4px;
+font-size: 0.72rem; font-weight: 700;
+color: var(–emerald); margin-top: 8px;
+}
+
+/* ===== MISSIONS ===== */
 .mission-item {
 background: var(–card2);
 border: 1px solid var(–border);
@@ -860,7 +942,11 @@ transition: var(–transition); user-select: none;
 }
 
 .mission-item:hover { border-color: rgba(124,58,237,0.3); }
-.mission-item.done { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.3); }
+
+.mission-item.done {
+background: rgba(16,185,129,0.06);
+border-color: rgba(16,185,129,0.3);
+}
 
 .mission-icon {
 width: 36px; height: 36px; border-radius: 9px;
@@ -871,10 +957,18 @@ border: 1px solid var(–border);
 flex-shrink: 0; transition: var(–transition);
 }
 
-.mission-item.done .mission-icon { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); }
+.mission-item.done .mission-icon {
+background: rgba(16,185,129,0.15);
+border-color: rgba(16,185,129,0.3);
+}
+
 .mission-name { flex: 1; font-weight: 600; font-size: 0.92rem; }
 .mission-item.done .mission-name { text-decoration: line-through; color: var(–text3); }
-.mission-xp { font-size: 0.8rem; font-weight: 800; color: var(–amber); font-family: var(–font-mono); }
+
+.mission-xp {
+font-size: 0.8rem; font-weight: 800;
+color: var(–amber); font-family: var(–font-mono);
+}
 
 .mission-check {
 width: 22px; height: 22px; border-radius: 6px;
@@ -883,8 +977,13 @@ display: flex; align-items: center; justify-content: center;
 flex-shrink: 0; transition: var(–transition);
 }
 
-.mission-item.done .mission-check { background: var(–emerald); border-color: var(–emerald); box-shadow: 0 0 8px var(–emerald-glow); }
+.mission-item.done .mission-check {
+background: var(–emerald);
+border-color: var(–emerald);
+box-shadow: 0 0 8px var(–emerald-glow);
+}
 
+/* ===== REWARD STORE ===== */
 .reward-item {
 background: var(–card2); border: 1px solid var(–border);
 border-radius: var(–radius2); padding: 16px;
@@ -893,15 +992,22 @@ transition: var(–transition); position: relative;
 }
 
 .reward-item:hover { border-color: rgba(124,58,237,0.3); transform: translateY(-2px); }
-.reward-item.owned { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.05); }
+
+.reward-item.owned {
+border-color: rgba(16,185,129,0.4);
+background: rgba(16,185,129,0.05);
+}
+
 .reward-item.owned::after {
-content: ‘✓’; position: absolute; top: 8px; left: 8px;
+content: ‘✓’;
+position: absolute; top: 8px; left: 8px;
 width: 20px; height: 20px; border-radius: 50%;
 background: var(–emerald); color: white;
 font-size: 0.7rem; font-weight: 900;
 display: flex; align-items: center; justify-content: center;
 }
 
+/* ===== STAGE CARD ===== */
 .stage-badge {
 background: rgba(124,58,237,0.15);
 border: 1px solid rgba(124,58,237,0.3);
@@ -934,6 +1040,7 @@ padding: 5px 14px; border-radius: 100px;
 font-size: 0.82rem; color: var(–text2);
 }
 
+/* ===== RELAPSE LOG ===== */
 .relapse-entry {
 padding: 14px 16px;
 background: var(–card2); border-radius: var(–radius2);
@@ -942,12 +1049,14 @@ border: 1px solid rgba(244,63,94,0.15);
 border-right: 3px solid var(–rose);
 }
 
+/* ===== JOURNAL ===== */
 .journal-entry {
 padding: 14px; background: var(–card2);
 border-radius: var(–radius2); margin-bottom: 10px;
 border: 1px solid var(–border);
 }
 
+/* ===== TOGGLE ===== */
 .toggle {
 width: 50px; height: 28px;
 background: var(–card3);
@@ -957,9 +1066,17 @@ cursor: pointer; transition: var(–transition); flex-shrink: 0;
 }
 
 .toggle.on { background: var(–primary); border-color: var(–primary); box-shadow: 0 0 10px var(–primary-glow); }
-.toggle::after { content: ‘’; position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(–text3); transition: var(–transition); }
+
+.toggle::after {
+content: ‘’; position: absolute;
+top: 3px; right: 3px;
+width: 20px; height: 20px; border-radius: 50%;
+background: var(–text3); transition: var(–transition);
+}
+
 .toggle.on::after { right: auto; left: 3px; background: white; }
 
+/* ===== PANIC MODAL ===== */
 .panic-timer {
 font-size: 3.5rem; font-weight: 900;
 font-family: var(–font-mono);
@@ -995,6 +1112,7 @@ border-radius: 10px; padding: 11px 14px;
 font-size: 0.9rem; display: flex; align-items: flex-start; gap: 8px;
 }
 
+/* ===== SETTINGS ===== */
 .setting-row {
 padding: 16px 0; border-bottom: 1px solid var(–border);
 display: flex; justify-content: space-between; align-items: center;
@@ -1002,11 +1120,15 @@ gap: 16px;
 }
 
 .setting-row:last-child { border-bottom: none; }
+
 .setting-info { flex: 1; }
 .setting-title { font-weight: 700; font-size: 0.95rem; }
 .setting-desc { font-size: 0.82rem; color: var(–text3); margin-top: 3px; }
 
-.section-header { margin-bottom: 20px; }
+/* ===== SECTION HEADERS ===== */
+.section-header {
+margin-bottom: 20px;
+}
 
 .section-title {
 font-size: 1.5rem; font-weight: 900;
@@ -1016,8 +1138,11 @@ background: linear-gradient(135deg, #E8D5FF, #A78BFA);
 margin-bottom: 4px;
 }
 
-.section-sub { font-size: 0.85rem; color: var(–text3); }
+.section-sub {
+font-size: 0.85rem; color: var(–text3);
+}
 
+/* ===== TIMELINE ===== */
 .timeline-item {
 margin-bottom: 14px; padding: 16px;
 border: 1.5px solid var(–border);
@@ -1026,16 +1151,34 @@ transition: var(–transition);
 position: relative; overflow: hidden;
 }
 
-.timeline-item.active-stage { border-color: rgba(124,58,237,0.4); background: rgba(124,58,237,0.05); }
-.timeline-item.active-stage::before { content: ‘’; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(–grad-primary); }
-.timeline-item.done-stage { border-color: rgba(16,185,129,0.25); background: rgba(16,185,129,0.03); }
-.timeline-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+.timeline-item.active-stage {
+border-color: rgba(124,58,237,0.4);
+background: rgba(124,58,237,0.05);
+}
 
+.timeline-item.active-stage::before {
+content: ‘’;
+position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+background: var(–grad-primary);
+}
+
+.timeline-item.done-stage {
+border-color: rgba(16,185,129,0.25);
+background: rgba(16,185,129,0.03);
+}
+
+.timeline-top {
+display: flex; align-items: center;
+gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(–primary); }
 
+/* trigger chips */
 .trigger-chip {
 padding: 6px 14px; border-radius: 20px;
 border: 1.5px solid var(–border);
@@ -1047,6 +1190,7 @@ color: var(–text2); background: var(–card2);
 .trigger-chip:hover { border-color: var(–primary-light); color: var(–primary-light); }
 .trigger-chip.selected { background: var(–primary); border-color: var(–primary); color: white; }
 
+/* مؤشر المزاج */
 input[type=“range”] {
 -webkit-appearance: none;
 width: 100%; height: 6px; border-radius: 3px;
@@ -1062,9 +1206,17 @@ box-shadow: 0 0 8px var(–primary-glow);
 cursor: pointer;
 }
 
-.mood-display { font-family: var(–font-mono); font-weight: 800; color: var(–primary-light); font-size: 1.1rem; }
+/* مؤشر المزاج */
+.mood-display {
+font-family: var(–font-mono); font-weight: 800;
+color: var(–primary-light); font-size: 1.1rem;
+}
 
-.xp-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+/* XP/Level row */
+.xp-row {
+display: flex; justify-content: space-between; align-items: center;
+margin-bottom: 8px;
+}
 
 .level-badge {
 display: inline-flex; align-items: center; gap: 5px;
@@ -1074,26 +1226,38 @@ padding: 3px 10px; border-radius: 100px;
 font-size: 0.82rem; font-weight: 700; color: var(–amber-light);
 }
 
-.xp-badge { font-family: var(–font-mono); font-weight: 800; color: var(–amber-light); font-size: 0.9rem; }
+.xp-badge {
+font-family: var(–font-mono); font-weight: 800;
+color: var(–amber-light); font-size: 0.9rem;
+}
 
+/* Gradient border card */
+.gcard {
+position: relative;
+}
+
+.gcard::before {
+content: ‘’;
+position: absolute; inset: 0;
+border-radius: var(–radius);
+padding: 1px;
+background: linear-gradient(135deg, rgba(124,58,237,0.5), rgba(6,182,212,0.3), rgba(124,58,237,0.2));
+-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+pointer-events: none;
+}
+
+/* SVG defs hidden */
 .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
-/* ===== زر التحديث ===== */
-.refresh-btn {
-position: fixed; bottom: 24px; left: 16px; z-index: 999;
-width: 48px; height: 48px; border-radius: 50%;
-background: var(–grad-primary); border: none; cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-box-shadow: 0 4px 20px var(–primary-glow);
-transition: var(–transition);
-}
-.refresh-btn:hover { transform: scale(1.1); }
-.refresh-btn:active { transform: scale(0.95) rotate(180deg); }
-.refresh-btn svg { width: 22px; height: 22px; fill: white; }
-
+```
   </style>
 </head>
 <body data-theme="dark">
+
+<!-- SVG Defs for circle gradient -->
 
 <svg class="svg-defs" aria-hidden="true">
   <defs>
@@ -1105,8 +1269,15 @@ transition: var(–transition);
   </defs>
 </svg>
 
+<!-- نجوم -->
+
 <div class="stars-layer" id="starsLayer"></div>
+
+<!-- Sidebar Overlay -->
+
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="App.closeSidebar()"></div>
+
+<!-- Sidebar -->
 
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
@@ -1118,60 +1289,95 @@ transition: var(–transition);
       <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </button>
   </div>
+
   <div class="sidebar-nav">
     <div class="nav-group-label">الرئيسية</div>
-    <button class="sidebar-link active" data-section="dashboard" onclick="App.nav('dashboard')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>
-      لوحة التحكم
-    </button>
-    <button class="sidebar-link" data-section="timeline" onclick="App.nav('timeline')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
-      مراحل التعافي
-    </button>
-    <button class="sidebar-link" data-section="calendar" onclick="App.nav('calendar')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></span>
-      التقويم
-    </button>
-    <div class="nav-group-label">التقدم</div>
-    <button class="sidebar-link" data-section="achievements" onclick="App.nav('achievements')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-      الإنجازات
-    </button>
-    <button class="sidebar-link" data-section="missions" onclick="App.nav('missions')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
-      المهام اليومية
-    </button>
-    <div class="nav-group-label">السجلات</div>
-    <button class="sidebar-link" data-section="journal" onclick="App.nav('journal')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg></span>
-      اليوميات
-    </button>
-    <button class="sidebar-link" data-section="relapselog" onclick="App.nav('relapselog')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></span>
-      سجل الانتكاسات
-    </button>
-    <div class="nav-group-label">أخرى</div>
-    <button class="sidebar-link" data-section="settings" onclick="App.nav('settings')">
-      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.33-.02-.64-.06-.94l2.02-1.58c.18-.14.23-.38.12-.56l-1.89-3.28c-.12-.19-.36-.26-.56-.18l-2.38.96c-.5-.38-1.06-.68-1.66-.88L14.45 3.5c-.04-.2-.2-.34-.4-.34h-3.78c-.2 0-.36.14-.4.34l-.3 2.52c-.6.2-1.16.5-1.66.88l-2.38-.96c-.2-.08-.44-.01-.56.18l-1.89 3.28c-.12.19-.07.42.12.56l2.02 1.58c-.04.3-.06.61-.06.94 0 .33.02.64.06.94l-2.02 1.58c-.18.14-.23.38-.12.56l1.89 3.28c.12.19.36.26.56.18l2.38-.96c.5.38 1.06.68 1.66.88l.3 2.52c.04.2.2.34.4.34h3.78c.2 0 .36-.14.4-.34l.3-2.52c.6-.2 1.16-.5 1.66-.88l2.38.96c.2.08.44.01.56-.18l1.89-3.28c.12-.19.07-.42-.12-.56l-2.02-1.58zM12 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg></span>
-      الإعدادات
-    </button>
+
+<button class="sidebar-link active" data-section="dashboard" onclick="App.nav('dashboard')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+  </span>
+  لوحة التحكم
+</button>
+
+<button class="sidebar-link" data-section="timeline" onclick="App.nav('timeline')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+  </span>
+  مراحل التعافي
+</button>
+
+<button class="sidebar-link" data-section="calendar" onclick="App.nav('calendar')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+  </span>
+  التقويم
+</button>
+
+<div class="nav-group-label">التقدم</div>
+
+<button class="sidebar-link" data-section="achievements" onclick="App.nav('achievements')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  </span>
+  الإنجازات
+</button>
+
+<button class="sidebar-link" data-section="missions" onclick="App.nav('missions')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+  </span>
+  المهام اليومية
+</button>
+
+<div class="nav-group-label">السجلات</div>
+
+<button class="sidebar-link" data-section="journal" onclick="App.nav('journal')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+  </span>
+  اليوميات
+</button>
+
+<button class="sidebar-link" data-section="relapselog" onclick="App.nav('relapselog')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+  </span>
+  سجل الانتكاسات
+</button>
+
+<div class="nav-group-label">أخرى</div>
+
+<button class="sidebar-link" data-section="settings" onclick="App.nav('settings')">
+  <span class="nav-icon">
+    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.33-.02-.64-.06-.94l2.02-1.58c.18-.14.23-.38.12-.56l-1.89-3.28c-.12-.19-.36-.26-.56-.18l-2.38.96c-.5-.38-1.06-.68-1.66-.88L14.45 3.5c-.04-.2-.2-.34-.4-.34h-3.78c-.2 0-.36.14-.4.34l-.3 2.52c-.6.2-1.16.5-1.66.88l-2.38-.96c-.2-.08-.44-.01-.56.18l-1.89 3.28c-.12.19-.07.42.12.56l2.02 1.58c-.04.3-.06.61-.06.94 0 .33.02.64.06.94l-2.02 1.58c-.18.14-.23.38-.12.56l1.89 3.28c.12.19.36.26.56.18l2.38-.96c.5.38 1.06.68 1.66.88l.3 2.52c.04.2.2.34.4.34h3.78c.2 0 .36-.14.4-.34l.3-2.52c.6-.2 1.16-.5 1.66-.88l2.38.96c.2.08.44.01.56-.18l1.89-3.28c.12-.19.07-.42-.12-.56l-2.02-1.58zM12 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+  </span>
+  الإعدادات
+</button>
+
   </div>
 </div>
+
+<!-- Top Bar -->
 
 <div class="top-bar">
   <button class="menu-btn" onclick="App.openSidebar()">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
   </button>
+
   <div class="logo">
     <div class="logo-icon">⚡</div>
     <span class="logo-text">تحدي 90</span>
   </div>
+
   <div class="top-actions">
     <button class="icon-btn" id="themeToggleBtn" onclick="App.toggleTheme()" title="تغيير المظهر">
       <svg viewBox="0 0 24 24" fill="currentColor" id="themeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
     </button>
   </div>
 </div>
+
+<!-- Setup Screen -->
 
 <div class="setup-screen" id="setupScreen" style="display:none">
   <div class="setup-card">
@@ -1187,154 +1393,245 @@ transition: var(–transition);
   </div>
 </div>
 
+<!-- Main Content -->
+
 <div class="main">
 
+  <!-- ===== DASHBOARD ===== -->
+
   <section class="section active" id="sec-dashboard">
-    <div class="hero-card">
-      <div class="hero-top">
-        <div class="hero-left">
-          <div class="hero-days-block">
-            <div class="hero-days" id="heroDays">0</div>
-            <div class="hero-label">يوم نظيف</div>
-          </div>
-          <div class="hero-divider"></div>
-          <div class="hero-timer">
-            <div class="timer-box"><span class="num" id="t-hours">00</span><span class="unit">ساعة</span></div>
-            <div class="timer-sep">:</div>
-            <div class="timer-box"><span class="num" id="t-minutes">00</span><span class="unit">دقيقة</span></div>
-          </div>
+
+<!-- Hero Card -->
+<div class="hero-card">
+  <div class="hero-top">
+    <div class="hero-left">
+      <div class="hero-days-block">
+        <div class="hero-days" id="heroDays">0</div>
+        <div class="hero-label">يوم نظيف</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-timer">
+        <div class="timer-box">
+          <span class="num" id="t-hours">00</span>
+          <span class="unit">ساعة</span>
         </div>
-        <div class="circle-progress-wrap">
-          <svg viewBox="0 0 110 110">
-            <defs>
-              <linearGradient id="cgLocal" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#7C3AED"/>
-                <stop offset="100%" stop-color="#67E8F9"/>
-              </linearGradient>
-            </defs>
-            <circle class="circle-bg" cx="55" cy="55" r="49"/>
-            <circle class="circle-fill" id="circleFill" cx="55" cy="55" r="49" stroke="url(#cgLocal)"/>
-          </svg>
-          <div class="circle-text">
-            <span class="circle-pct" id="circlePercent">0%</span>
-            <span class="circle-sub">تقدم</span>
-          </div>
+        <div class="timer-sep">:</div>
+        <div class="timer-box">
+          <span class="num" id="t-minutes">00</span>
+          <span class="unit">دقيقة</span>
         </div>
-      </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div>
-      </div>
-      <div class="progress-labels">
-        <span>يوم 0</span>
-        <span id="progressDaysRemaining">90 يوم متبقي</span>
-        <span>يوم 90</span>
-      </div>
-      <div class="hero-footer">
-        <div class="streak-badge">🔥 <span id="streakNum">0</span> يوم متواصل</div>
       </div>
     </div>
 
-```
+    <div class="circle-progress-wrap">
+      <svg viewBox="0 0 110 110">
+        <defs>
+          <linearGradient id="cgLocal" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7C3AED"/>
+            <stop offset="100%" stop-color="#67E8F9"/>
+          </linearGradient>
+        </defs>
+        <circle class="circle-bg" cx="55" cy="55" r="49"/>
+        <circle class="circle-fill" id="circleFill" cx="55" cy="55" r="49" stroke="url(#cgLocal)"/>
+      </svg>
+      <div class="circle-text">
+        <span class="circle-pct" id="circlePercent">0%</span>
+        <span class="circle-sub">تقدم</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div>
+  </div>
+  <div class="progress-labels">
+    <span>يوم 0</span>
+    <span id="progressDaysRemaining">90 يوم متبقي</span>
+    <span>يوم 90</span>
+  </div>
+
+  <div class="hero-footer">
+    <div class="streak-badge">
+      🔥 <span id="streakNum">0</span> يوم متواصل
+    </div>
+  </div>
+</div>
+
+<!-- Stat Cards -->
 <div class="grid-4 section-gap">
   <div class="stat-card">
-    <div class="stat-icon-wrap"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+    </div>
     <div class="stat-num" id="s-cleanDays">0</div>
     <div class="stat-label">أيام نظيفة</div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div>
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    </div>
     <div class="stat-num" id="s-relapses">0</div>
     <div class="stat-label">عدد الانتكاسات</div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </div>
     <div class="stat-num" id="s-bestStreak">0</div>
     <div class="stat-label">أفضل سلسلة</div>
   </div>
   <div class="stat-card">
-    <div class="stat-icon-wrap"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div>
+    <div class="stat-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+    </div>
     <div class="stat-num" id="s-daysLeft">90</div>
     <div class="stat-label">أيام متبقية</div>
   </div>
 </div>
 
+<!-- Level + Quick Actions -->
 <div class="grid-2 section-gap">
   <div class="card">
-    <div class="card-title"><div class="card-title-icon" style="background:rgba(245,158,11,0.15)">⭐</div>المستوى والنقاط</div>
+    <div class="card-title">
+      <div class="card-title-icon" style="background:rgba(245,158,11,0.15)">⭐</div>
+      المستوى والنقاط
+    </div>
     <div class="xp-row">
       <div class="level-badge">⭐ المستوى <span id="levelText">1</span></div>
       <div class="xp-badge"><span id="xpText">0</span> XP</div>
     </div>
-    <div class="xp-bar-bg"><div id="xpBarFill" style="width:0%"></div></div>
+    <div class="xp-bar-bg">
+      <div id="xpBarFill" style="width:0%"></div>
+    </div>
     <div style="text-align:center;margin-top:8px;font-size:0.78rem;color:var(--text3)" id="xpToNext">0 XP للمستوى التالي</div>
   </div>
+
   <div class="card">
-    <div class="card-title"><div class="card-title-icon" style="background:rgba(244,63,94,0.12)">⚡</div>إجراءات سريعة</div>
+    <div class="card-title">
+      <div class="card-title-icon" style="background:rgba(244,63,94,0.12)">⚡</div>
+      إجراءات سريعة
+    </div>
     <div style="display:flex;flex-direction:column;gap:10px">
       <button class="btn btn-danger btn-full" id="relapseBtn">
         <svg viewBox="0 0 24 24" fill="white" style="width:16px;height:16px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
         تسجيل انتكاسة
       </button>
-      <button class="panic-btn" id="panicBtnEl">🚨 زر الطوارئ</button>
+      <button class="panic-btn" id="panicBtnEl">
+        🚨 زر الطوارئ
+      </button>
     </div>
   </div>
 </div>
 
+<!-- Current Stage -->
 <div class="card section-gap">
-  <div class="card-title"><div class="card-title-icon" style="background:rgba(124,58,237,0.12)">📍</div>مرحلتك الحالية</div>
+  <div class="card-title">
+    <div class="card-title-icon" style="background:rgba(124,58,237,0.12)">📍</div>
+    مرحلتك الحالية
+  </div>
   <div id="currentStageContent"></div>
 </div>
-```
 
   </section>
+
+  <!-- ===== TIMELINE ===== -->
 
   <section class="section" id="sec-timeline">
-    <div class="section-header"><div class="section-title">مراحل التعافي</div><div class="section-sub">تتبع رحلتك عبر مراحل التعافي الـ 90 يوم</div></div>
-    <div class="card"><div id="timelineContent"></div></div>
+    <div class="section-header">
+      <div class="section-title">مراحل التعافي</div>
+      <div class="section-sub">تتبع رحلتك عبر مراحل التعافي الـ 90 يوم</div>
+    </div>
+    <div class="card">
+      <div id="timelineContent"></div>
+    </div>
   </section>
 
+  <!-- ===== CALENDAR ===== -->
+
   <section class="section" id="sec-calendar">
-    <div class="section-header"><div class="section-title">التقويم</div><div class="section-sub">رحلتك مرئية يوماً بيوم</div></div>
+    <div class="section-header">
+      <div class="section-title">التقويم</div>
+      <div class="section-sub">رحلتك مرئية يوماً بيوم</div>
+    </div>
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-        <button class="icon-btn" id="calPrevBtn"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+        <button class="icon-btn" id="calPrevBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
         <div id="calMonthTitle" style="font-weight:800;font-size:1.1rem"></div>
-        <button class="icon-btn" id="calNextBtn"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M14 6l1.41 1.41L10.83 12l4.58 4.59L14 18l-6-6z"/></svg></button>
+        <button class="icon-btn" id="calNextBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M14 6l1.41 1.41L10.83 12l4.58 4.59L14 18l-6-6z"/></svg>
+        </button>
       </div>
       <div class="cal-legend">
-        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(16,185,129,0.5)"></div>يوم نظيف</div>
-        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(244,63,94,0.5)"></div>انتكاسة</div>
-        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--primary)"></div>اليوم</div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:rgba(16,185,129,0.5)"></div>
+          يوم نظيف
+        </div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:rgba(244,63,94,0.5)"></div>
+          انتكاسة
+        </div>
+        <div class="cal-legend-item">
+          <div class="cal-legend-dot" style="background:var(--primary)"></div>
+          اليوم
+        </div>
       </div>
       <div class="calendar-grid" id="calendarGrid"></div>
     </div>
   </section>
 
+  <!-- ===== ACHIEVEMENTS ===== -->
+
   <section class="section" id="sec-achievements">
-    <div class="section-header"><div class="section-title">الإنجازات</div><div class="section-sub">افتح الشارات بتحقيق الأهداف</div></div>
-    <div class="card"><div class="grid-auto" id="achievementsGrid"></div></div>
+    <div class="section-header">
+      <div class="section-title">الإنجازات</div>
+      <div class="section-sub">افتح الشارات بتحقيق الأهداف</div>
+    </div>
+    <div class="card">
+      <div class="grid-auto" id="achievementsGrid"></div>
+    </div>
   </section>
 
+  <!-- ===== MISSIONS ===== -->
+
   <section class="section" id="sec-missions">
-    <div class="section-header"><div class="section-title">المهام اليومية</div><div class="section-sub">اربح XP بإتمام المهام كل يوم</div></div>
+    <div class="section-header">
+      <div class="section-title">المهام اليومية</div>
+      <div class="section-sub">اربح XP بإتمام المهام كل يوم</div>
+    </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-title"><div class="card-title-icon" style="background:rgba(124,58,237,0.12)">📋</div>مهام اليوم</div>
+        <div class="card-title">
+          <div class="card-title-icon" style="background:rgba(124,58,237,0.12)">📋</div>
+          مهام اليوم
+        </div>
         <div id="missionsList"></div>
         <div id="missionsXpTotal" style="margin-top:10px;color:var(--text3);font-size:0.82rem;text-align:center"></div>
       </div>
       <div class="card">
-        <div class="card-title"><div class="card-title-icon" style="background:rgba(245,158,11,0.12)">🛒</div>متجر المكافآت</div>
+        <div class="card-title">
+          <div class="card-title-icon" style="background:rgba(245,158,11,0.12)">🛒</div>
+          متجر المكافآت
+        </div>
         <div class="grid-2" id="rewardStore"></div>
       </div>
     </div>
   </section>
 
+  <!-- ===== JOURNAL ===== -->
+
   <section class="section" id="sec-journal">
-    <div class="section-header"><div class="section-title">اليوميات</div><div class="section-sub">سجّل أفكارك ومشاعرك كل يوم</div></div>
+    <div class="section-header">
+      <div class="section-title">اليوميات</div>
+      <div class="section-sub">سجّل أفكارك ومشاعرك كل يوم</div>
+    </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-title"><div class="card-title-icon" style="background:rgba(6,182,212,0.12)">✍️</div>إدخال جديد</div>
+        <div class="card-title">
+          <div class="card-title-icon" style="background:rgba(6,182,212,0.12)">✍️</div>
+          إدخال جديد
+        </div>
         <textarea class="form-control" id="journalTextInput" rows="4" placeholder="اكتب أفكارك وشعورك اليوم..."></textarea>
         <div style="margin:14px 0">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
@@ -1348,31 +1645,57 @@ transition: var(–transition);
           حفظ اليومية
         </button>
       </div>
-      <div class="card">
-        <div class="card-title"><div class="card-title-icon" style="background:rgba(6,182,212,0.12)">📚</div>سجل اليوميات</div>
-        <div id="journalList"></div>
-      </div>
+
+  <div class="card">
+    <div class="card-title">
+      <div class="card-title-icon" style="background:rgba(6,182,212,0.12)">📚</div>
+      سجل اليوميات
+    </div>
+    <div id="journalList"></div>
+  </div>
+</div>
+
+  </section>
+
+  <!-- ===== RELAPSE LOG ===== -->
+
+  <section class="section" id="sec-relapselog">
+    <div class="section-header">
+      <div class="section-title">سجل الانتكاسات</div>
+      <div class="section-sub">تعلّم من كل تجربة وقف</div>
+    </div>
+    <div class="card">
+      <div id="relapseList"></div>
     </div>
   </section>
 
-  <section class="section" id="sec-relapselog">
-    <div class="section-header"><div class="section-title">سجل الانتكاسات</div><div class="section-sub">تعلّم من كل تجربة وقف</div></div>
-    <div class="card"><div id="relapseList"></div></div>
-  </section>
+  <!-- ===== SETTINGS ===== -->
 
   <section class="section" id="sec-settings">
-    <div class="section-header"><div class="section-title">الإعدادات</div><div class="section-sub">تخصيص تجربتك</div></div>
+    <div class="section-header">
+      <div class="section-title">الإعدادات</div>
+      <div class="section-sub">تخصيص تجربتك</div>
+    </div>
     <div class="card">
       <div class="setting-row">
-        <div class="setting-info"><div class="setting-title">الوضع الليلي</div><div class="setting-desc">تبديل بين الوضع الليلي والنهاري</div></div>
+        <div class="setting-info">
+          <div class="setting-title">الوضع الليلي</div>
+          <div class="setting-desc">تبديل بين الوضع الليلي والنهاري</div>
+        </div>
         <button class="toggle on" id="themeToggle"></button>
       </div>
       <div class="setting-row">
-        <div class="setting-info"><div class="setting-title">تعديل تاريخ البداية</div><div class="setting-desc">تغيير تاريخ بدء التحدي</div></div>
+        <div class="setting-info">
+          <div class="setting-title">تعديل تاريخ البداية</div>
+          <div class="setting-desc">تغيير تاريخ بدء التحدي</div>
+        </div>
         <button class="btn btn-outline btn-sm" id="changeStartBtn">تعديل</button>
       </div>
       <div class="setting-row">
-        <div class="setting-info"><div class="setting-title" style="color:var(--rose-light)">مسح البيانات</div><div class="setting-desc">حذف جميع البيانات نهائياً ولا يمكن التراجع</div></div>
+        <div class="setting-info">
+          <div class="setting-title" style="color:var(--rose-light)">مسح البيانات</div>
+          <div class="setting-desc">حذف جميع البيانات نهائياً ولا يمكن التراجع</div>
+        </div>
         <button class="btn btn-danger btn-sm" id="resetBtn">إعادة الضبط</button>
       </div>
     </div>
@@ -1380,23 +1703,36 @@ transition: var(–transition);
 
 </div>
 
+<!-- ===== MODALS ===== -->
+
+<!-- Panic Modal -->
+
 <div class="modal-overlay" id="panicModal">
   <div class="modal">
     <div class="modal-title">🚨 زر الطوارئ</div>
     <p style="color:var(--text2);margin-bottom:16px;font-size:0.9rem">هذه اللحظة ستمر. تنفس معي:</p>
-    <div class="breathing-ring">
-      <div class="panic-timer" id="panicTimerDisplay" style="margin:0;font-size:2rem">60</div>
-    </div>
-    <div id="breathingInstruction" style="text-align:center;font-size:1rem;font-weight:700;margin:10px 0 16px;color:var(--primary-light)">استنشق...</div>
-    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
-      <div class="panic-tip">🧊 ضع يديك تحت الماء البارد لـ 30 ثانية</div>
-      <div class="panic-tip">🚶 اخرج للمشي أو الركض الآن</div>
-      <div class="panic-tip">📞 تواصل مع شخص تثق به</div>
-      <div class="panic-tip">💪 السلسلة الحالية: <strong style="color:var(--amber-light)"><span id="panicStreakDisplay">0</span> يوم</strong> — لا تكسرها!</div>
-    </div>
-    <button class="btn btn-primary btn-full" onclick="App.closeModal('panicModal')">✅ تجاوزتها! أنا أقوى</button>
+
+<div class="breathing-ring">
+  <div class="panic-timer" id="panicTimerDisplay" style="margin:0;font-size:2rem">60</div>
+</div>
+
+<div id="breathingInstruction" style="text-align:center;font-size:1rem;font-weight:700;margin:10px 0 16px;color:var(--primary-light)">استنشق...</div>
+
+<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+  <div class="panic-tip">🧊 ضع يديك تحت الماء البارد لـ 30 ثانية</div>
+  <div class="panic-tip">🚶 اخرج للمشي أو الركض الآن</div>
+  <div class="panic-tip">📞 تواصل مع شخص تثق به</div>
+  <div class="panic-tip">💪 السلسلة الحالية: <strong style="color:var(--amber-light)"><span id="panicStreakDisplay">0</span> يوم</strong> — لا تكسرها!</div>
+</div>
+
+<button class="btn btn-primary btn-full" onclick="App.closeModal('panicModal')">
+  ✅ تجاوزتها! أنا أقوى
+</button>
+
   </div>
 </div>
+
+<!-- Relapse Modal -->
 
 <div class="modal-overlay" id="relapseModal">
   <div class="modal">
@@ -1411,6 +1747,8 @@ transition: var(–transition);
   </div>
 </div>
 
+<!-- Reset Confirm -->
+
 <div class="modal-overlay" id="resetModal">
   <div class="modal">
     <div class="modal-title">⚠️ تأكيد الحذف</div>
@@ -1422,9 +1760,12 @@ transition: var(–transition);
   </div>
 </div>
 
+<!-- Toast Container -->
+
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
+  // ===== توليد النجوم =====
   (function() {
     var layer = document.getElementById('starsLayer');
     if (!layer) return;
@@ -1432,16 +1773,33 @@ transition: var(–transition);
       var s = document.createElement('div');
       s.className = 'star';
       var size = Math.random() * 2.5 + 0.5;
-      s.style.cssText = ['width:'+size+'px','height:'+size+'px','left:'+Math.random()*100+'%','top:'+Math.random()*100+'%','--dur:'+(2+Math.random()*4)+'s','--delay:'+Math.random()*5+'s','--min:'+(0.05+Math.random()*0.1),'--max:'+(0.4+Math.random()*0.5)].join(';');
+      s.style.cssText = [
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'left:' + Math.random() * 100 + '%',
+        'top:' + Math.random() * 100 + '%',
+        '--dur:' + (2 + Math.random() * 4) + 's',
+        '--delay:' + (Math.random() * 5) + 's',
+        '--min:' + (0.05 + Math.random() * 0.1),
+        '--max:' + (0.4 + Math.random() * 0.5)
+      ].join(';');
       layer.appendChild(s);
     }
   })();
 
   (function(){
     var state = {
-      startDate: null, originalStartDate: null, relapses: [], journal: [], xp: 0,
-      missionsToday: {}, missionDate: '', ownedRewards: [], unlockedAchievements: [],
-      bestStreak: 0, theme: 'dark'
+      startDate: null,
+      originalStartDate: null,
+      relapses: [],
+      journal: [],
+      xp: 0,
+      missionsToday: {},
+      missionDate: '',
+      ownedRewards: [],
+      unlockedAchievements: [],
+      bestStreak: 0,
+      theme: 'dark'
     };
 
     var liveTimer = null, panicInterval = null, calViewDate = new Date();
@@ -1501,7 +1859,9 @@ transition: var(–transition);
       try {
         var saved = JSON.parse(localStorage.getItem('nofap90_data') || '{}');
         state = Object.assign({}, state, saved);
-        if (state.startDate && !state.originalStartDate) state.originalStartDate = state.startDate;
+        if (state.startDate && !state.originalStartDate) {
+          state.originalStartDate = state.startDate;
+        }
       } catch(e) {}
     }
 
@@ -1527,55 +1887,69 @@ transition: var(–transition);
 
     function getElapsed() {
       if (!state.startDate) return { days:0, hours:0, minutes:0, totalMs:0 };
-      var diff = Math.max(0, getMoroccoTime().getTime() - new Date(state.startDate).getTime());
-      var tm = Math.floor(diff / 60000);
-      return { days: Math.floor(tm/1440), hours: Math.floor((tm%1440)/60), minutes: tm%60, totalMs: diff };
+      var start = new Date(state.startDate).getTime();
+      var now = getMoroccoTime().getTime();
+      var diff = Math.max(0, now - start);
+      var totalMinutes = Math.floor(diff / 60000);
+      var days = Math.floor(totalMinutes / 1440);
+      var hours = Math.floor((totalMinutes % 1440) / 60);
+      var minutes = totalMinutes % 60;
+      return { days: days, hours: hours, minutes: minutes, totalMs: diff };
     }
 
     function getStreak() { return getElapsed().days; }
 
     function showToast(msg, emoji) {
       emoji = emoji || '✅';
-      var c = document.getElementById('toastContainer');
-      var t = document.createElement('div');
-      t.className = 'toast';
-      t.innerHTML = '<div class="toast-icon">' + emoji + '</div><span>' + msg + '</span>';
-      c.appendChild(t);
-      setTimeout(function() { t.remove(); }, 3500);
+      var container = document.getElementById('toastContainer');
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<div class="toast-icon">' + emoji + '</div><span>' + msg + '</span>';
+      container.appendChild(toast);
+      setTimeout(function() { toast.remove(); }, 3500);
     }
 
     function updateDashboard() {
-      var e = getElapsed();
-      var days = e.days, pct = Math.min(100, Math.round((days/90)*100)), daysLeft = Math.max(0, 90-days);
-      if (days > (state.bestStreak||0)) { state.bestStreak = days; save(); }
+      var elapsed = getElapsed();
+      var cleanDays = elapsed.days;
+      var streak = cleanDays;
+      var pct = Math.min(100, Math.round((cleanDays / 90) * 100));
+      var daysLeft = Math.max(0, 90 - cleanDays);
 
-      document.getElementById('heroDays').textContent = days;
-      document.getElementById('streakNum').textContent = days;
-      document.getElementById('t-hours').textContent = String(e.hours).padStart(2,'0');
-      document.getElementById('t-minutes').textContent = String(e.minutes).padStart(2,'0');
+      if (streak > (state.bestStreak || 0)) { state.bestStreak = streak; save(); }
+
+      document.getElementById('heroDays').textContent = cleanDays;
+      document.getElementById('streakNum').textContent = streak;
+      document.getElementById('t-hours').textContent = String(elapsed.hours).padStart(2, '0');
+      document.getElementById('t-minutes').textContent = String(elapsed.minutes).padStart(2, '0');
       document.getElementById('progressBarFill').style.width = pct + '%';
       document.getElementById('progressDaysRemaining').textContent = daysLeft + ' يوم متبقي';
 
       var circum = 308;
-      document.getElementById('circleFill').style.strokeDashoffset = circum - (circum*pct/100);
+      document.getElementById('circleFill').style.strokeDashoffset = circum - (circum * pct / 100);
       document.getElementById('circlePercent').textContent = pct + '%';
 
-      document.getElementById('s-cleanDays').textContent = days;
+      document.getElementById('s-cleanDays').textContent = cleanDays;
       document.getElementById('s-relapses').textContent = state.relapses.length;
       document.getElementById('s-bestStreak').textContent = state.bestStreak || 0;
       document.getElementById('s-daysLeft').textContent = daysLeft;
 
       var level = 1;
-      for (var i = 1; i < LEVELS.length; i++) { if (state.xp >= LEVELS[i]) level = i+1; else break; }
-      var idx = level-1, curr = LEVELS[idx]||0, next = LEVELS[idx+1]||LEVELS[LEVELS.length-1];
-      var lvlPct = next>curr ? Math.round(((state.xp-curr)/(next-curr))*100) : 100;
+      for (var i = 1; i < LEVELS.length; i++) {
+        if (state.xp >= LEVELS[i]) level = i + 1;
+        else break;
+      }
+      var idx = level - 1;
+      var curr = LEVELS[idx] || 0;
+      var next = LEVELS[idx + 1] || LEVELS[LEVELS.length - 1];
+      var lvlPct = next > curr ? Math.round(((state.xp - curr) / (next - curr)) * 100) : 100;
       document.getElementById('levelText').textContent = level;
       document.getElementById('xpText').textContent = state.xp;
       document.getElementById('xpBarFill').style.width = lvlPct + '%';
-      document.getElementById('xpToNext').textContent = Math.max(0, next-state.xp) + ' XP للمستوى التالي';
+      document.getElementById('xpToNext').textContent = Math.max(0, next - state.xp) + ' XP للمستوى التالي';
 
-      renderCurrentStage(days);
-      checkNewAchievements(days);
+      renderCurrentStage(cleanDays);
+      checkNewAchievements(cleanDays);
       renderAchievements();
       renderMissions();
       renderRewardStore();
@@ -1585,277 +1959,435 @@ transition: var(–transition);
 
     function renderCurrentStage(days) {
       var stage = null;
-      for (var i = 0; i < stages.length; i++) { if (days>=stages[i].days[0]&&days<=stages[i].days[1]) {stage=stages[i];break;} }
-      if (!stage) stage = days<1 ? stages[0] : stages[stages.length-1];
+      for (var i = 0; i < stages.length; i++) {
+        if (days >= stages[i].days[0] && days <= stages[i].days[1]) { stage = stages[i]; break; }
+      }
+      if (!stage) stage = days < 1 ? stages[0] : stages[stages.length - 1];
       var el = document.getElementById('currentStageContent');
-      var b = stage.benefits.map(function(x){return '<span class="benefit-item"><svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;color:var(--emerald);flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'+x+'</span>';}).join('');
-      var t = stage.tips.map(function(x){return '<span class="tip-tag">💡 '+x+'</span>';}).join('');
-      el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px"><span class="stage-badge">'+stage.range+' يوم</span><strong style="font-size:1.05rem">'+stage.title+'</strong><span style="font-size:1.1rem;font-weight:900;font-family:var(--font-mono);background:var(--grad-cyan);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">'+stage.recovery+'% تعافٍ</span></div>'
-        +'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">'+b+'</div>'
-        +'<div style="margin:12px 0;font-style:italic;color:var(--text2);padding:10px 14px;background:rgba(124,58,237,0.06);border-radius:10px;border-right:3px solid var(--primary)">"'+stage.motive+'"</div>'
-        +(stage.flatline?'<div class="flatline-alert">⚠️ '+stage.flatlineText+'</div>':'')
-        +'<div style="display:flex;gap:8px;flex-wrap:wrap">'+t+'</div>';
+
+      var benefitsHTML = stage.benefits.map(function(b) {
+        return '<span class="benefit-item"><svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;color:var(--emerald);flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' + b + '</span>';
+      }).join('');
+
+      var tipsHTML = stage.tips.map(function(t) {
+        return '<span class="tip-tag">💡 ' + t + '</span>';
+      }).join('');
+
+      el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">'
+        + '<span class="stage-badge">' + stage.range + ' يوم</span>'
+        + '<strong style="font-size:1.05rem">' + stage.title + '</strong>'
+        + '<span style="font-size:1.1rem;font-weight:900;font-family:var(--font-mono);background:var(--grad-cyan);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">' + stage.recovery + '% تعافٍ</span>'
+        + '</div>'
+        + '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">' + benefitsHTML + '</div>'
+        + '<div style="margin:12px 0;font-style:italic;color:var(--text2);padding:10px 14px;background:rgba(124,58,237,0.06);border-radius:10px;border-right:3px solid var(--primary)">"' + stage.motive + '"</div>'
+        + (stage.flatline ? '<div class="flatline-alert">⚠️ ' + stage.flatlineText + '</div>' : '')
+        + '<div style="display:flex;gap:8px;flex-wrap:wrap">' + tipsHTML + '</div>';
     }
 
     function renderTimeline() {
-      var el = document.getElementById('timelineContent'); if (!el) return;
+      var el = document.getElementById('timelineContent');
+      if (!el) return;
       var days = getElapsed().days;
-      el.innerHTML = stages.map(function(s){
-        var active=days>=s.days[0]&&days<=s.days[1], done=days>s.days[1];
-        return '<div class="timeline-item'+(active?' active-stage':'')+(done?' done-stage':'')+'"><div class="timeline-top"><span class="stage-badge">'+s.range+' يوم</span><strong>'+s.title+'</strong><span style="color:var(--text3);font-family:var(--font-mono);font-size:0.85rem">'+s.recovery+'%</span>'+(done?'<span style="color:var(--emerald);font-size:0.82rem;font-weight:700">✅ مكتملة</span>':'')+(active?'<span style="color:var(--primary-light);font-size:0.82rem;font-weight:700">📍 أنت هنا</span>':'')+'</div><div style="color:var(--text2);margin-top:6px;font-size:0.88rem;font-style:italic">'+s.motive+'</div></div>';
+      el.innerHTML = stages.map(function(s) {
+        var active = days >= s.days[0] && days <= s.days[1];
+        var done = days > s.days[1];
+        var cls = 'timeline-item' + (active ? ' active-stage' : '') + (done ? ' done-stage' : '');
+        return '<div class="' + cls + '">'
+          + '<div class="timeline-top">'
+          + '<span class="stage-badge">' + s.range + ' يوم</span>'
+          + '<strong>' + s.title + '</strong>'
+          + '<span style="color:var(--text3);font-family:var(--font-mono);font-size:0.85rem">' + s.recovery + '%</span>'
+          + (done ? '<span style="color:var(--emerald);font-size:0.82rem;font-weight:700">✅ مكتملة</span>' : '')
+          + (active ? '<span style="color:var(--primary-light);font-size:0.82rem;font-weight:700">📍 أنت هنا</span>' : '')
+          + '</div>'
+          + '<div style="color:var(--text2);margin-top:6px;font-size:0.88rem;font-style:italic">' + s.motive + '</div>'
+          + '</div>';
       }).join('');
     }
 
     function renderCalendar() {
-      var grid=document.getElementById('calendarGrid'), title=document.getElementById('calMonthTitle');
-      var y=calViewDate.getFullYear(), m=calViewDate.getMonth();
-      var mNames=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-      title.textContent = mNames[m]+' '+y;
-      var today=getMoroccoTime(); today.setHours(0,0,0,0);
-      var origStart=state.originalStartDate?new Date(state.originalStartDate):(state.startDate?new Date(state.startDate):null);
-      if(origStart) origStart.setHours(0,0,0,0);
-      var relSet={};
-      state.relapses.forEach(function(r){var d=new Date(r.date);d.setHours(0,0,0,0);relSet[d.getTime()]=true;});
-      var dim=new Date(y,m+1,0).getDate(), fd=new Date(y,m,1).getDay();
-      var html=['أح','إث','ثل','أر','خم','جم','سب'].map(function(d){return '<div class="cal-header">'+d+'</div>';}).join('');
-      for(var i=0;i<fd;i++) html+='<div class="cal-day empty"></div>';
-      for(var d=1;d<=dim;d++){
-        var date=new Date(y,m,d); date.setHours(0,0,0,0);
-        var ts=date.getTime(), isToday=ts===today.getTime(), isFuture=date>today;
-        var isRelapse=!!relSet[ts], isClean=origStart&&date>=origStart&&!isFuture&&!isRelapse;
-        var cls='cal-day';
-        if(isToday) cls+=' today-day'; else if(isFuture) cls+=' future-day'; else if(isRelapse) cls+=' relapse-day'; else if(isClean) cls+=' clean';
-        html+='<div class="'+cls+'">'+d+'</div>';
+      var grid = document.getElementById('calendarGrid');
+      var title = document.getElementById('calMonthTitle');
+      var y = calViewDate.getFullYear(), m = calViewDate.getMonth();
+      var monthNames = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+      title.textContent = monthNames[m] + ' ' + y;
+
+      var today = getMoroccoTime();
+      today.setHours(0, 0, 0, 0);
+
+      var originalStart = state.originalStartDate ? new Date(state.originalStartDate) : (state.startDate ? new Date(state.startDate) : null);
+      if (originalStart) originalStart.setHours(0, 0, 0, 0);
+
+      var relapseSet = {};
+      state.relapses.forEach(function(r) {
+        var d = new Date(r.date); d.setHours(0,0,0,0);
+        relapseSet[d.getTime()] = true;
+      });
+
+      var daysInMonth = new Date(y, m + 1, 0).getDate();
+      var firstDay = new Date(y, m, 1).getDay();
+
+      var html = ['أح','إث','ثل','أر','خم','جم','سب'].map(function(d) {
+        return '<div class="cal-header">' + d + '</div>';
+      }).join('');
+
+      for (var i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var date = new Date(y, m, d);
+        date.setHours(0, 0, 0, 0);
+        var ts = date.getTime();
+        var isToday = ts === today.getTime();
+        var isFuture = date > today;
+        var isRelapse = !!relapseSet[ts];
+        var isAfterStart = originalStart && date >= originalStart;
+        var isClean = isAfterStart && !isFuture && !isRelapse;
+
+        var cls = 'cal-day';
+        if (isToday) cls += ' today-day';
+        else if (isFuture) cls += ' future-day';
+        else if (isRelapse) cls += ' relapse-day';
+        else if (isClean) cls += ' clean';
+
+        html += '<div class="' + cls + '">' + d + '</div>';
       }
       grid.innerHTML = html;
     }
 
     function checkNewAchievements(days) {
-      var n=[];
-      achievements.forEach(function(a){
-        if(state.unlockedAchievements.indexOf(a.id)!==-1) return;
-        var ok=false;
-        if(a.days&&days>=a.days) ok=true;
-        if(a.special==='journal'&&state.journal.length>=1) ok=true;
-        if(a.special==='norelapse'&&state.relapses.length===0&&days>=1) ok=true;
-        if(ok){state.unlockedAchievements.push(a.id);n.push(a);}
+      var newOnes = [];
+      achievements.forEach(function(a) {
+        if (state.unlockedAchievements.indexOf(a.id) !== -1) return;
+        var shouldUnlock = false;
+        if (a.days && days >= a.days) shouldUnlock = true;
+        if (a.special === 'journal' && state.journal.length >= 1) shouldUnlock = true;
+        if (a.special === 'norelapse' && state.relapses.length === 0 && days >= 1) shouldUnlock = true;
+        if (shouldUnlock) { state.unlockedAchievements.push(a.id); newOnes.push(a); }
       });
-      if(n.length){save();n.forEach(function(a){showToast('إنجاز جديد: '+a.name+'!',a.icon);});}
+      if (newOnes.length) {
+        save();
+        newOnes.forEach(function(a) { showToast('إنجاز جديد: ' + a.name + '!', a.icon); });
+      }
     }
 
     function renderAchievements() {
-      var grid=document.getElementById('achievementsGrid'); if(!grid) return;
-      grid.innerHTML=achievements.map(function(a){
-        var u=state.unlockedAchievements.indexOf(a.id)!==-1;
-        return '<div class="achievement-card'+(u?' unlocked':'')+'" style="opacity:'+(u?1:0.35)+'"><div class="ach-icon">'+a.icon+'</div><div class="ach-name">'+a.name+'</div><div class="ach-desc">'+a.desc+'</div>'+(u?'<div class="ach-badge">✅ مفتوح</div>':'')+'</div>';
+      var grid = document.getElementById('achievementsGrid');
+      if (!grid) return;
+      grid.innerHTML = achievements.map(function(a) {
+        var unlocked = state.unlockedAchievements.indexOf(a.id) !== -1;
+        return '<div class="achievement-card ' + (unlocked ? 'unlocked' : '') + '" style="opacity:' + (unlocked ? 1 : 0.35) + '">'
+          + '<div class="ach-icon">' + a.icon + '</div>'
+          + '<div class="ach-name">' + a.name + '</div>'
+          + '<div class="ach-desc">' + a.desc + '</div>'
+          + (unlocked ? '<div class="ach-badge">✅ مفتوح</div>' : '')
+          + '</div>';
       }).join('');
     }
 
     function renderMissions() {
-      var el=document.getElementById('missionsList'); if(!el) return;
-      var today=getMoroccoTime().toDateString();
-      if(state.missionDate!==today){state.missionDate=today;state.missionsToday={};save();}
-      var done=Object.keys(state.missionsToday).length;
-      el.innerHTML=missions.map(function(m){
-        var d=!!state.missionsToday[m.id];
-        return '<div class="mission-item'+(d?' done':'')+'" onclick="App.toggleMission(\''+m.id+'\')">'
-          +'<div class="mission-icon">'+m.icon+'</div>'
-          +'<span class="mission-name">'+m.name+'</span>'
-          +'<span class="mission-xp">+'+m.xp+' XP</span>'
-          +'<div class="mission-check">'+(d?'<svg viewBox="0 0 24 24" fill="white" style="width:14px;height:14px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>':'')+'</div>'
-          +'</div>';
+      var el = document.getElementById('missionsList');
+      if (!el) return;
+      var today = getMoroccoTime().toDateString();
+      if (state.missionDate !== today) {
+        state.missionDate = today;
+        state.missionsToday = {};
+        save();
+      }
+      var completedCount = Object.keys(state.missionsToday).length;
+      el.innerHTML = missions.map(function(m) {
+        var done = !!state.missionsToday[m.id];
+        return '<div class="mission-item ' + (done ? 'done' : '') + '" onclick="App.toggleMission(\'' + m.id + '\')">'
+          + '<div class="mission-icon">' + m.icon + '</div>'
+          + '<span class="mission-name">' + m.name + '</span>'
+          + '<span class="mission-xp">+' + m.xp + ' XP</span>'
+          + '<div class="mission-check">' + (done ? '<svg viewBox="0 0 24 24" fill="white" style="width:14px;height:14px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' : '') + '</div>'
+          + '</div>';
       }).join('');
-      var t=document.getElementById('missionsXpTotal');
-      if(t) t.textContent=done+'/'+missions.length+' مهام مكتملة اليوم';
+      var totalEl = document.getElementById('missionsXpTotal');
+      if (totalEl) totalEl.textContent = completedCount + '/' + missions.length + ' مهام مكتملة اليوم';
     }
 
     function renderRewardStore() {
-      var el=document.getElementById('rewardStore'); if(!el) return;
-      el.innerHTML=rewards.map(function(r){
-        var owned=state.ownedRewards.indexOf(r.id)!==-1, canBuy=state.xp>=r.cost&&!owned;
-        return '<div class="reward-item'+(owned?' owned':'')+'" onclick="App.buyReward(\''+r.id+'\')">'
-          +'<div style="font-size:1.8rem;margin-bottom:6px">'+r.icon+'</div>'
-          +'<div style="font-weight:700;font-size:0.88rem">'+r.name+'</div>'
-          +'<div style="font-size:0.78rem;color:var(--text3);margin:4px 0;font-family:var(--font-mono)">'+r.cost+' XP</div>'
-          +(owned?'<div style="color:var(--emerald);font-size:0.78rem;font-weight:700">✅ مملوك</div>'
-            :canBuy?'<button class="btn btn-warning btn-sm" style="margin-top:6px;width:100%">شراء</button>'
-            :'<div style="font-size:0.72rem;color:var(--text3)">يحتاج '+(r.cost-state.xp)+' XP</div>')
-          +'</div>';
+      var el = document.getElementById('rewardStore');
+      if (!el) return;
+      el.innerHTML = rewards.map(function(r) {
+        var owned = state.ownedRewards.indexOf(r.id) !== -1;
+        var canBuy = state.xp >= r.cost && !owned;
+        return '<div class="reward-item ' + (owned ? 'owned' : '') + '" onclick="App.buyReward(\'' + r.id + '\')">'
+          + '<div style="font-size:1.8rem;margin-bottom:6px">' + r.icon + '</div>'
+          + '<div style="font-weight:700;font-size:0.88rem">' + r.name + '</div>'
+          + '<div style="font-size:0.78rem;color:var(--text3);margin:4px 0;font-family:var(--font-mono)">' + r.cost + ' XP</div>'
+          + (owned ? '<div style="color:var(--emerald);font-size:0.78rem;font-weight:700">✅ مملوك</div>'
+            : canBuy ? '<button class="btn btn-warning btn-sm" style="margin-top:6px;width:100%">شراء</button>'
+            : '<div style="font-size:0.72rem;color:var(--text3)">يحتاج ' + (r.cost - state.xp) + ' XP</div>')
+          + '</div>';
       }).join('');
     }
 
     function renderJournalList() {
-      var el=document.getElementById('journalList'); if(!el) return;
-      if(!state.journal.length){el.innerHTML='<div style="color:var(--text3);text-align:center;padding:24px;font-size:0.9rem">لا توجد إدخالات بعد</div>';return;}
-      el.innerHTML=state.journal.slice(0,10).map(function(e){
-        return '<div class="journal-entry"><div style="font-size:0.9rem;line-height:1.6">'+e.text+'</div>'
-          +'<div style="display:flex;justify-content:space-between;margin-top:8px">'
-          +'<small style="color:var(--text3);font-size:0.75rem">'+new Date(e.date).toLocaleString('ar')+'</small>'
-          +(e.mood?'<small style="color:var(--amber-light);font-weight:700;font-family:var(--font-mono)">المزاج: '+e.mood+'/10</small>':'')
-          +'</div></div>';
+      var el = document.getElementById('journalList');
+      if (!el) return;
+      if (!state.journal.length) {
+        el.innerHTML = '<div style="color:var(--text3);text-align:center;padding:24px;font-size:0.9rem">لا توجد إدخالات بعد</div>';
+        return;
+      }
+      el.innerHTML = state.journal.slice(0, 10).map(function(e) {
+        return '<div class="journal-entry">'
+          + '<div style="font-size:0.9rem;line-height:1.6">' + e.text + '</div>'
+          + '<div style="display:flex;justify-content:space-between;margin-top:8px">'
+          + '<small style="color:var(--text3);font-size:0.75rem">' + new Date(e.date).toLocaleString('ar') + '</small>'
+          + (e.mood ? '<small style="color:var(--amber-light);font-weight:700;font-family:var(--font-mono)">المزاج: ' + e.mood + '/10</small>' : '')
+          + '</div></div>';
       }).join('');
     }
 
     function renderRelapseList() {
-      var el=document.getElementById('relapseList'); if(!el) return;
-      if(!state.relapses.length){el.innerHTML='<div style="color:var(--emerald);text-align:center;padding:32px;font-size:1rem">🛡️ لا توجد انتكاسات — رائع جداً!</div>';return;}
-      el.innerHTML=state.relapses.slice().reverse().map(function(r,i){
-        var tr=(r.triggers&&r.triggers.length)?'<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">'+r.triggers.map(function(t){return '<span style="background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.2);padding:2px 10px;border-radius:20px;font-size:0.78rem;color:var(--rose-light)">'+t+'</span>';}).join('')+'</div>':'';
-        return '<div class="relapse-entry"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><span style="color:var(--rose-light);font-weight:800;font-size:0.9rem">انتكاسة #'+(state.relapses.length-i)+'</span><small style="color:var(--text3);font-size:0.78rem">'+new Date(r.date).toLocaleString('ar')+'</small></div><div style="margin-top:6px;color:var(--text2);font-size:0.88rem">'+(r.reason||'بدون سبب محدد')+'</div>'+tr+'</div>';
+      var el = document.getElementById('relapseList');
+      if (!el) return;
+      if (!state.relapses.length) {
+        el.innerHTML = '<div style="color:var(--emerald);text-align:center;padding:32px;font-size:1rem">🛡️ لا توجد انتكاسات — رائع جداً!</div>';
+        return;
+      }
+      var reversed = state.relapses.slice().reverse();
+      el.innerHTML = reversed.map(function(r, i) {
+        var triggersHTML = (r.triggers && r.triggers.length)
+          ? '<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">'
+            + r.triggers.map(function(t) { return '<span style="background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.2);padding:2px 10px;border-radius:20px;font-size:0.78rem;color:var(--rose-light)">' + t + '</span>'; }).join('')
+            + '</div>'
+          : '';
+        return '<div class="relapse-entry">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
+          + '<span style="color:var(--rose-light);font-weight:800;font-size:0.9rem">انتكاسة #' + (state.relapses.length - i) + '</span>'
+          + '<small style="color:var(--text3);font-size:0.78rem">' + new Date(r.date).toLocaleString('ar') + '</small>'
+          + '</div>'
+          + '<div style="margin-top:6px;color:var(--text2);font-size:0.88rem">' + (r.reason || 'بدون سبب محدد') + '</div>'
+          + triggersHTML
+          + '</div>';
       }).join('');
     }
 
     function setup() {
-      var val=document.getElementById('startDateInput').value;
-      var errEl=document.getElementById('setupError'); errEl.style.display='none';
-      if(!val){errEl.textContent='يرجى إدخال التاريخ والوقت!';errEl.style.display='block';return;}
-      var d=new Date(val), now=getMoroccoTime();
-      if(d>now){errEl.textContent='لا يمكن إدخال تاريخ مستقبلي!';errEl.style.display='block';return;}
-      state.startDate=d.toISOString();
-      if(!state.originalStartDate) state.originalStartDate=d.toISOString();
+      var val = document.getElementById('startDateInput').value;
+      var errEl = document.getElementById('setupError');
+      errEl.style.display = 'none';
+      if (!val) { errEl.textContent = 'يرجى إدخال التاريخ والوقت!'; errEl.style.display = 'block'; return; }
+      var d = new Date(val);
+      var now = getMoroccoTime();
+      if (d > now) { errEl.textContent = 'لا يمكن إدخال تاريخ مستقبلي!'; errEl.style.display = 'block'; return; }
+      state.startDate = d.toISOString();
+      if (!state.originalStartDate) state.originalStartDate = d.toISOString();
       save();
-      document.getElementById('setupScreen').style.display='none';
-      updateDashboard(); startLiveTimer();
+      document.getElementById('setupScreen').style.display = 'none';
+      updateDashboard();
+      startLiveTimer();
     }
 
     function startLiveTimer() {
-      if(liveTimer) clearInterval(liveTimer);
-      liveTimer=setInterval(function(){
-        if(!document.getElementById('sec-dashboard').classList.contains('active')) return;
-        var e=getElapsed();
-        document.getElementById('t-hours').textContent=String(e.hours).padStart(2,'0');
-        document.getElementById('t-minutes').textContent=String(e.minutes).padStart(2,'0');
-      },30000);
+      if (liveTimer) clearInterval(liveTimer);
+      liveTimer = setInterval(function() {
+        if (!document.getElementById('sec-dashboard').classList.contains('active')) return;
+        var e = getElapsed();
+        document.getElementById('t-hours').textContent = String(e.hours).padStart(2, '0');
+        document.getElementById('t-minutes').textContent = String(e.minutes).padStart(2, '0');
+      }, 30000);
     }
 
     function toggleMission(id) {
-      var m=null;
-      for(var i=0;i<missions.length;i++){if(missions[i].id===id){m=missions[i];break;}}
-      if(!m) return;
-      if(state.missionsToday[id]){delete state.missionsToday[id];state.xp=Math.max(0,state.xp-m.xp);showToast('تم إلغاء المهمة','↩️');}
-      else{state.missionsToday[id]=true;state.xp+=m.xp;showToast('+'+m.xp+' XP! '+m.name,'🎯');}
-      save(); renderMissions(); updateDashboard();
+      var m = null;
+      for (var i = 0; i < missions.length; i++) { if (missions[i].id === id) { m = missions[i]; break; } }
+      if (!m) return;
+      if (state.missionsToday[id]) {
+        delete state.missionsToday[id];
+        state.xp = Math.max(0, state.xp - m.xp);
+        showToast('تم إلغاء المهمة', '↩️');
+      } else {
+        state.missionsToday[id] = true;
+        state.xp += m.xp;
+        showToast('+' + m.xp + ' XP! ' + m.name, '🎯');
+      }
+      save();
+      renderMissions();
+      updateDashboard();
     }
 
     function buyReward(id) {
-      var r=null;
-      for(var i=0;i<rewards.length;i++){if(rewards[i].id===id){r=rewards[i];break;}}
-      if(!r||state.ownedRewards.indexOf(id)!==-1||state.xp<r.cost) return;
-      state.xp-=r.cost; state.ownedRewards.push(id); save();
-      showToast('حصلت على: '+r.name+'!',r.icon);
-      renderRewardStore(); updateDashboard();
+      var r = null;
+      for (var i = 0; i < rewards.length; i++) { if (rewards[i].id === id) { r = rewards[i]; break; } }
+      if (!r || state.ownedRewards.indexOf(id) !== -1 || state.xp < r.cost) return;
+      state.xp -= r.cost;
+      state.ownedRewards.push(id);
+      save();
+      showToast('حصلت على: ' + r.name + '!', r.icon);
+      renderRewardStore();
+      updateDashboard();
     }
 
     function saveJournal() {
-      var text=document.getElementById('journalTextInput').value.trim();
-      var mood=document.getElementById('moodSlider').value;
-      if(!text){showToast('اكتب شيئاً أولاً!','✍️');return;}
-      state.journal.unshift({date:new Date().toISOString(),text:text,mood:parseInt(mood)});
-      if(state.unlockedAchievements.indexOf('journal1')===-1){state.unlockedAchievements.push('journal1');showToast('إنجاز جديد: كاتب!','📓');}
+      var text = document.getElementById('journalTextInput').value.trim();
+      var mood = document.getElementById('moodSlider').value;
+      if (!text) { showToast('اكتب شيئاً أولاً!', '✍️'); return; }
+      state.journal.unshift({ date: new Date().toISOString(), text: text, mood: parseInt(mood) });
+      if (state.unlockedAchievements.indexOf('journal1') === -1) {
+        state.unlockedAchievements.push('journal1');
+        showToast('إنجاز جديد: كاتب!', '📓');
+      }
       save();
-      document.getElementById('journalTextInput').value='';
-      document.getElementById('moodSlider').value=5;
-      document.getElementById('moodValDisp').textContent='5';
-      showToast('تم حفظ اليومية!','💾');
+      document.getElementById('journalTextInput').value = '';
+      document.getElementById('moodSlider').value = 5;
+      document.getElementById('moodValDisp').textContent = '5';
+      showToast('تم حفظ اليومية!', '💾');
       renderJournalList();
     }
 
     function confirmRelapse() {
-      var reason=document.getElementById('relapseReasonInput').value.trim();
-      var triggers=[];
-      document.querySelectorAll('#triggerList .trigger-chip.selected').forEach(function(el){triggers.push(el.textContent);});
-      var streak=getStreak();
-      if(streak>(state.bestStreak||0)) state.bestStreak=streak;
-      state.relapses.push({date:new Date().toISOString(),reason:reason||'بدون سبب محدد',triggers:triggers,streakLost:streak});
-      state.startDate=new Date().toISOString();
-      save(); closeModal('relapseModal');
-      document.getElementById('relapseReasonInput').value='';
-      showToast('إعادة البدء. أنت أقوى مما تعتقد!','💪');
+      var reason = document.getElementById('relapseReasonInput').value.trim();
+      var triggers = [];
+      var chips = document.querySelectorAll('#triggerList .trigger-chip.selected');
+      for (var i = 0; i < chips.length; i++) triggers.push(chips[i].textContent);
+
+      var streak = getStreak();
+      if (streak > (state.bestStreak || 0)) state.bestStreak = streak;
+
+      state.relapses.push({
+        date: new Date().toISOString(),
+        reason: reason || 'بدون سبب محدد',
+        triggers: triggers,
+        streakLost: streak
+      });
+
+      state.startDate = new Date().toISOString();
+      save();
+      closeModal('relapseModal');
+      document.getElementById('relapseReasonInput').value = '';
+      showToast('إعادة البدء. أنت أقوى مما تعتقد!', '💪');
       updateDashboard();
     }
 
     function openPanic() {
-      document.getElementById('panicStreakDisplay').textContent=getStreak();
-      var seconds=60,phase=0,phaseTimer=0;
-      var phases=['استنشق... (4 ثوان)','أمسك... (4 ثوان)','أطلق... (4 ثوان)','أمسك... (4 ثوان)'];
-      document.getElementById('panicTimerDisplay').textContent=seconds;
-      document.getElementById('breathingInstruction').textContent=phases[0];
-      if(panicInterval) clearInterval(panicInterval);
-      panicInterval=setInterval(function(){
-        seconds--;phaseTimer++;
-        if(phaseTimer>=4){phaseTimer=0;phase=(phase+1)%4;}
-        document.getElementById('panicTimerDisplay').textContent=seconds;
-        document.getElementById('breathingInstruction').textContent=phases[phase];
-        if(seconds<=0){clearInterval(panicInterval);panicInterval=null;}
-      },1000);
+      var streak = getStreak();
+      document.getElementById('panicStreakDisplay').textContent = streak;
+      var seconds = 60;
+      var phase = 0;
+      var phaseTimer = 0;
+      var phases = ['استنشق... (4 ثوان)', 'أمسك... (4 ثوان)', 'أطلق... (4 ثوان)', 'أمسك... (4 ثوان)'];
+
+      document.getElementById('panicTimerDisplay').textContent = seconds;
+      document.getElementById('breathingInstruction').textContent = phases[0];
+
+      if (panicInterval) clearInterval(panicInterval);
+      panicInterval = setInterval(function() {
+        seconds--;
+        phaseTimer++;
+        if (phaseTimer >= 4) { phaseTimer = 0; phase = (phase + 1) % 4; }
+        document.getElementById('panicTimerDisplay').textContent = seconds;
+        document.getElementById('breathingInstruction').textContent = phases[phase];
+        if (seconds <= 0) { clearInterval(panicInterval); panicInterval = null; }
+      }, 1000);
+
       openModal('panicModal');
     }
 
-    function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sidebarOverlay').classList.add('show');}
-    function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('show');}
+    function openSidebar() {
+      document.getElementById('sidebar').classList.add('open');
+      document.getElementById('sidebarOverlay').classList.add('show');
+    }
 
-    function nav(section){
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('show');
+    }
+
+    function nav(section) {
       closeSidebar();
-      document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
-      document.querySelectorAll('.sidebar-link').forEach(function(l){l.classList.remove('active');});
-      document.getElementById('sec-'+section).classList.add('active');
-      var link=document.querySelector('[data-section="'+section+'"]');
-      if(link) link.classList.add('active');
-      if(section==='calendar') renderCalendar();
-      if(section==='timeline') renderTimeline();
-      if(section==='achievements') renderAchievements();
-      if(section==='missions') renderMissions();
+      var sections = document.querySelectorAll('.section');
+      for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
+      var links = document.querySelectorAll('.sidebar-link');
+      for (var i = 0; i < links.length; i++) links[i].classList.remove('active');
+      document.getElementById('sec-' + section).classList.add('active');
+      var link = document.querySelector('[data-section="' + section + '"]');
+      if (link) link.classList.add('active');
+      if (section === 'calendar') renderCalendar();
+      if (section === 'timeline') renderTimeline();
+      if (section === 'achievements') renderAchievements();
+      if (section === 'missions') renderMissions();
     }
 
-    function toggleTheme(){state.theme=state.theme==='dark'?'light':'dark';save();applyTheme();}
-    function openModal(id){document.getElementById(id).classList.add('open');if(id==='relapseModal') renderTriggerList();}
-    function closeModal(id){document.getElementById(id).classList.remove('open');if(id==='panicModal'&&panicInterval){clearInterval(panicInterval);panicInterval=null;}}
-
-    function renderTriggerList(){
-      var el=document.getElementById('triggerList');
-      el.innerHTML=triggersList.map(function(t){return '<span class="trigger-chip" onclick="this.classList.toggle(\'selected\')">'+t+'</span>';}).join('');
+    function toggleTheme() {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      save();
+      applyTheme();
     }
 
-    function init(){
-      load(); applyTheme();
-      document.getElementById('startBtn').onclick=setup;
-      document.getElementById('relapseBtn').onclick=function(){openModal('relapseModal');};
-      document.getElementById('panicBtnEl').onclick=openPanic;
-      document.getElementById('saveJournalBtn').onclick=saveJournal;
-      document.getElementById('confirmRelapseBtn').onclick=confirmRelapse;
-      document.getElementById('resetBtn').onclick=function(){openModal('resetModal');};
-      document.getElementById('confirmResetBtn').onclick=function(){localStorage.clear();location.reload();};
-      document.getElementById('themeToggle').onclick=toggleTheme;
-      document.getElementById('themeToggleBtn').onclick=toggleTheme;
-      document.getElementById('calPrevBtn').onclick=function(){calViewDate.setMonth(calViewDate.getMonth()-1);renderCalendar();};
-      document.getElementById('calNextBtn').onclick=function(){calViewDate.setMonth(calViewDate.getMonth()+1);renderCalendar();};
-      document.getElementById('changeStartBtn').onclick=function(){
-        var now=getMoroccoTime();
-        document.getElementById('startDateInput').value=state.startDate
-          ?new Date(new Date(state.startDate).getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16)
-          :new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16);
-        document.getElementById('setupScreen').style.display='flex';
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+      if (id === 'relapseModal') renderTriggerList();
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+      if (id === 'panicModal' && panicInterval) { clearInterval(panicInterval); panicInterval = null; }
+    }
+
+    function renderTriggerList() {
+      var el = document.getElementById('triggerList');
+      el.innerHTML = triggersList.map(function(tr) {
+        return '<span class="trigger-chip" onclick="this.classList.toggle(\'selected\')">' + tr + '</span>';
+      }).join('');
+    }
+
+    function init() {
+      load();
+      applyTheme();
+
+      document.getElementById('startBtn').onclick = setup;
+      document.getElementById('relapseBtn').onclick = function() { openModal('relapseModal'); };
+      document.getElementById('panicBtnEl').onclick = openPanic;
+      document.getElementById('saveJournalBtn').onclick = saveJournal;
+      document.getElementById('confirmRelapseBtn').onclick = confirmRelapse;
+      document.getElementById('resetBtn').onclick = function() { openModal('resetModal'); };
+      document.getElementById('confirmResetBtn').onclick = function() { localStorage.clear(); location.reload(); };
+      document.getElementById('themeToggle').onclick = toggleTheme;
+      document.getElementById('themeToggleBtn').onclick = toggleTheme;
+      document.getElementById('calPrevBtn').onclick = function() { calViewDate.setMonth(calViewDate.getMonth() - 1); renderCalendar(); };
+      document.getElementById('calNextBtn').onclick = function() { calViewDate.setMonth(calViewDate.getMonth() + 1); renderCalendar(); };
+
+      document.getElementById('changeStartBtn').onclick = function() {
+        var setupScreen = document.getElementById('setupScreen');
+        var now = getMoroccoTime();
+        var localISO = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+        document.getElementById('startDateInput').value = state.startDate
+          ? new Date(new Date(state.startDate).getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
+          : localISO;
+        setupScreen.style.display = 'flex';
       };
-      if(!state.startDate){
-        document.getElementById('setupScreen').style.display='flex';
-        var now=getMoroccoTime();
-        document.getElementById('startDateInput').value=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16);
+
+      if (!state.startDate) {
+        var setupScreen = document.getElementById('setupScreen');
+        setupScreen.style.display = 'flex';
+        var now = getMoroccoTime();
+        document.getElementById('startDateInput').value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
       } else {
-        document.getElementById('setupScreen').style.display='none';
-        updateDashboard(); startLiveTimer();
+        document.getElementById('setupScreen').style.display = 'none';
+        updateDashboard();
+        startLiveTimer();
       }
     }
 
-    window.App={openSidebar:openSidebar,closeSidebar:closeSidebar,nav:nav,toggleTheme:toggleTheme,openModal:openModal,closeModal:closeModal,toggleMission:toggleMission,buyReward:buyReward};
-    window.addEventListener('DOMContentLoaded',init);
+    window.App = {
+      openSidebar: openSidebar,
+      closeSidebar: closeSidebar,
+      nav: nav,
+      toggleTheme: toggleTheme,
+      openModal: openModal,
+      closeModal: closeModal,
+      toggleMission: toggleMission,
+      buyReward: buyReward
+    };
+
+    window.addEventListener('DOMContentLoaded', init);
   })();
 </script>
 
-<!-- ===== زر التحديث ===== -->
-
-<button class="refresh-btn" onclick="location.reload(true)" title="تحديث">
-  <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-</button>
-
 </body>
 </html>
+```
